@@ -19,31 +19,20 @@ module compote.core {
 
   /** Component */
   export interface Component {
+    $initialized: boolean;
+    $parent: Component;
+
     $mount?(this: Component): void;
   }
 
   export abstract class Component {
-    $el: Element;
-    private $node: VirtualDOM.VNode;
-    private $rendered: boolean;
-
     constructor(data?: Partial<Component>) {
       Object.assign(this, data);
-
-      this.$node = this.$render();
-      this.$rendered = true;
-      this.$el = renderer.create(this.$node);
-
-      if (this.$mount) {
-        this.$mount();
-      }
+      this.$initialized = true;
     }
 
-    abstract $render(): VirtualDOM.VNode;
-
     $update() {
-      const diff = renderer.diff(this.$node, this.$render());
-      this.$el = renderer.patch(this.$el, diff);
+      this.$parent.$update();
     }
   }
 
@@ -54,10 +43,10 @@ module compote.core {
       get() {
         return this[privateKey];
       },
-      set(value: any) {
-        this[privateKey] = value;
-        if (this.$rendered) {
-          (<Component>this).$update();
+      set(this: Component, value: any) {
+        (<any>this)[privateKey] = value;
+        if (this.$initialized) {
+          this.$update();
         }
       }
     });
