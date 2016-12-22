@@ -1,53 +1,41 @@
 module compote.core {
   /** Renderer */
-  export type Renderer = Partial<typeof VirtualDOM>;
+  export class Renderer {
+    regex = /<\s*(\w+)(?:\s+((?:\w+="\w+"\s*)+))*>([^<>]+)*</;
 
-  let renderer: Renderer;
+    parse(template: string): any {
+      const matches = template.match(this.regex);
 
-  class HTML {
-    br: typeof Compote.Component = renderer.h.bind(this, 'br');
-    div: typeof Compote.Component = renderer.h.bind(this, 'div');
-    span: typeof Compote.Component = renderer.h.bind(this, 'span');
-  }
+      const tagName = matches[1];
+      if (!tagName) throw new Error(`Invalid tagName: ${tagName} in template: ${template}`);
 
-  export let html: Partial<HTML> = {};
+      const attributes: { [key: string]: string } = {};
+      const stringAttributes = matches[2];
+      if (stringAttributes) {
+        stringAttributes.split(/\s+/).forEach((attribute) => {
+          const [key, value] = attribute.split('=');
+          attributes[key] = value.slice(1, -1);
+        });
+      }
 
-  export function setRenderer(bootstrapRenderer: Renderer) {
-    renderer = bootstrapRenderer;
-    Object.assign(html, new HTML());
-  }
-
-  /** Component */
-  export interface Component {
-    $initialized: boolean;
-    $parent: Component;
-
-    $mount?(this: Component): void;
-  }
-
-  export abstract class Component {
-    constructor(data?: Partial<Component>) {
-      Object.assign(this, data);
-      this.$initialized = true;
-    }
-
-    $update() {
-      this.$parent.$update();
+      return {
+        tagName,
+        attributes,
+        content: matches[3] || ''
+      };
     }
   }
 
   /** Watch */
-  export function watch(target: Component, key: string) {
+  export function watch(target: any, key: string) {
     const privateKey = `$$${key}`;
     Object.defineProperty(target, key, {
       get() {
         return this[privateKey];
       },
-      set(this: Component, value: any) {
+      set(this: any, value: any) {
         (<any>this)[privateKey] = value;
-        if (this.$initialized) {
-          this.$update();
-        }
+        this.$update({ [key]: value });
       }
     });
   }
