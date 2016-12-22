@@ -7,7 +7,7 @@
     "noImplicitReturns": true,
     "outDir": "build",
     "suppressImplicitAnyIndexErrors": false,
-    "target": "ES5"
+    "target": "ES6"
   },
   "exclude": [
     "node_modules"
