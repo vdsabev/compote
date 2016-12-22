@@ -1,20 +1,18 @@
 module compote.app {
-  const { Component } = core;
+  const { Component, html, watch } = core;
 
-  export class App extends Component {
-    renderer: core.Renderer;
-    name: string;
+  export class AppComponent extends Component {
+    @watch name: string;
 
-    constructor(data: Partial<App>) {
+    constructor(data?: Partial<AppComponent>) {
       super(data);
       setInterval(() => {
         this.name = new Date().toISOString();
-        this.update();
       }, 1000);
     }
 
-    render() {
-      const { div } = this.renderer;
+    $render() {
+      const { div } = html;
       return div(`Hello ${this.name}`);
     }
   }
