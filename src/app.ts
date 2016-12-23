@@ -1,36 +1,52 @@
 module compote.app {
-  const { Component, component, watch } = core;
-  const { h, div } = core.Renderer;
+  const { Component, bind } = core;
+  const { div } = core.Renderer;
 
   export class AppComponent extends Component {
-    $render() {
-      return div({}, [
-        HelloLabel({ label: 'World' })
-      ]);
-    }
-  }
+    @bind helloTo = 'World';
 
-  function HelloLabel(attributes: Partial<HelloLabelComponent> = {}, children: core.VirtualTree[] = []) {
-    return h('HelloLabel', <any>attributes, children);
-  }
-
-  @component({
-    id: 'HelloLabel'
-  })
-  class HelloLabelComponent extends Component {
-    $render() {
-      return div({}, [`Hello ${this.label}`]);
-    }
-
-    @watch label: string;
-    interval = 1e3;
-
-    constructor(data?: Partial<HelloLabelComponent>) {
-      super(data);
+    constructor() {
+      super();
 
       setInterval(() => {
-        this.label = new Date().toISOString();
-      }, this.interval);
+        this.helloTo = new Date().toISOString();
+      }, 1e3);
+    }
+
+    $render() {
+      return div({}, [`Hello ${this.helloTo}`]);
     }
   }
+
+  // /** HelloInput */
+  // function HelloInput(properties: Record<string, any> = {}, children: core.VirtualTree[] = []) {
+  //   return h('HelloInput', properties, children);
+  // }
+  //
+  // @component({
+  //   id: 'HelloInput'
+  // })
+  // class HelloInputComponent extends Component {
+  //   $render() {
+  //     return input({ type: 'text', value: this.value });
+  //   }
+  //
+  //   @bind value: string;
+  // }
+
+  // /** HelloLabel */
+  // function HelloLabel(properties: Record<string, any> = {}, children: core.VirtualTree[] = []) {
+  //   return h('HelloLabel', properties, children);
+  // }
+  //
+  // @component({
+  //   id: 'HelloLabel'
+  // })
+  // class HelloLabelComponent extends Component {
+  //   $render() {
+  //     return div({ innerHTML: `Hello ${this.label}` });
+  //   }
+  //
+  //   @bind label: string;
+  // }
 }
