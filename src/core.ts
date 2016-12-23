@@ -65,13 +65,15 @@ module compote.core {
       }
     }
 
-    static h(tagName: string, properties: Record<string, any> = {}, children: VirtualTreeChild[] = []): VirtualTree {
-      return { tagName, properties, children };
+    static tag(tagName: string) {
+      return (properties: Record<string, any> = {}, children: VirtualTreeChild[] = []): VirtualTree => {
+        return { tagName, properties, children };
+      };
     }
 
-    static div = (properties: Record<string, any> = {}, children: VirtualTreeChild[] = []) => Renderer.h('div', properties, children);
-    static span = (properties: Record<string, any> = {}, children: VirtualTreeChild[] = []) => Renderer.h('span', properties, children);
-    static input = (properties: Record<string, any> = {}, children: VirtualTreeChild[] = []) => Renderer.h('input', properties, children);
+    static div = Renderer.tag('div');
+    static span = Renderer.tag('span');
+    static input = Renderer.tag('input');
   }
 
   /** Component */

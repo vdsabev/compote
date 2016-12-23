@@ -14,14 +14,14 @@ module compote.app {
     }
 
     $render() {
-      return div({}, [`Hello ${this.helloTo}`]);
+      return div({}, [
+        div({}, [`Hello ${this.helloTo}`])
+      ]);
     }
   }
 
   // /** HelloInput */
-  // function HelloInput(properties: Record<string, any> = {}, children: core.VirtualTree[] = []) {
-  //   return h('HelloInput', properties, children);
-  // }
+  // const HelloInput = tag('HelloInput');
   //
   // @component({
   //   id: 'HelloInput'
@@ -35,9 +35,7 @@ module compote.app {
   // }
 
   // /** HelloLabel */
-  // function HelloLabel(properties: Record<string, any> = {}, children: core.VirtualTree[] = []) {
-  //   return h('HelloLabel', properties, children);
-  // }
+  // const HelloLabel = tag('HelloLabel');
   //
   // @component({
   //   id: 'HelloLabel'
