@@ -1,10 +1,10 @@
 module compote.core {
   /** Renderer */
   export class Renderer {
-    regex = /<\s*(\w+)(?:\s+((?:\w+="\w+"\s*)+))*>([^<>]+)*</;
+    regex = /<\s*(\w+)(?:\s+((?:\w+="\w+(?:\.\w+)*(?:\((?:\w+(?:,\w+)*)*\))?"\s*)+))*>([^<>]+)*</;
 
     parse(template: string): any {
-      const matches = template.match(this.regex);
+      const matches = template.match(this.regex) || [];
 
       const tagName = matches[1];
       if (!tagName) throw new Error(`Invalid tagName: ${tagName} in template: ${template}`);

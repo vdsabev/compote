@@ -3,7 +3,7 @@ module compote.test {
     level: 0,
     equal(actual: any, expected: any) {
       if (actual !== expected) {
-        console.error(`${'\t'.repeat(expect.level)}Expected ${expected}, actual ${actual}`);
+        console.error(`${'\t'.repeat(expect.level)}Expected ${JSON.stringify(expected)}, actual ${JSON.stringify(actual)}`);
       }
     }
   };
@@ -54,6 +54,26 @@ module compote.test {
             expect.equal(tree.attributes.a, '1');
             expect.equal(tree.attributes.b, '2');
             expect.equal(tree.attributes.c, '3');
+          },
+
+          'should parse handlers'() {
+            const tree = renderer.parse(`<div onClick="a(b)"></div>`);
+            expect.equal(tree.attributes.onClick, 'a(b)');
+          },
+
+          'should parse multiple handler arguments'() {
+            const tree = renderer.parse(`<div onClick="a(b,c)"></div>`);
+            expect.equal(tree.attributes.onClick, 'a(b,c)');
+          },
+
+          'should parse 1-deep handlers'() {
+            const tree = renderer.parse(`<div onClick="a.b(c)"></div>`);
+            expect.equal(tree.attributes.onClick, 'a.b(c)');
+          },
+
+          'should parse 2-deep handlers'() {
+            const tree = renderer.parse(`<div onClick="a.b.c(d)"></div>`);
+            expect.equal(tree.attributes.onClick, 'a.b.c(d)');
           }
         },
 
