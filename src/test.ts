@@ -31,60 +31,60 @@ module compote.test {
     }
   }
 
-  const renderer = new core.Renderer();
+  const { Renderer } = core;
 
   run({
     Renderer: {
-      parse: {
+      parseTemplate: {
         tagName: {
           'should parse `tagName`'() {
-            const tree = renderer.parse(`<div></div>`);
+            const tree = Renderer.parseTemplate(`<div></div>`);
             expect.equal(tree.tagName, 'div');
           }
         },
 
         attributes: {
           'should parse a single attribute'() {
-            const tree = renderer.parse(`<div a="1"></div>`);
+            const tree = Renderer.parseTemplate(`<div a="1"></div>`);
             expect.equal(tree.attributes.a, '1');
           },
 
           'should parse multiple attributes'() {
-            const tree = renderer.parse(`<div a="1" b="2" c="3"></div>`);
+            const tree = Renderer.parseTemplate(`<div a="1" b="2" c="3"></div>`);
             expect.equal(tree.attributes.a, '1');
             expect.equal(tree.attributes.b, '2');
             expect.equal(tree.attributes.c, '3');
           },
 
           'should parse handlers'() {
-            const tree = renderer.parse(`<div onClick="a(b)"></div>`);
+            const tree = Renderer.parseTemplate(`<div onClick="a(b)"></div>`);
             expect.equal(tree.attributes.onClick, 'a(b)');
           },
 
           'should parse multiple handler arguments'() {
-            const tree = renderer.parse(`<div onClick="a(b,c)"></div>`);
+            const tree = Renderer.parseTemplate(`<div onClick="a(b,c)"></div>`);
             expect.equal(tree.attributes.onClick, 'a(b,c)');
           },
 
           'should parse 1-deep handlers'() {
-            const tree = renderer.parse(`<div onClick="a.b(c)"></div>`);
+            const tree = Renderer.parseTemplate(`<div onClick="a.b(c)"></div>`);
             expect.equal(tree.attributes.onClick, 'a.b(c)');
           },
 
           'should parse 2-deep handlers'() {
-            const tree = renderer.parse(`<div onClick="a.b.c(d)"></div>`);
+            const tree = Renderer.parseTemplate(`<div onClick="a.b.c(d)"></div>`);
             expect.equal(tree.attributes.onClick, 'a.b.c(d)');
           }
         },
 
         content: {
           'should parse a single character'() {
-            const tree = renderer.parse(`<div>a</div>`);
+            const tree = Renderer.parseTemplate(`<div>a</div>`);
             expect.equal(tree.content, 'a');
           },
 
           'should parse multiple characters'() {
-            const tree = renderer.parse(`<div>abc</div>`);
+            const tree = Renderer.parseTemplate(`<div>abc</div>`);
             expect.equal(tree.content, 'abc');
           }
         }
