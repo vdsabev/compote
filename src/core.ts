@@ -1,25 +1,27 @@
 module compote.core {
-  /** Renderer */
   type VirtualTree = {
     tagName: string
     attributes: Record<string, string>
     children: (string | VirtualTree)[]
   };
 
-  export class Renderer {
-    static document: Document;
-
+  /** Parser */
+  export class Parser {
     static regex = new RegExp(`
-      <\\s*   (\\w+)   (?:\\s+((?:\\w+="\\w+(?:\\.\\w+)*(?:\\((?:\\w+(?:,\\w+)*)*\\))?"   \\s*)+))*>   ([^<>]+)*   <\\/\\1>
+      <\\s*   (\\w+)   (?:\\s+((?:\\w+="\\w+(?:\\.\\w+)*(?:\\((?:\\w+(?:,\\w+)*)*\\))?"   \\s*)+))*>   (.+)*   <\\/\\1>
     `.replace(/\s+/g, ''));
 
     static parseTemplate(template: string): VirtualTree {
       const matches = template.match(this.regex) || [];
 
+      if (!matches.length) {
+        return <any>template;
+      }
+
       const tagName = matches[1];
       if (!tagName) throw new Error(`Invalid tagName: ${tagName} in template: ${template}`);
 
-      const attributes: { [key: string]: string } = {};
+      const attributes: Record<string, string> = {};
       const stringAttributes = matches[2];
       if (stringAttributes) {
         stringAttributes.split(/\s+/).forEach((attribute) => {
@@ -28,11 +30,83 @@ module compote.core {
         });
       }
 
+      const children = [];
+      const stringChildren = matches[3];
+      if (stringChildren) {
+        children.push(Renderer.parseTemplate(stringChildren));
+      }
+
       return {
         tagName,
         attributes,
-        children: matches[3] ? [matches[3]] : []
+        children
       };
+    }
+  }
+
+  /** Renderer */
+  export class Renderer {
+    static document: Document;
+
+    static regex = new RegExp(`
+      <\\s*   (\\w+)   (?:\\s+((?:\\w+="\\w+(?:\\.\\w+)*(?:\\((?:\\w+(?:,\\w+)*)*\\))?"   \\s*)+))*>   (.+)*   <\\/\\1>
+    `.replace(/\s+/g, ''));
+
+    static parseTemplate(template: string): VirtualTree {
+      const matches = template.match(this.regex) || [];
+
+      if (!matches.length) {
+        return <any>template;
+      }
+
+      const tagName = matches[1];
+      if (!tagName) throw new Error(`Invalid tagName: ${tagName} in template: ${template}`);
+
+      const attributes: Record<string, string> = {};
+      const stringAttributes = matches[2];
+      if (stringAttributes) {
+        stringAttributes.split(/\s+/).forEach((attribute) => {
+          const [key, value] = attribute.split('=');
+          attributes[key] = value.slice(1, -1);
+        });
+      }
+
+      const children = [];
+      const stringChildren = matches[3];
+      if (stringChildren) {
+        children.push(Renderer.parseTemplate(stringChildren));
+      }
+
+      return {
+        tagName,
+        attributes,
+        children
+      };
+    }
+
+    // TODO: Only update changed attributes
+    static updateAttributes($el: HTMLElement, attributes: Record<string, string>) {
+      Object.assign($el, attributes);
+    }
+
+    // TODO: Only update changed children
+    static updateChildren($el: HTMLElement, children: (string | VirtualTree)[]) {
+      Renderer.removeAllChildren($el);
+      children.forEach((child) => {
+        if (typeof child === 'string') {
+          $el.appendChild(Renderer.document.createTextNode(child));
+        }
+        else {
+          $el.appendChild(Renderer.document.createElement(child.tagName));
+        }
+      });
+    }
+
+    // http://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
+    static removeAllChildren($el: HTMLElement) {
+      while ($el.firstChild) {
+        $el.removeChild($el.lastChild);
+      }
     }
   }
 
@@ -58,21 +132,15 @@ module compote.core {
       }
       else {
         this.$el = Renderer.document.createElement(this.$tree.tagName);
-        this.$createElement();
+        Renderer.updateAttributes(this.$el, this.$tree.attributes);
+        Renderer.updateChildren(this.$el, this.$tree.children);
       }
 
       this.$initialized = true;
     }
 
-    // http://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
-    private $empty(container: HTMLElement) {
-      while (container.firstChild) {
-        container.removeChild(container.lastChild);
-      }
-    }
-
     $mount(container: HTMLElement) {
-      this.$empty(container);
+      Renderer.removeAllChildren(container);
       container.appendChild(this.$el);
     }
 
@@ -80,24 +148,10 @@ module compote.core {
       return `<div></div>`;
     }
 
-    private $createElement() {
-      Object.assign(this.$el, this.$tree.attributes); // TODO: Only assign diff
-
-      this.$empty(this.$el);
-      this.$tree.children.forEach((child) => {
-        if (typeof child === 'string') {
-          this.$el.appendChild(Renderer.document.createTextNode(child));
-        }
-        else {
-          // TODO
-          // Renderer.document.createElement(child.tagName)
-        }
-      });
-    }
-
     $update() {
       this.$tree = Renderer.parseTemplate(this.$render());
-      this.$createElement();
+      Renderer.updateAttributes(this.$el, this.$tree.attributes);
+      Renderer.updateChildren(this.$el, this.$tree.children);
     }
   }
 
