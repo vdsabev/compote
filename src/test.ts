@@ -42,8 +42,8 @@ module compote.test {
             expect.equal(tree.tagName, 'div');
           },
 
-          'should ignore spaces'() {
-            const tree = Parser.parseTemplate(`  \n<div></div>\n  `);
+          'should parse spaces'() {
+            const tree = Parser.parseTemplate(`  \n<div>\n</div>\n  `);
             expect.equal(tree.tagName, 'div');
           }
         },
@@ -97,6 +97,7 @@ module compote.test {
 
           'should parse HTML'() {
             const tree = Parser.parseTemplate(`<a><b></b></a>`);
+            expect.equal(tree.tagName, 'a');
             expect.equal(tree.children.length, 1);
 
             const child = tree.children[0];
