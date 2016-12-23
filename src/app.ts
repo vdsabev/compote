@@ -1,14 +1,17 @@
 module compote.app {
   const { Component, component, watch } = core;
+  const { h, div } = core.Renderer;
 
   export class AppComponent extends Component {
     $render() {
-      return `
-        <div>
-          <HelloLabel label="World"></HelloLabel>
-        </div>
-      `;
+      return div({}, [
+        HelloLabel({ label: 'World' })
+      ]);
     }
+  }
+
+  function HelloLabel(attributes: Partial<HelloLabelComponent> = {}, children: core.VirtualTree[] = []) {
+    return h('HelloLabel', <any>attributes, children);
   }
 
   @component({
@@ -16,7 +19,7 @@ module compote.app {
   })
   class HelloLabelComponent extends Component {
     $render() {
-      return `<div>Hello ${this.label}</div>`;
+      return div({}, [`Hello ${this.label}`]);
     }
 
     @watch label: string;

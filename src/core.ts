@@ -7,52 +7,6 @@ module compote.core {
 
   export type VirtualTreeChild = string | VirtualTree;
 
-  /** Parser */
-  export class Parser {
-    private static tagNameRegex = `(\\w+)`;
-    private static attributeKeyRegex = `\\w+`;
-    private static attributeValueRegex = `\\w+(?:\\.\\w+)*(?:\\((?:\\w+(?:,\\w+)*)*\\))?`;
-    private static childrenRegex = `(.+)*`;
-
-    static regex = new RegExp(`
-      <\\s* ${Parser.tagNameRegex} (?: \\s+ ((?:${Parser.attributeKeyRegex}="${Parser.attributeValueRegex}" \\s*)+))*>
-        \\s* ${Parser.childrenRegex} \\s*
-      <\\/\\1>
-    `.replace(/\s+/g, ''));
-
-    static parseTemplate(template: string): VirtualTree {
-      const matches = template.match(this.regex) || [];
-
-      if (!matches.length) {
-        return <any>template;
-      }
-
-      const tagName = matches[1];
-      if (!tagName) throw new Error(`Invalid tagName: ${tagName} in template: ${template}`);
-
-      const attributes: Record<string, string> = {};
-      const stringAttributes = matches[2];
-      if (stringAttributes) {
-        stringAttributes.split(/\s+/).forEach((attribute) => {
-          const [key, value] = attribute.split('=');
-          attributes[key] = value.slice(1, -1);
-        });
-      }
-
-      const children = [];
-      const stringChildren = matches[3];
-      if (stringChildren) {
-        children.push(Parser.parseTemplate(stringChildren));
-      }
-
-      return {
-        tagName,
-        attributes,
-        children
-      };
-    }
-  }
-
   /** Renderer */
   export class Renderer {
     static document: Document;
@@ -91,15 +45,22 @@ module compote.core {
         $el.removeChild($el.lastChild);
       }
     }
+
+    static h(tagName: string, attributes: Record<string, string> = {}, children: any[] = []): VirtualTree {
+      return { tagName, attributes, children };
+    }
+
+    static div = Renderer.h.bind(Renderer, 'div');
+    static span = Renderer.h.bind(Renderer, 'span');
+    static input = Renderer.h.bind(Renderer, 'input');
   }
 
   /** Component */
   export class Component {
     static $cache: Record<string, typeof Component> = {};
 
-    $el: HTMLElement;
     private $tree: VirtualTree;
-
+    $el: HTMLElement;
     $initialized: boolean;
 
     constructor(data?: Partial<Component>) {
@@ -107,8 +68,7 @@ module compote.core {
         Object.assign(this, data);
       }
 
-      this.$tree = Parser.parseTemplate(this.$render());
-
+      this.$tree = this.$render();
       this.$el = Renderer.document.createElement(this.$tree.tagName);
       Renderer.updateAttributes(this.$el, this.$tree.attributes);
       Renderer.updateChildren(this.$el, this.$tree.children);
@@ -121,12 +81,12 @@ module compote.core {
       container.appendChild(this.$el);
     }
 
-    $render(): string {
-      return `<div></div>`;
+    $render(): VirtualTree {
+      return Renderer.div();
     }
 
     $update() {
-      this.$tree = Parser.parseTemplate(this.$render());
+      this.$tree = this.$render();
       Renderer.updateAttributes(this.$el, this.$tree.attributes);
       Renderer.updateChildren(this.$el, this.$tree.children);
     }
