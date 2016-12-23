@@ -97,16 +97,33 @@ module compote.test {
 
           'should parse HTML'() {
             const tree = Parser.parseTemplate(`<a><b></b></a>`);
+
             expect.equal(tree.tagName, 'a');
+
+            const children = <core.VirtualTree[]>tree.children;
             expect.equal(tree.children.length, 1);
 
-            const child = tree.children[0];
-            if (typeof child === 'string') {
-              expect.equal(typeof child, 'object');
-            }
-            else {
-              expect.equal(child.tagName, 'b');
-            }
+            expect.equal(children[0].tagName, 'b');
+          },
+
+          'should parse multiple children'() {
+            debugger;
+            const tree = Parser.parseTemplate(`
+              <a>
+                <b></b>
+                <c></c>
+                <d></d>
+              </a>
+            `);
+
+            expect.equal(tree.tagName, 'a');
+
+            const children = <core.VirtualTree[]>tree.children;
+            expect.equal(tree.children.length, 3);
+
+            expect.equal(children[0].tagName, 'b');
+            expect.equal(children[1].tagName, 'c');
+            expect.equal(children[2].tagName, 'd');
           }
         }
       }

@@ -1,9 +1,11 @@
 module compote.core {
-  type VirtualTree = {
+  export type VirtualTree = {
     tagName: string
     attributes: Record<string, string>
-    children: (string | VirtualTree)[]
+    children: VirtualTreeChild[]
   };
+
+  export type VirtualTreeChild = string | VirtualTree;
 
   /** Parser */
   export class Parser {
@@ -61,7 +63,7 @@ module compote.core {
     }
 
     // TODO: Only update changed children
-    static updateChildren($el: HTMLElement, children: (string | VirtualTree)[]) {
+    static updateChildren($el: HTMLElement, children: VirtualTreeChild[]) {
       Renderer.removeAllChildren($el);
       children.forEach((child) => {
         if (typeof child === 'string') {
@@ -107,15 +109,9 @@ module compote.core {
 
       this.$tree = Parser.parseTemplate(this.$render());
 
-      // const ComponentClass = Component.$cache[this.$tree.tagName];
-      // if (ComponentClass) {
-      //   this.$el = new ComponentClass(this.$tree.attributes).$el; // TODO: Clean up on `$destroy`
-      // }
-      // else {
       this.$el = Renderer.document.createElement(this.$tree.tagName);
       Renderer.updateAttributes(this.$el, this.$tree.attributes);
       Renderer.updateChildren(this.$el, this.$tree.children);
-      // }
 
       this.$initialized = true;
     }
