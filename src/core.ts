@@ -7,9 +7,17 @@ module compote.core {
 
   /** Parser */
   export class Parser {
-    static regex = new RegExp(`
-      <\\s*   (\\w+)   (?:\\s+((?:\\w+="\\w+(?:\\.\\w+)*(?:\\((?:\\w+(?:,\\w+)*)*\\))?"   \\s*)+))*>   (.+)*   <\\/\\1>
-    `.replace(/\s+/g, ''));
+    static tagNameRegex = `(\\w+)`;
+    static attributeKeyRegex = `\\w+`;
+    static attributeValueRegex = `\\w+(?:\\.\\w+)*(?:\\((?:\\w+(?:,\\w+)*)*\\))?`;
+    static attributesRegex = `((?: ${Parser.attributeKeyRegex} = "${Parser.attributeValueRegex}" \\s*)+)`;
+    static childrenRegex = `(.+)*`;
+
+    static regex = new RegExp(`^\\s*
+      <\\s* ${Parser.tagNameRegex} (?:\\s+ ${Parser.attributesRegex})*>
+        ${Parser.childrenRegex}
+      <\\/\\1>
+    \\s*$`.replace(/\s+/g, ''));
 
     static parseTemplate(template: string): VirtualTree {
       const matches = template.match(this.regex) || [];

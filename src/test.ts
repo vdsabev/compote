@@ -40,6 +40,11 @@ module compote.test {
           'should parse `tagName`'() {
             const tree = Parser.parseTemplate(`<div></div>`);
             expect.equal(tree.tagName, 'div');
+          },
+
+          'should ignore spaces'() {
+            const tree = Parser.parseTemplate(`  \n<div></div>\n  `);
+            expect.equal(tree.tagName, 'div');
           }
         },
 
