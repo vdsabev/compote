@@ -77,20 +77,23 @@ module compote.test {
           }
         },
 
-        content: {
+        children: {
           'should parse a single character'() {
             const tree = Renderer.parseTemplate(`<div>a</div>`);
-            expect.equal(tree.content, 'a');
+            expect.equal(tree.children.length, 1);
+            expect.equal(tree.children[0], 'a');
           },
 
           'should parse multiple characters'() {
             const tree = Renderer.parseTemplate(`<div>abc</div>`);
-            expect.equal(tree.content, 'abc');
+            expect.equal(tree.children.length, 1);
+            expect.equal(tree.children[0], 'abc');
           },
 
           'should parse HTML'() {
             const tree = Renderer.parseTemplate(`<div><div></div></div>`);
-            expect.equal(tree.content, '');
+            expect.equal(tree.children.length, 1);
+            expect.equal(typeof tree.children[0], 'object');
           }
         }
       }

@@ -1,17 +1,19 @@
 module compote.core {
   /** Renderer */
-  type RendererTree = {
+  type VirtualTree = {
     tagName: string
     attributes: Record<string, string>
-    content: string
+    children: (string | VirtualTree)[]
   };
 
   export class Renderer {
+    static document: Document;
+
     static regex = new RegExp(`
-      <\\s* (\\w+) (?:\\s+((?:\\w+="\\w+(?:\\.\\w+)*(?:\\((?:\\w+(?:,\\w+)*)*\\))?" \\s*)+))*> ([^<>]+)* <\\/\\1>
+      <\\s*   (\\w+)   (?:\\s+((?:\\w+="\\w+(?:\\.\\w+)*(?:\\((?:\\w+(?:,\\w+)*)*\\))?"   \\s*)+))*>   ([^<>]+)*   <\\/\\1>
     `.replace(/\s+/g, ''));
 
-    static parseTemplate(template: string): RendererTree {
+    static parseTemplate(template: string): VirtualTree {
       const matches = template.match(this.regex) || [];
 
       const tagName = matches[1];
@@ -29,7 +31,7 @@ module compote.core {
       return {
         tagName,
         attributes,
-        content: matches[3] || ''
+        children: matches[3] ? [matches[3]] : []
       };
     }
   }
@@ -39,7 +41,7 @@ module compote.core {
     static $cache: Record<string, typeof Component> = {};
 
     $el: HTMLElement;
-    $tree: RendererTree;
+    private $tree: VirtualTree;
 
     $initialized: boolean;
 
@@ -55,22 +57,47 @@ module compote.core {
         this.$el = new ComponentClass(this.$tree.attributes).$el; // TODO: Clean up on `$destroy`
       }
       else {
-        this.$el = document.createElement(this.$tree.tagName);
-        Object.assign(this.$el, this.$tree.attributes);
-        this.$el.textContent = this.$tree.content;
+        this.$el = Renderer.document.createElement(this.$tree.tagName);
+        this.$createElement();
       }
 
       this.$initialized = true;
+    }
+
+    // http://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
+    private $empty(container: HTMLElement) {
+      while (container.firstChild) {
+        container.removeChild(container.lastChild);
+      }
+    }
+
+    $mount(container: HTMLElement) {
+      this.$empty(container);
+      container.appendChild(this.$el);
     }
 
     $render(): string {
       return `<div></div>`;
     }
 
+    private $createElement() {
+      Object.assign(this.$el, this.$tree.attributes); // TODO: Only assign diff
+
+      this.$empty(this.$el);
+      this.$tree.children.forEach((child) => {
+        if (typeof child === 'string') {
+          this.$el.appendChild(Renderer.document.createTextNode(child));
+        }
+        else {
+          // TODO
+          // Renderer.document.createElement(child.tagName)
+        }
+      });
+    }
+
     $update() {
       this.$tree = Renderer.parseTemplate(this.$render());
-      Object.assign(this.$el, this.$tree.attributes); // TODO: Only assign diff
-      this.$el.textContent = this.$tree.content;
+      this.$createElement();
     }
   }
 
