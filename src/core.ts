@@ -2,14 +2,16 @@ module compote.core {
   /** Renderer */
   type RendererTree = {
     tagName: string
-    attributes: { [key: string]: string }
+    attributes: Record<string, string>
     content: string
   };
 
   export class Renderer {
-    static regex = /<\s*(\w+)(?:\s+((?:\w+="\w+(?:\.\w+)*(?:\((?:\w+(?:,\w+)*)*\))?"\s*)+))*>([^<>]+)*</;
+    static regex = new RegExp(`
+      <\\s* (\\w+) (?:\\s+((?:\\w+="\\w+(?:\\.\\w+)*(?:\\((?:\\w+(?:,\\w+)*)*\\))?" \\s*)+))*> ([^<>]+)* <\\/\\1>
+    `.replace(/\s+/g, ''));
 
-    static parseTemplate(template: string): any {
+    static parseTemplate(template: string): RendererTree {
       const matches = template.match(this.regex) || [];
 
       const tagName = matches[1];
@@ -33,13 +35,8 @@ module compote.core {
   }
 
   /** Component */
-  type ComponentOptions = {
-    id: string
-  };
-
   export class Component {
     static $cache: Record<string, typeof Component> = {};
-    static $options: ComponentOptions;
 
     $el: HTMLElement;
     $tree: RendererTree;
@@ -78,10 +75,13 @@ module compote.core {
   }
 
   /** Decorators */
-  export function component(options: any) {
+  type ComponentOptions = {
+    id: string
+  };
+
+  export function component(options: ComponentOptions) {
     return (target: typeof Component) => {
       Component.$cache[options.id] = target;
-      target.$options = options;
     };
   }
 

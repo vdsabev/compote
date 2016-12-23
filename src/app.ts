@@ -3,7 +3,11 @@ module compote.app {
 
   export class AppComponent extends Component {
     $render() {
-      return `<HelloLabel label="World"></HelloLabel>`;
+      return `
+        <div>
+          <HelloLabel label="World"></HelloLabel>
+        </div>
+      `;
     }
   }
 
