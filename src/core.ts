@@ -56,18 +56,6 @@ module compote.core {
   export class Renderer {
     static document: Document;
 
-    // http://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
-    static removeAllChildren($el: HTMLElement) {
-      while ($el.firstChild) {
-        $el.removeChild($el.lastChild);
-      }
-    }
-
-    static mount(container: HTMLElement, component: Component) {
-      Renderer.removeAllChildren(container);
-      container.appendChild(component.$el);
-    }
-
     static tag(name: string) {
       return (properties: core.ComponentProperties<never> = {}, children: core.ComponentChild[] = []): Component => {
         return new Component(name, properties, children);
@@ -102,6 +90,7 @@ module compote.core {
     $onDestroy?(): void;
   }
 
+  // TODO: Support text nodes
   export class Component {
     $id = uniqueId('_');
     $el: HTMLElement;
@@ -114,7 +103,6 @@ module compote.core {
     private $properties: ComponentProperties<Component>;
     private $children: ComponentChild[];
 
-    // TODO: Support text nodes
     constructor(
       private $constructorDefinition?: string,
       private $constructorProperties?: ComponentProperties<Component>,
@@ -122,41 +110,26 @@ module compote.core {
     ) {
       componentInstancesCache[this.$id] = this;
 
-      const [definition, properties, children] = this.$render();
+      const tree = this.$render();
       this.$rendered = true;
 
-      this.$parse(definition);
-      this.$properties = properties;
-      this.$children = children;
-      Object.assign(this, this.$properties.data);
+      this.$parse(tree);
+      this.$setData(this.$properties.data);
 
       this.$el = Renderer.document.createElement(this.$tagName);
       this.$el.className = this.$classNames.join(' ');
 
       // Attributes
-      for (let key in this.$attributes) {
-        if (this.$attributes.hasOwnProperty(key)) {
-          this.$el.setAttribute(key, this.$attributes[key]);
-        }
-      }
-      this.$updateAttributeExpressions();
+      this.$setAttributes(this.$el, this.$attributes);
+      this.$updateAttributeExpressions(this.$el, this.$attributes);
 
       // Properties
-      this.$updateProperties();
-      this.$updatePropertyExpressions();
+      this.$setProperties(this.$el, this.$properties);
+      this.$updatePropertyExpressions(this.$el, this.$properties);
 
       // Children
-      this.$children.forEach((child) => {
-        if (typeof child === 'string') {
-          // TODO: Make this a component as well
-          const $child = Renderer.document.createTextNode(child);
-          this.$el.appendChild($child);
-        }
-        else {
-          this.$el.appendChild(child.$el);
-        }
-      });
-      this.$updateChildExpressions();
+      this.$setChildren(this.$el, this.$children);
+      this.$updateChildExpressions(this.$children);
 
       this.$initialized = true;
 
@@ -165,74 +138,114 @@ module compote.core {
       }
     }
 
-    $render(): ComponentTree {
-      return [this.$constructorDefinition, this.$constructorProperties, this.$constructorChildren];
+    $mount(container: HTMLElement) {
+      this.removeAllChildren(container);
+      container.appendChild(this.$el);
     }
 
-    private $parse(definition: string) {
-      if (!definition) return;
-
-      this.$tagName = Parser.parseTagName(definition);
-      this.$classNames = Parser.parseClassNames(definition);
-      this.$attributes = Parser.parseAttributes(definition);
-
-      if (!this.$tagName) {
-        this.$tagName = 'div';
-      }
+    $render(): ComponentTree {
+      return [this.$constructorDefinition, this.$constructorProperties, this.$constructorChildren];
     }
 
     $update() {
       // TODO: Implement
     }
 
+    $destroy() {
+      if (this.$onDestroy) {
+        this.$onDestroy();
+      }
+
+      this.$el.parentNode.removeChild(this.$el);
+      delete componentInstancesCache[this.$id];
+    }
+
+    private $parse([definition, properties, children]: ComponentTree) {
+      if (definition) {
+        this.$tagName = Parser.parseTagName(definition);
+        this.$classNames = Parser.parseClassNames(definition);
+        this.$attributes = Parser.parseAttributes(definition);
+      }
+
+      if (!this.$tagName) {
+        this.$tagName = 'div';
+      }
+
+      this.$properties = properties;
+
+      this.$children = children;
+    }
+
+    private $setData(data: Partial<Component>) {
+      Object.assign(this, data);
+    }
+
     // TODO: Only update changed properties
-    private $updateProperties() {
-      Object.assign(this.$el, this.$properties);
+    private $setProperties(el: HTMLElement, properties: ComponentProperties<Component>) {
+      Object.assign(el, properties);
     }
 
     // TODO: Only update changed expressions
-    private $updatePropertyExpressions() {
-      for (let key in this.$properties) {
-        if (this.$properties.hasOwnProperty(key)) {
-          const expression = (<any>this.$el)[key];
+    private $updatePropertyExpressions(el: HTMLElement, properties: ComponentProperties<Component>) {
+      for (let key in properties) {
+        if (properties.hasOwnProperty(key)) {
+          const expression = (<any>el)[key];
           const matches = expression && expression.match(Parser.expressionRegex);
           if (matches && matches.length > 0) {
             const componentId = matches[1];
             const componentKey = matches[2];
-            (<any>this.$el)[key] = expression.replace(Parser.expressionRegex, (<any>componentInstancesCache[componentId])[componentKey]);
+            (<any>el)[key] = expression.replace(Parser.expressionRegex, (<any>componentInstancesCache[componentId])[componentKey]);
           }
         }
       }
     }
 
     // TODO: Only update changed expressions
-    private $updateAttributeExpressions() {
-      for (let key in this.$attributes) {
-        if (this.$attributes.hasOwnProperty(key)) {
-          const expression = this.$el.getAttribute(key);
+    private $setAttributes(el: HTMLElement, attributes: ComponentAttributes) {
+      for (let key in attributes) {
+        if (attributes.hasOwnProperty(key)) {
+          el.setAttribute(key, attributes[key]);
+        }
+      }
+    }
+
+    private $updateAttributeExpressions(el: HTMLElement, attributes: ComponentAttributes) {
+      for (let key in attributes) {
+        if (attributes.hasOwnProperty(key)) {
+          const expression = el.getAttribute(key);
           const matches = expression && expression.match(Parser.expressionRegex);
           if (matches && matches.length > 0) {
             const componentId = matches[1];
             const componentKey = matches[2];
-            this.$el.setAttribute(key, expression.replace(Parser.expressionRegex, (<any>componentInstancesCache[componentId])[componentKey]));
+            el.setAttribute(key, expression.replace(Parser.expressionRegex, (<any>componentInstancesCache[componentId])[componentKey]));
           }
         }
       }
     }
 
-    private $updateChildExpressions() {
+    private $setChildren(el: HTMLElement, children: ComponentChild[]) {
+      children.forEach((child) => {
+        if (typeof child === 'string') {
+          // TODO: Make this a component as well
+          const $child = Renderer.document.createTextNode(child);
+          el.appendChild($child);
+        }
+        else {
+          el.appendChild(child.$el);
+        }
+      });
+    }
+
+    private $updateChildExpressions(children: ComponentChild[]) {
       // TODO: Implement
     }
 
-    // TODO: Implement
-    // private $destroy() {
-    //   if (this.$onDestroy) {
-    //     this.$onDestroy();
-    //   }
-    //
-    //   this.$el.parentNode.removeChild(this.$el);
-    //   delete componentInstancesCache[this.$id];
-    // }
+    // http://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
+    removeAllChildren($el: HTMLElement) {
+      while ($el.firstChild) {
+        $el.removeChild($el.lastChild);
+      }
+    }
   }
 
   /** Decorators */

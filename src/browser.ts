@@ -6,7 +6,8 @@ module compote.app.browser {
   function bootstrap() {
     Renderer.document = document;
 
+    const app = new AppComponent();
     const container = document.getElementById('container');
-    Renderer.mount(container, new AppComponent());
+    app.$mount(container);
   }
 }
