@@ -4,8 +4,7 @@ module compote.core {
 
   /** Parser */
   export class Parser {
-    static attributesStartString = '(';
-    static attributesEndString = ')';
+    static tagEndRegex = /[\.\(]/;
 
     // TODO: Interpolate more than 1 expression
     static expressionStartString = '{{';
@@ -13,12 +12,26 @@ module compote.core {
     static expressionString = '(\\w+)\\.(\\w+)';
     static expressionRegex = new RegExp(Parser.expressionStartString + Parser.expressionString + Parser.expressionEndString);
 
+    static parseTagName(definition: string) {
+      return (definition.split(Parser.tagEndRegex)[0] || '').trim();
+    }
+
+    static parseClassNames(definition: string): string[] {
+      const classNamesStartIndex = definition.indexOf('.');
+      if (classNamesStartIndex === -1) return [];
+
+      const classNamesEndIndex = definition.indexOf('(', classNamesStartIndex + 1);
+      if (classNamesEndIndex === -1) return definition.substring(classNamesStartIndex + 1).split('.');
+
+      return definition.substring(classNamesStartIndex + 1, classNamesEndIndex).split('.');
+    }
+
     static parseAttributes(definition: string): ComponentAttributes {
       const attributes: ComponentAttributes = {};
 
       // TODO: Make characters customizable
-      const attributesStartIndex = definition.indexOf(Parser.attributesStartString);
-      const attributesEndIndex = definition.indexOf(Parser.attributesEndString, attributesStartIndex + 1);
+      const attributesStartIndex = definition.indexOf('(');
+      const attributesEndIndex = definition.indexOf(')', attributesStartIndex + 1);
       if ((attributesStartIndex === -1) !== (attributesEndIndex === -1)) throw new Error(`Missing parentheses in attributes definition: ${definition}`);
 
       if (attributesStartIndex !== -1 && attributesEndIndex !== -1) {
@@ -115,6 +128,7 @@ module compote.core {
       this.$parse(definition);
       this.$properties = properties;
       this.$children = children;
+      Object.assign(this, this.$properties.data);
 
       this.$el = Renderer.document.createElement(this.$tagName);
       this.$el.className = this.$classNames.join(' ');
@@ -158,7 +172,8 @@ module compote.core {
     private $parse(definition: string) {
       if (!definition) return;
 
-      [this.$tagName, ...this.$classNames] = definition.split(/[\.\1s]+/);
+      this.$tagName = Parser.parseTagName(definition);
+      this.$classNames = Parser.parseClassNames(definition);
       this.$attributes = Parser.parseAttributes(definition);
 
       if (!this.$tagName) {
@@ -173,7 +188,6 @@ module compote.core {
     // TODO: Only update changed properties
     private $updateProperties() {
       Object.assign(this.$el, this.$properties);
-      Object.assign(this, this.$properties.data);
     }
 
     // TODO: Only update changed expressions

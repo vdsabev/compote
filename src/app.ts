@@ -40,7 +40,7 @@ module compote.app {
     @bind text: string;
 
     $render(): core.ComponentTree {
-      return [`div`, {}, [`Hello ${this.text}`]];
+      return [`div`, {}, [this.text]];
     }
   }
 }
