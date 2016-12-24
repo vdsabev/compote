@@ -1,62 +1,47 @@
 module compote.core {
-  export type VirtualTree = {
-    tagName: string
-    properties: Record<string, any>
-    children: VirtualTreeChild[]
-  };
-
-  export type VirtualTreeChild = string | VirtualTree;
-
   /** Caches */
-  const componentClassesCache: Record<string, typeof Component> = {}; // TODO: Remove, along with `id` and `@component`
   const componentInstancesCache: Record<string, Component> = {};
+
+  /** Parser */
+  export class Parser {
+    static attributesStartString = '(';
+    static attributesEndString = ')';
+
+    // TODO: Interpolate more than 1 expression
+    static expressionStartString = '{{';
+    static expressionEndString = '}}';
+    static expressionString = '(\\w+)\\.(\\w+)';
+    static expressionRegex = new RegExp(Parser.expressionStartString + Parser.expressionString + Parser.expressionEndString);
+
+    static parseAttributes(definition: string): ComponentAttributes {
+      const attributes: ComponentAttributes = {};
+
+      // TODO: Make characters customizable
+      const attributesStartIndex = definition.indexOf(Parser.attributesStartString);
+      const attributesEndIndex = definition.indexOf(Parser.attributesEndString, attributesStartIndex + 1);
+      if ((attributesStartIndex === -1) !== (attributesEndIndex === -1)) throw new Error(`Missing parentheses in attributes definition: ${definition}`);
+
+      if (attributesStartIndex !== -1 && attributesEndIndex !== -1) {
+        const attributesString = definition.substring(attributesStartIndex + 1, attributesEndIndex);
+        if (attributesString) {
+          definition = definition.substring(0, attributesStartIndex);
+
+          let attributeMatches: RegExpExecArray;
+          const attributesRegex = /(?:\s*(\w+="[^"]+")\s*)+/g;
+          while (attributeMatches = attributesRegex.exec(attributesString)) {
+            const [key, value] = attributeMatches[1].split('=');
+            attributes[key] = value.slice(1, -1);
+          }
+        }
+      }
+
+      return attributes;
+    }
+  }
 
   /** Renderer */
   export class Renderer {
     static document: Document;
-
-    // TODO: Interpolate more than 1 expression
-    static expressionRegex = /^.*{{(\w+)\.(\w+)}}.*$/; // TODO: Make configurable
-
-    // TODO: Only update changed properties
-    static updateProperties($el: HTMLElement, properties: Record<string, any>) {
-      Object.assign($el, properties);
-    }
-
-    // TODO: Only update changed expressions
-    static interpolateExpressions($el: HTMLElement, data: Record<string, any>) {
-      const key = 'textContent';
-      const expression = (<any>$el)[key];
-      const matches = expression && expression.match(Renderer.expressionRegex);
-      if (matches && matches.length > 0) {
-        const componentId = matches[1];
-        const componentKey = matches[2];
-        (<any>$el)[key] = expression.replace(/{{(\w+).(\w+)}}/, (<any>componentInstancesCache[componentId])[componentKey]);
-      }
-    }
-
-    // TODO: Only update changed children
-    static updateChildren($el: HTMLElement, children: VirtualTreeChild[]) {
-      Renderer.removeAllChildren($el);
-      children.forEach((child) => {
-        if (typeof child === 'string') {
-          $el.appendChild(Renderer.document.createTextNode(child));
-        }
-        else {
-          const ComponentClass = componentClassesCache[child.tagName];
-          let $childEl: HTMLElement;
-          if (ComponentClass) {
-            $childEl = new ComponentClass().$el; // TODO: Clean up on `$destroy`
-          }
-          else {
-            $childEl = Renderer.document.createElement(child.tagName);
-            Renderer.updateProperties($childEl, child.properties);
-            Renderer.updateChildren($childEl, child.children);
-          }
-          $el.appendChild($childEl);
-        }
-      });
-    }
 
     // http://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
     static removeAllChildren($el: HTMLElement) {
@@ -65,91 +50,185 @@ module compote.core {
       }
     }
 
-    static tag(tagName: string) {
-      return (properties: Record<string, any> = {}, children: VirtualTreeChild[] = []): VirtualTree => {
-        return { tagName, properties, children };
+    static mount(container: HTMLElement, component: Component) {
+      Renderer.removeAllChildren(container);
+      container.appendChild(component.$el);
+    }
+
+    static tag(name: string) {
+      return (properties: core.ComponentProperties<never> = {}, children: core.ComponentChild[] = []): Component => {
+        return new Component(name, properties, children);
       };
     }
 
     static div = Renderer.tag('div');
     static span = Renderer.tag('span');
     static input = Renderer.tag('input');
+    static textarea = Renderer.tag('textarea');
+    static button = Renderer.tag('button');
   }
 
   /** Component */
+  export type ComponentTree = [
+    string,
+    ComponentProperties<Component>,
+    ComponentChild[]
+  ];
+
+  export type ComponentAttributes = Record<string, string>;
+
+  export type ComponentProperties<DataType> = Partial<HTMLElement> & {
+    [key: string]: any
+    data?: Partial<DataType>
+  };
+
+  export type ComponentChild = string | Component;
+
+  export interface Component {
+    $onInit?(): void;
+    $onDestroy?(): void;
+  }
+
   export class Component {
-    private $tree: VirtualTree;
+    $id = uniqueId('_');
     $el: HTMLElement;
-    $id: string;
+    $rendered: boolean;
     $initialized: boolean;
-    $rendering: boolean;
 
-    constructor() {
-      this.$id = uniqueId('_');
-      componentInstancesCache[this.$id] = this; // TODO: Remove from cache on destroy
+    private $tagName: string;
+    private $classNames: string[] = [];
+    private $attributes: ComponentAttributes = {};
+    private $properties: ComponentProperties<Component>;
+    private $children: ComponentChild[];
 
-      this.$updateTree();
-      this.$el = Renderer.document.createElement(this.$tree.tagName);
-      this.$updateElement();
+    // TODO: Support text nodes
+    constructor(
+      private $constructorDefinition?: string,
+      private $constructorProperties?: ComponentProperties<Component>,
+      private $constructorChildren?: ComponentChild[]
+    ) {
+      componentInstancesCache[this.$id] = this;
+
+      const [definition, properties, children] = this.$render();
+      this.$rendered = true;
+
+      this.$parse(definition);
+      this.$properties = properties;
+      this.$children = children;
+
+      this.$el = Renderer.document.createElement(this.$tagName);
+      this.$el.className = this.$classNames.join(' ');
+
+      // Attributes
+      for (let key in this.$attributes) {
+        if (this.$attributes.hasOwnProperty(key)) {
+          this.$el.setAttribute(key, this.$attributes[key]);
+        }
+      }
+      this.$updateAttributeExpressions();
+
+      // Properties
+      this.$updateProperties();
+      this.$updatePropertyExpressions();
+
+      // Children
+      this.$children.forEach((child) => {
+        if (typeof child === 'string') {
+          // TODO: Make this a component as well
+          const $child = Renderer.document.createTextNode(child);
+          this.$el.appendChild($child);
+        }
+        else {
+          this.$el.appendChild(child.$el);
+        }
+      });
+      this.$updateChildExpressions();
 
       this.$initialized = true;
+
+      if (this.$onInit) {
+        this.$onInit();
+      }
     }
 
-    $mount(container: HTMLElement) {
-      Renderer.removeAllChildren(container);
-      container.appendChild(this.$el);
+    $render(): ComponentTree {
+      return [this.$constructorDefinition, this.$constructorProperties, this.$constructorChildren];
     }
 
-    $render(): VirtualTree {
-      return Renderer.div();
+    private $parse(definition: string) {
+      if (!definition) return;
+
+      [this.$tagName, ...this.$classNames] = definition.split(/[\.\1s]+/);
+      this.$attributes = Parser.parseAttributes(definition);
+
+      if (!this.$tagName) {
+        this.$tagName = 'div';
+      }
     }
 
     $update() {
-      this.$updateTree();
-      this.$updateElement();
+      // TODO: Implement
     }
 
-    private $updateTree() {
-      this.$rendering = true;
-      this.$tree = this.$render();
-      this.$rendering = false;
+    // TODO: Only update changed properties
+    private $updateProperties() {
+      Object.assign(this.$el, this.$properties);
+      Object.assign(this, this.$properties.data);
     }
 
-    private $updateElement() {
-      Renderer.updateProperties(this.$el, this.$tree.properties);
-      Renderer.updateChildren(this.$el, this.$tree.children);
-      Renderer.interpolateExpressions(this.$el, this.$getData());
-    }
-
-    private $getData(): Record<string, any> {
-      const data: Record<string, any> = {};
-      for (let key in this) {
-        if (this.hasOwnProperty(key) && key.startsWith('$$')) {
-          data[key.replace('$$', '')] = this[key];
+    // TODO: Only update changed expressions
+    private $updatePropertyExpressions() {
+      for (let key in this.$properties) {
+        if (this.$properties.hasOwnProperty(key)) {
+          const expression = (<any>this.$el)[key];
+          const matches = expression && expression.match(Parser.expressionRegex);
+          if (matches && matches.length > 0) {
+            const componentId = matches[1];
+            const componentKey = matches[2];
+            (<any>this.$el)[key] = expression.replace(Parser.expressionRegex, (<any>componentInstancesCache[componentId])[componentKey]);
+          }
         }
       }
-
-      return data;
     }
+
+    // TODO: Only update changed expressions
+    private $updateAttributeExpressions() {
+      for (let key in this.$attributes) {
+        if (this.$attributes.hasOwnProperty(key)) {
+          const expression = this.$el.getAttribute(key);
+          const matches = expression && expression.match(Parser.expressionRegex);
+          if (matches && matches.length > 0) {
+            const componentId = matches[1];
+            const componentKey = matches[2];
+            this.$el.setAttribute(key, expression.replace(Parser.expressionRegex, (<any>componentInstancesCache[componentId])[componentKey]));
+          }
+        }
+      }
+    }
+
+    private $updateChildExpressions() {
+      // TODO: Implement
+    }
+
+    // TODO: Implement
+    // private $destroy() {
+    //   if (this.$onDestroy) {
+    //     this.$onDestroy();
+    //   }
+    //
+    //   this.$el.parentNode.removeChild(this.$el);
+    //   delete componentInstancesCache[this.$id];
+    // }
   }
 
   /** Decorators */
-  type ComponentOptions = {
-    id: string
-  };
-
-  export function component(options: ComponentOptions) {
-    return (target: typeof Component) => {
-      componentClassesCache[options.id] = target;
-    };
-  }
-
   export function bind(target: Component, key: string) {
     const privateKey = `$$${key}`;
     Object.defineProperty(target, key, {
       get(this: Component) {
-        if (this.$rendering) {
-          return `{{${this.$id}.${key}}}`; // TODO: Make configurable
+        if (!this.$rendered) {
+          const expression = `${this.$id}.${key}`;
+          return Parser.expressionStartString + expression + Parser.expressionEndString;
         }
         return (<any>this)[privateKey];
       },

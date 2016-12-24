@@ -1,50 +1,46 @@
 module compote.app {
-  const { Component, bind } = core;
-  const { div } = core.Renderer;
+  const { bind, Component, Renderer } = core;
+  const { div } = Renderer;
 
   export class AppComponent extends Component {
-    @bind helloTo = 'World';
+    @bind name = 'World';
 
-    constructor() {
-      super();
-
-      setInterval(() => {
-        this.helloTo = new Date().toISOString();
-      }, 1e3);
+    $render(): core.ComponentTree {
+      return [`.app(title="Hello ${this.name}")`, {}, [
+        div({}, [`${this.name} entered the room`]),
+        Label({ data: { text: `Hello ${this.name}` } }),
+        Label({ data: { text: `Goodbye ${this.name}` } })
+      ]];
     }
 
-    $render() {
-      return div({}, [
-        div({}, [`Hello ${this.helloTo}`])
-      ]);
+    $onInit() {
+      // setInterval(() => {
+      //   this.name = new Date().toISOString();
+      // }, 1e3);
     }
   }
 
   // /** HelloInput */
-  // const HelloInput = tag('HelloInput');
-  //
-  // @component({
-  //   id: 'HelloInput'
-  // })
+  // const HelloInput = component(HelloInputComponent);
+
   // class HelloInputComponent extends Component {
-  //   $render() {
-  //     return input({ type: 'text', value: this.value });
-  //   }
-  //
   //   @bind value: string;
+  //
+  //   $render() {
+  //     return [`input(type="text" value="${this.value}")`];
+  //   }
   // }
 
-  // /** HelloLabel */
-  // const HelloLabel = tag('HelloLabel');
-  //
-  // @component({
-  //   id: 'HelloLabel'
-  // })
-  // class HelloLabelComponent extends Component {
-  //   $render() {
-  //     return div({ innerHTML: `Hello ${this.label}` });
-  //   }
-  //
-  //   @bind label: string;
-  // }
+  /** Label */
+  export function Label(properties: core.ComponentProperties<LabelComponent> = {}, children: core.ComponentChild[] = []) {
+    return new LabelComponent();
+  }
+
+  export class LabelComponent extends Component {
+    @bind text: string;
+
+    $render(): core.ComponentTree {
+      return [`div`, {}, [`Hello ${this.text}`]];
+    }
+  }
 }
