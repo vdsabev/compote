@@ -57,7 +57,7 @@ module compote.core {
 
   /** Renderer */
   export class Renderer {
-    static delay: (fn: Function) => void;
+    static defer: (fn: Function) => void;
     static document: Document;
   }
 
@@ -101,12 +101,12 @@ module compote.core {
       componentInstancesCache[this.$id] = this;
 
       this.$initializing = true;
-      Renderer.delay(() => this.$init());
+      Renderer.defer(() => this.$init());
     }
 
     $mountTo($container: HTMLElement, removeAllChildren = true) {
       if (this.$initializing) {
-        Renderer.delay(() => this.$mountTo($container, removeAllChildren));
+        Renderer.defer(() => this.$mountTo($container, removeAllChildren));
         return;
       }
 
@@ -114,6 +114,7 @@ module compote.core {
         this.$removeAllChildren($container);
       }
 
+      // TODO: Preserve appending order of children when rendering
       $container.appendChild(this.$el);
     }
 
@@ -127,7 +128,7 @@ module compote.core {
 
     $update() {
       if (this.$initializing) {
-        Renderer.delay(() => this.$update());
+        Renderer.defer(() => this.$update());
         return;
       }
 
@@ -168,7 +169,6 @@ module compote.core {
 
       if (definition.startsWith(Parser.textNodeStartString)) {
         this.$el = Renderer.document.createTextNode(definition.substring(Parser.textNodeStartString.length));
-        this.$data = data;
       }
       else {
         this.$parseDefinition(definition);

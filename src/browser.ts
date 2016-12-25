@@ -4,7 +4,7 @@ module compote.app.browser {
   bootstrap();
 
   function bootstrap() {
-    Renderer.delay = (fn: Function) => {
+    Renderer.defer = (fn: Function) => {
       setTimeout(fn, 0);
     };
 

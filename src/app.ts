@@ -7,7 +7,7 @@ module compote.app {
     $render(): core.ComponentTree {
       return [
         `div.app(title="Hello ${this.name}")`, {}, [
-          `> Text node: ${this.name}`,
+          `Text node: ${this.name}`,
           $(`br`),
           $(`img(alt="Element attribute: ${this.name}")`),
           $(`div`, {}, [`Element content: ${this.name}`]),
