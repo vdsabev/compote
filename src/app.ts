@@ -1,15 +1,17 @@
 module compote.app {
-  const { bind, HTML, Component } = core;
-  const { div } = HTML;
+  const { bind, $, Component } = core;
 
   export class AppComponent extends Component {
-    @bind name = 'World';
+    @bind name = `World`;
 
     $render(): core.ComponentTree {
-      return [`.app(title="Hello ${this.name}")`, {}, [
-        div({}, [`${this.name} entered the room`]),
-        Label({ data: { text: `Hello ${this.name}` } }),
-        Label({ data: { text: `Goodbye ${this.name}` } })
+      return [`div.app(title="Hello ${this.name}")`, {}, [
+        $(`div`, {}, [
+          $(`img(alt="${this.name}'s avatar")`),
+          $(`span`, {}, [`${this.name} entered the room`])
+        ]),
+        Label({ text: `Hello ${this.name}` }),
+        Label({ text: `Goodbye ${this.name}` })
       ]];
     }
 
@@ -20,19 +22,8 @@ module compote.app {
     }
   }
 
-  // /** HelloInput */
-  // const HelloInput = component(HelloInputComponent);
-
-  // class HelloInputComponent extends Component {
-  //   @bind value: string;
-  //
-  //   $render() {
-  //     return [`input(type="text" value="${this.value}")`];
-  //   }
-  // }
-
   /** Label */
-  export function Label(properties: core.ComponentProperties<LabelComponent> = {}, children: core.ComponentChild[] = []) {
+  export function Label(data: core.ComponentData<LabelComponent> = {}, children: core.ComponentChild[] = []) {
     return new LabelComponent();
   }
 

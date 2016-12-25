@@ -11,7 +11,7 @@ module compote.app.browser {
     Renderer.document = document;
 
     const app = new AppComponent();
-    const container = document.getElementById('container');
-    app.$mountTo(container);
+    const $container = document.getElementById('container');
+    app.$mountTo($container);
   }
 }
