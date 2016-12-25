@@ -1,18 +1,20 @@
 module compote.app {
-  const { bind, $, Component } = core;
+  const { $, bind, Component } = core;
 
   export class AppComponent extends Component {
     @bind name = `World`;
 
     $render(): core.ComponentTree {
-      return [`div.app(title="Hello ${this.name}")`, {}, [
-        $(`div`, {}, [
-          $(`img(alt="${this.name}'s avatar")`),
-          $(`span`, {}, [`${this.name} entered the room`])
-        ]),
-        Label({ text: `Hello ${this.name}` }),
-        Label({ text: `Goodbye ${this.name}` })
-      ]];
+      return [
+        `div.app(title="Hello ${this.name}")`, {}, [
+          $(`div`, {}, [
+            $(`img(alt="${this.name}'s avatar")`),
+            $(`span`, {}, [`${this.name} entered the room`])
+          ]),
+          Label(`span.todo`, { text: `Hello ${this.name}` }),
+          Label(`span.todo`, { text: `Goodbye ${this.name}` })
+        ]
+      ];
     }
 
     $onInit() {
@@ -23,8 +25,8 @@ module compote.app {
   }
 
   /** Label */
-  export function Label(data: core.ComponentData<LabelComponent> = {}, children: core.ComponentChild[] = []) {
-    return new LabelComponent();
+  export function Label(definition = '', data: core.ComponentData<LabelComponent> = {}) {
+    return new LabelComponent(definition, data);
   }
 
   export class LabelComponent extends Component {

@@ -67,9 +67,7 @@ module compote.core {
 
   export type ComponentAttributes = Record<string, string>;
 
-  export type ComponentData<DataType> = Partial<DataType> & {
-    [key: string]: any
-  };
+  export type ComponentData<DataType> = Partial<DataType>;
 
   export type ComponentChild = string | Component;
 
@@ -145,7 +143,9 @@ module compote.core {
       this.$setData(this.$data);
 
       this.$el = Renderer.document.createElement(this.$tagName);
-      this.$el.className = this.$classNames.join(' ');
+      if (this.$classNames.length > 0) {
+        this.$el.className = this.$classNames.join(' ');
+      }
 
       // Attributes
       this.$setAttributes(this.$el, this.$attributes);
@@ -230,7 +230,7 @@ module compote.core {
     }
   }
 
-  export function $(definition = 'div', data: core.ComponentData<never> = {}, children: core.ComponentChild[] = []): Component {
+  export function $(definition = 'div', data: core.ComponentData<Component> = {}, children: core.ComponentChild[] = []): Component {
     return new Component(definition, data, children);
   }
 
