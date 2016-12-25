@@ -12,6 +12,8 @@ module compote.core {
     static expressionString = '(\\w+)\\.(\\w+)';
     static expressionRegex = new RegExp(Parser.expressionStartString + Parser.expressionString + Parser.expressionEndString);
 
+    static textNodeStartString = '> ';
+
     static parseTagName(definition: string) {
       return (definition.split(Parser.tagEndRegex)[0] || '').trim();
     }
@@ -20,8 +22,10 @@ module compote.core {
       const classNamesStartIndex = definition.indexOf('.');
       if (classNamesStartIndex === -1) return [];
 
-      const classNamesEndIndex = definition.indexOf('(', classNamesStartIndex + 1);
+      const classNamesEndIndex = definition.indexOf('(');
       if (classNamesEndIndex === -1) return definition.substring(classNamesStartIndex + 1).split('.');
+
+      if (classNamesEndIndex < classNamesStartIndex) return [];
 
       return definition.substring(classNamesStartIndex + 1, classNamesEndIndex).split('.');
     }
@@ -59,17 +63,19 @@ module compote.core {
   }
 
   /** Component */
+  type ComponentElement = HTMLElement | Text;
+
+  type ComponentAttributes = Record<string, string>;
+
   export type ComponentTree = [
     string,
     ComponentData<Component>,
     ComponentChild[]
   ];
 
-  export type ComponentAttributes = Record<string, string>;
-
   export type ComponentData<DataType> = Partial<DataType>;
 
-  export type ComponentChild = string | Component;
+  type ComponentChild = string | Component;
 
   export interface Component {
     $onInit?(): void;
@@ -79,7 +85,7 @@ module compote.core {
   // TODO: Support text nodes
   export class Component {
     $id = uniqueId('_');
-    $el: HTMLElement;
+    $el: ComponentElement;
     $rendering: boolean;
     $initializing: boolean;
 
@@ -122,7 +128,22 @@ module compote.core {
     }
 
     $update() {
-      // TODO: Implement
+      if (this.$initializing) {
+        Renderer.delay(() => this.$update());
+        return;
+      }
+
+      if (this.$el.nodeType === Node.ELEMENT_NODE) {
+        this.$updateAttributeExpressions(<HTMLElement>this.$el, this.$attributes);
+        this.$updateChildren(this.$children);
+      }
+      else if (this.$el.nodeType === Node.TEXT_NODE) {
+        const expression = this.$el.textContent;
+        const matches = expression && expression.match(Parser.expressionRegex);
+        if (matches && matches.length > 0) {
+          this.$el.textContent = this.$parseExpression(expression, matches[1], matches[2]);
+        }
+      }
     }
 
     $destroy() {
@@ -139,21 +160,27 @@ module compote.core {
       const tree = this.$render();
       this.$rendering = false;
 
-      this.$parseTree(tree);
-      this.$setData(this.$data);
-
-      this.$el = Renderer.document.createElement(this.$tagName);
-      if (this.$classNames.length > 0) {
-        this.$el.className = this.$classNames.join(' ');
+      const [definition] = tree;
+      if (definition.startsWith(Parser.textNodeStartString)) {
+        this.$el = Renderer.document.createTextNode(definition.substring(Parser.textNodeStartString.length));
       }
+      else {
+        this.$parseTree(tree);
+        this.$setData(this.$data);
 
-      // Attributes
-      this.$setAttributes(this.$el, this.$attributes);
-      this.$updateAttributeExpressions(this.$el, this.$attributes);
+        this.$el = Renderer.document.createElement(this.$tagName);
+        if (this.$classNames.length > 0) {
+          this.$el.className = this.$classNames.join(' ');
+        }
 
-      // Children
-      this.$setChildren(this.$el, this.$children);
-      this.$updateChildExpressions(this.$children);
+        // Attributes
+        this.$setAttributes(this.$el, this.$attributes);
+        this.$updateAttributeExpressions(this.$el, this.$attributes);
+
+        // Children
+        this.$setChildren(this.$el, this.$children);
+        this.$updateChildren(this.$children);
+      }
 
       if (this.$onInit) {
         this.$onInit();
@@ -197,40 +224,41 @@ module compote.core {
           const expression = $el.getAttribute(key);
           const matches = expression && expression.match(Parser.expressionRegex);
           if (matches && matches.length > 0) {
-            const componentId = matches[1];
-            const componentKey = matches[2];
-            $el.setAttribute(key, expression.replace(Parser.expressionRegex, (<any>componentInstancesCache[componentId])[componentKey]));
+            $el.setAttribute(key, this.$parseExpression(expression, matches[1], matches[2]));
           }
         }
       }
     }
 
+    private $parseExpression(expression: string, componentId: string, componentKey: string) {
+      return expression.replace(Parser.expressionRegex, (<any>componentInstancesCache[componentId])[componentKey]);
+    }
+
     private $setChildren($el: HTMLElement, children: ComponentChild[]) {
-      children.forEach((child) => {
+      children.forEach((child, index) => {
         if (typeof child === 'string') {
-          // TODO: Make this a component as well
-          const $child = Renderer.document.createTextNode(child);
-          $el.appendChild($child);
+          const childComponent = children[index] = $(Parser.textNodeStartString + child);
+          childComponent.$appendTo($el);
         }
         else {
-          child.$appendTo(this.$el);
+          child.$appendTo($el);
         }
       });
     }
 
-    private $updateChildExpressions(children: ComponentChild[]) {
-      // TODO: Implement
+    private $updateChildren(children: ComponentChild[]) {
+      children.forEach((child: Component) => child.$update());
     }
 
     // http://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
-    private $removeAllChildren($el: HTMLElement) {
+    private $removeAllChildren($el: ComponentElement) {
       while ($el.firstChild) {
         $el.removeChild($el.lastChild);
       }
     }
   }
 
-  export function $(definition = 'div', data: core.ComponentData<Component> = {}, children: core.ComponentChild[] = []): Component {
+  export function $(definition = 'div', data: ComponentData<Component> = {}, children: ComponentChild[] = []): Component {
     return new Component(definition, data, children);
   }
 
@@ -247,9 +275,7 @@ module compote.core {
       },
       set(this: Component, value: any) {
         (<any>this)[privateKey] = value;
-        if (!this.$initializing) {
-          this.$update();
-        }
+        this.$update();
       }
     });
   }

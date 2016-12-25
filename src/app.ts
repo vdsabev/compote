@@ -7,12 +7,12 @@ module compote.app {
     $render(): core.ComponentTree {
       return [
         `div.app(title="Hello ${this.name}")`, {}, [
-          $(`div`, {}, [
-            $(`img(alt="${this.name}'s avatar")`),
-            $(`span`, {}, [`${this.name} entered the room`])
-          ]),
-          Label(`span.todo`, { text: `Hello ${this.name}` }),
-          Label(`span.todo`, { text: `Goodbye ${this.name}` })
+          `> Text node: ${this.name}`,
+          $(`br`),
+          $(`img(alt="Element attribute: ${this.name}")`),
+          $(`div`, {}, [`Element content: ${this.name}`]),
+          Label(`span.todo`, { text: `Custom component 1: ${this.name}` }),
+          Label(`span.todo`, { text: `Custom component 2: ${this.name}` })
         ]
       ];
     }
@@ -25,7 +25,7 @@ module compote.app {
   }
 
   /** Label */
-  export function Label(definition = '', data: core.ComponentData<LabelComponent> = {}) {
+  export function Label(definition = ``, data: core.ComponentData<LabelComponent> = {}) {
     return new LabelComponent(definition, data);
   }
 
