@@ -1,6 +1,6 @@
 module compote.app {
-  const { bind, Component, Renderer } = core;
-  const { div } = Renderer;
+  const { bind, HTML, Component } = core;
+  const { div } = HTML;
 
   export class AppComponent extends Component {
     @bind name = 'World';

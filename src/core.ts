@@ -2,6 +2,21 @@ module compote.core {
   /** Caches */
   const componentInstancesCache: Record<string, Component> = {};
 
+  /** HTML */
+  export class HTML {
+    static tag(name: string) {
+      return (properties: core.ComponentProperties<never> = {}, children: core.ComponentChild[] = []): Component => {
+        return new Component(name, properties, children);
+      };
+    }
+
+    static div = HTML.tag('div');
+    static span = HTML.tag('span');
+    static input = HTML.tag('input');
+    static textarea = HTML.tag('textarea');
+    static button = HTML.tag('button');
+  }
+
   /** Parser */
   export class Parser {
     static tagEndRegex = /[\.\(]/;
@@ -54,19 +69,8 @@ module compote.core {
 
   /** Renderer */
   export class Renderer {
+    static delay: (fn: Function) => void;
     static document: Document;
-
-    static tag(name: string) {
-      return (properties: core.ComponentProperties<never> = {}, children: core.ComponentChild[] = []): Component => {
-        return new Component(name, properties, children);
-      };
-    }
-
-    static div = Renderer.tag('div');
-    static span = Renderer.tag('span');
-    static input = Renderer.tag('input');
-    static textarea = Renderer.tag('textarea');
-    static button = Renderer.tag('button');
   }
 
   /** Component */
@@ -94,8 +98,8 @@ module compote.core {
   export class Component {
     $id = uniqueId('_');
     $el: HTMLElement;
-    $rendered: boolean;
-    $initialized: boolean;
+    $rendering: boolean;
+    $initializing: boolean;
 
     private $tagName: string;
     private $classNames: string[] = [];
@@ -110,37 +114,25 @@ module compote.core {
     ) {
       componentInstancesCache[this.$id] = this;
 
-      const tree = this.$render();
-      this.$rendered = true;
-
-      this.$parse(tree);
-      this.$setData(this.$properties.data);
-
-      this.$el = Renderer.document.createElement(this.$tagName);
-      this.$el.className = this.$classNames.join(' ');
-
-      // Attributes
-      this.$setAttributes(this.$el, this.$attributes);
-      this.$updateAttributeExpressions(this.$el, this.$attributes);
-
-      // Properties
-      this.$setProperties(this.$el, this.$properties);
-      this.$updatePropertyExpressions(this.$el, this.$properties);
-
-      // Children
-      this.$setChildren(this.$el, this.$children);
-      this.$updateChildExpressions(this.$children);
-
-      this.$initialized = true;
-
-      if (this.$onInit) {
-        this.$onInit();
-      }
+      this.$initializing = true;
+      Renderer.delay(() => this.$init());
     }
 
-    $mount(container: HTMLElement) {
-      this.removeAllChildren(container);
-      container.appendChild(this.$el);
+    $mountTo($container: HTMLElement, removeAllChildren = true) {
+      if (this.$initializing) {
+        Renderer.delay(() => this.$mountTo($container, removeAllChildren));
+        return;
+      }
+
+      if (removeAllChildren) {
+        this.$removeAllChildren($container);
+      }
+
+      $container.appendChild(this.$el);
+    }
+
+    $appendTo($container: HTMLElement) {
+      this.$mountTo($container, false);
     }
 
     $render(): ComponentTree {
@@ -160,7 +152,37 @@ module compote.core {
       delete componentInstancesCache[this.$id];
     }
 
-    private $parse([definition, properties, children]: ComponentTree) {
+    private $init() {
+      this.$rendering = true;
+      const tree = this.$render();
+      this.$rendering = false;
+
+      this.$parseTree(tree);
+      this.$setData(this.$properties.data);
+
+      this.$el = Renderer.document.createElement(this.$tagName);
+      this.$el.className = this.$classNames.join(' ');
+
+      // Attributes
+      this.$setAttributes(this.$el, this.$attributes);
+      this.$updateAttributeExpressions(this.$el, this.$attributes);
+
+      // Properties
+      this.$setProperties(this.$el, this.$properties);
+      this.$updatePropertyExpressions(this.$el, this.$properties);
+
+      // Children
+      this.$setChildren(this.$el, this.$children);
+      this.$updateChildExpressions(this.$children);
+
+      if (this.$onInit) {
+        this.$onInit();
+      }
+
+      this.$initializing = false;
+    }
+
+    private $parseTree([definition, properties, children]: ComponentTree) {
       if (definition) {
         this.$tagName = Parser.parseTagName(definition);
         this.$classNames = Parser.parseClassNames(definition);
@@ -181,57 +203,57 @@ module compote.core {
     }
 
     // TODO: Only update changed properties
-    private $setProperties(el: HTMLElement, properties: ComponentProperties<Component>) {
-      Object.assign(el, properties);
+    private $setProperties($el: HTMLElement, properties: ComponentProperties<Component>) {
+      Object.assign($el, properties);
     }
 
     // TODO: Only update changed expressions
-    private $updatePropertyExpressions(el: HTMLElement, properties: ComponentProperties<Component>) {
+    private $updatePropertyExpressions($el: HTMLElement, properties: ComponentProperties<Component>) {
       for (let key in properties) {
         if (properties.hasOwnProperty(key)) {
-          const expression = (<any>el)[key];
+          const expression = (<any>$el)[key];
           const matches = expression && expression.match(Parser.expressionRegex);
           if (matches && matches.length > 0) {
             const componentId = matches[1];
             const componentKey = matches[2];
-            (<any>el)[key] = expression.replace(Parser.expressionRegex, (<any>componentInstancesCache[componentId])[componentKey]);
+            (<any>$el)[key] = expression.replace(Parser.expressionRegex, (<any>componentInstancesCache[componentId])[componentKey]);
           }
         }
       }
     }
 
     // TODO: Only update changed expressions
-    private $setAttributes(el: HTMLElement, attributes: ComponentAttributes) {
+    private $setAttributes($el: HTMLElement, attributes: ComponentAttributes) {
       for (let key in attributes) {
         if (attributes.hasOwnProperty(key)) {
-          el.setAttribute(key, attributes[key]);
+          $el.setAttribute(key, attributes[key]);
         }
       }
     }
 
-    private $updateAttributeExpressions(el: HTMLElement, attributes: ComponentAttributes) {
+    private $updateAttributeExpressions($el: HTMLElement, attributes: ComponentAttributes) {
       for (let key in attributes) {
         if (attributes.hasOwnProperty(key)) {
-          const expression = el.getAttribute(key);
+          const expression = $el.getAttribute(key);
           const matches = expression && expression.match(Parser.expressionRegex);
           if (matches && matches.length > 0) {
             const componentId = matches[1];
             const componentKey = matches[2];
-            el.setAttribute(key, expression.replace(Parser.expressionRegex, (<any>componentInstancesCache[componentId])[componentKey]));
+            $el.setAttribute(key, expression.replace(Parser.expressionRegex, (<any>componentInstancesCache[componentId])[componentKey]));
           }
         }
       }
     }
 
-    private $setChildren(el: HTMLElement, children: ComponentChild[]) {
+    private $setChildren($el: HTMLElement, children: ComponentChild[]) {
       children.forEach((child) => {
         if (typeof child === 'string') {
           // TODO: Make this a component as well
           const $child = Renderer.document.createTextNode(child);
-          el.appendChild($child);
+          $el.appendChild($child);
         }
         else {
-          el.appendChild(child.$el);
+          child.$appendTo(this.$el);
         }
       });
     }
@@ -241,7 +263,7 @@ module compote.core {
     }
 
     // http://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
-    removeAllChildren($el: HTMLElement) {
+    private $removeAllChildren($el: HTMLElement) {
       while ($el.firstChild) {
         $el.removeChild($el.lastChild);
       }
@@ -253,7 +275,7 @@ module compote.core {
     const privateKey = `$$${key}`;
     Object.defineProperty(target, key, {
       get(this: Component) {
-        if (!this.$rendered) {
+        if (this.$rendering) {
           const expression = `${this.$id}.${key}`;
           return Parser.expressionStartString + expression + Parser.expressionEndString;
         }
@@ -261,7 +283,7 @@ module compote.core {
       },
       set(this: Component, value: any) {
         (<any>this)[privateKey] = value;
-        if (this.$initialized) {
+        if (!this.$initializing) {
           this.$update();
         }
       }
