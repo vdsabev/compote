@@ -87,11 +87,13 @@ module compote.core {
     $rendering: boolean;
     $initializing: boolean;
 
+    private $definition: string;
+    private $data: ComponentData<Component>;
+    private $children: ComponentChild[];
+
     private $tagName: string;
     private $classNames: string[] = [];
     private $attributes: ComponentAttributes = {};
-    private $data: ComponentData<Component>;
-    private $children: ComponentChild[];
 
     constructor(
       private $constructorDefinition?: string,
@@ -137,7 +139,7 @@ module compote.core {
         this.$updateChildren(this.$children);
       }
       else if (this.$el.nodeType === Node.TEXT_NODE) {
-        const expression = this.$el.textContent;
+        const expression = this.$definition.substring(Parser.textNodeStartString.length);
         const matches = expression && expression.match(Parser.expressionRegex);
         if (matches && matches.length > 0) {
           this.$el.textContent = this.$parseExpression(expression, matches[1], matches[2]);
@@ -163,6 +165,7 @@ module compote.core {
       // TODO: Merge definition with constructor definition
       // TODO: Merge children with constructor children
 
+      this.$definition = definition;
       this.$data = data;
       this.$setData(this.$data);
       this.$setData(this.$constructorData);
@@ -225,7 +228,7 @@ module compote.core {
     private $updateAttributeExpressions($el: HTMLElement, attributes: ComponentAttributes) {
       for (let key in attributes) {
         if (attributes.hasOwnProperty(key)) {
-          const expression = $el.getAttribute(key);
+          const expression = this.$attributes[key];
           const matches = expression && expression.match(Parser.expressionRegex);
           if (matches && matches.length > 0) {
             $el.setAttribute(key, this.$parseExpression(expression, matches[1], matches[2]));
@@ -234,8 +237,13 @@ module compote.core {
       }
     }
 
-    private $parseExpression(expression: string, componentId: string, componentKey: string) {
+    private $parseExpression(expression: string, componentId: string, componentKey: string): string {
       const value = (<any>componentInstancesCache[componentId])[componentKey];
+      const matches = value && value.match(Parser.expressionRegex);
+      if (matches && matches.length > 0) {
+        return this.$parseExpression(value, matches[1], matches[2]);
+      }
+
       return expression.replace(Parser.expressionRegex, value != null ? value : '');
     }
 

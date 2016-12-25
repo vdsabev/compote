@@ -19,9 +19,9 @@ module compote.app {
     }
 
     $onInit() {
-      // setInterval(() => {
-      //   this.name = new Date().toISOString();
-      // }, 1e3);
+      setInterval(() => {
+        this.name = new Date().toISOString();
+      }, 1e3);
     }
   }
 
