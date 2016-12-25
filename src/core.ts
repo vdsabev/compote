@@ -158,13 +158,22 @@ module compote.core {
       const tree = this.$render();
       this.$rendering = false;
 
-      const [definition] = tree;
+      const [definition, data, children] = tree;
+      // TODO: Merge definition with constructor definition
+      // TODO: Merge children with constructor children
+
+      this.$data = data;
+      this.$setData(this.$data);
+      this.$setData(this.$constructorData);
+
       if (definition.startsWith(Parser.textNodeStartString)) {
         this.$el = Renderer.document.createTextNode(definition.substring(Parser.textNodeStartString.length));
+        this.$data = data;
       }
       else {
-        this.$parseTree(tree);
-        this.$setData(this.$data);
+        this.$parseDefinition(definition);
+
+        this.$children = children;
 
         this.$el = Renderer.document.createElement(this.$tagName);
         if (this.$classNames.length > 0) {
@@ -187,7 +196,12 @@ module compote.core {
       this.$initializing = false;
     }
 
-    private $parseTree([definition, data, children]: ComponentTree) {
+    // TODO: Deep copy instead of shallow to prevent overriding the original object
+    private $setData(data: Partial<Component>) {
+      Object.assign(this, data);
+    }
+
+    private $parseDefinition(definition: string) {
       if (definition) {
         this.$tagName = Parser.parseTagName(definition);
         this.$classNames = Parser.parseClassNames(definition);
@@ -197,15 +211,6 @@ module compote.core {
       if (!this.$tagName) {
         this.$tagName = 'div';
       }
-
-      this.$data = data;
-
-      this.$children = children;
-    }
-
-    // TODO: Deep copy instead of shallow to prevent overriding the original object
-    private $setData(data: Partial<Component>) {
-      Object.assign(this, data);
     }
 
     // TODO: Only update changed expressions
