@@ -11,6 +11,7 @@ module compote.app {
           $(`br`),
           $(`img(alt="Element attribute: ${this.name}")`),
           $(`div`, {}, [`Element content: ${this.name}`]),
+          // TODO: Support overriding definition
           Label(`span.todo`, { text: `Custom component 1: ${this.name}` }),
           Label(`span.todo`, { text: `Custom component 2: ${this.name}` })
         ]

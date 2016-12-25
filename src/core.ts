@@ -6,7 +6,7 @@ module compote.core {
   export class Parser {
     static tagEndRegex = /[\.\(]/;
 
-    // TODO: Interpolate more than 1 expression
+    // TODO: Interpolate more than 1 expression in a string
     static expressionStartString = '{{';
     static expressionEndString = '}}';
     static expressionString = '(\\w+)\\.(\\w+)';
@@ -33,7 +33,6 @@ module compote.core {
     static parseAttributes(definition: string): ComponentAttributes {
       const attributes: ComponentAttributes = {};
 
-      // TODO: Make characters customizable
       const attributesStartIndex = definition.indexOf('(');
       const attributesEndIndex = definition.indexOf(')', attributesStartIndex + 1);
       if ((attributesStartIndex === -1) !== (attributesEndIndex === -1)) throw new Error(`Missing parentheses in attributes definition: ${definition}`);
@@ -82,7 +81,6 @@ module compote.core {
     $onDestroy?(): void;
   }
 
-  // TODO: Support text nodes
   export class Component {
     $id = uniqueId('_');
     $el: ComponentElement;
@@ -205,6 +203,7 @@ module compote.core {
       this.$children = children;
     }
 
+    // TODO: Deep copy instead of shallow to prevent overriding the original object
     private $setData(data: Partial<Component>) {
       Object.assign(this, data);
     }
@@ -231,7 +230,8 @@ module compote.core {
     }
 
     private $parseExpression(expression: string, componentId: string, componentKey: string) {
-      return expression.replace(Parser.expressionRegex, (<any>componentInstancesCache[componentId])[componentKey]);
+      const value = (<any>componentInstancesCache[componentId])[componentKey];
+      return expression.replace(Parser.expressionRegex, value != null ? value : '');
     }
 
     private $setChildren($el: HTMLElement, children: ComponentChild[]) {
