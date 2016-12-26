@@ -27,7 +27,7 @@ module compote.app {
           ` Button clicked ${this.counter} times`,
 
           hr(),
-          label({}, [
+          label({ class: `pointer` }, [
             input({ type: `checkbox`, checked: this.checked, onChange: this.toggleChecked() }),
             this.getCheckedText()
           ]),

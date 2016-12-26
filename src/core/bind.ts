@@ -1,5 +1,5 @@
 module compote.core {
-  /** Decorators */
+  /** Bind */
   export function bind(access: 'get' | 'set') {
     return (target: Component, key: string, propertyDescriptor?: PropertyDescriptor): any => {
       // Class method
@@ -13,9 +13,11 @@ module compote.core {
                 return Parser.surroundExpression(binding);
               case 'set':
                 return `Compote.${binding}`;
+              default:
+                throw new Error(`Invalid binding access: ${access}`);
             }
           }
-          originalMethod.apply(this, args);
+          return originalMethod.apply(this, args);
         };
       }
       // Class property

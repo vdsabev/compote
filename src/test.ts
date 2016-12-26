@@ -59,13 +59,13 @@ module compote.test {
 
   run({
     Parser: {
-      parseExpression: {
+      parse: {
         'should parse property expression'(done: Function) {
           new Component({
             data: {
               a: 'b',
               $onInit() {
-                const value = Parser.parseExpression(`{{${this.$id}.a}}`);
+                const value = Parser.parse(`{{${this.$id}.a}}`);
                 expect.equal(value, 'b');
                 done();
               }
@@ -78,7 +78,7 @@ module compote.test {
             data: {
               a: () => 'b',
               $onInit() {
-                const value = Parser.parseExpression(`{{Compote.${this.$id}.a(event)}}`);
+                const value = Parser.parse(`{{Compote.${this.$id}.a(event)}}`);
                 expect.equal(value, 'b');
                 done();
               }

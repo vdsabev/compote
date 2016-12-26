@@ -106,7 +106,7 @@ module compote.core {
         if (this.$attributeIsAllowed(attributes, attributeKey)) {
           // TODO: Handle empty style properties, e.g. `background: `
           const attributeValue = this.$getAttributeValue(attributeKey, this.$attributes[attributeKey]);
-          const parsedExpression = Parser.parseExpression(attributeValue);
+          const parsedExpression = Parser.parse(attributeValue);
           if (parsedExpression !== attributeValue) {
             $el.setAttribute(attributeKey, parsedExpression);
           }
@@ -169,17 +169,17 @@ module compote.core {
         return;
       }
 
-      if (this.$el.nodeType === Node.ELEMENT_NODE) {
-        this.$updateAttributeExpressions(<HTMLElement>this.$el, this.$attributes);
-        this.$updateChildren(this.$children);
-        // TODO: Update sibling & parent bindings
-      }
-      else if (this.$el.nodeType === Node.TEXT_NODE) {
+      if (this.$el.nodeType === Node.TEXT_NODE) {
         const expression = this.$textContent;
-        const parsedExpression = Parser.parseExpression(expression);
+        const parsedExpression = Parser.parse(expression);
         if (parsedExpression !== expression) {
           this.$el.textContent = parsedExpression;
         }
+      }
+      else if (this.$el.nodeType === Node.ELEMENT_NODE) {
+        this.$updateAttributeExpressions(<HTMLElement>this.$el, this.$attributes);
+        this.$updateChildren(this.$children);
+        // TODO: Update sibling & parent bindings
       }
     }
 
