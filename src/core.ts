@@ -2,54 +2,147 @@ module compote.core {
   /** Caches */
   const componentInstancesCache: Record<string, Component> = (<any>window).Compote = {};
 
+  /** HTML tags */
+  // http://www.quackit.com/html_5/tags
+  export const HTML = {
+    a: tag('a'),
+    abbr: tag('abbr'),
+    address: tag('address'),
+    area: tag('area'),
+    article: tag('article'),
+    aside: tag('aside'),
+    audio: tag('audio'),
+    b: tag('b'),
+    base: tag('base'),
+    bdi: tag('bdi'),
+    bdo: tag('bdo'),
+    blockquote: tag('blockquote'),
+    body: tag('body'),
+    br: tag('br'),
+    button: tag('button'),
+    canvas: tag('canvas'),
+    caption: tag('caption'),
+    cite: tag('cite'),
+    code: tag('code'),
+    col: tag('col'),
+    colgroup: tag('colgroup'),
+    data: tag('data'),
+    datalist: tag('datalist'),
+    dd: tag('dd'),
+    del: tag('del'),
+    details: tag('details'),
+    dfn: tag('dfn'),
+    dialog: tag('dialog'),
+    div: tag('div'),
+    dl: tag('dl'),
+    dt: tag('dt'),
+    em: tag('em'),
+    embed: tag('embed'),
+    fieldset: tag('fieldset'),
+    figcaption: tag('figcaption'),
+    figure: tag('figure'),
+    footer: tag('footer'),
+    form: tag('form'),
+    h1: tag('h1'),
+    h2: tag('h2'),
+    h3: tag('h3'),
+    h4: tag('h4'),
+    h5: tag('h5'),
+    h6: tag('h6'),
+    head: tag('head'),
+    header: tag('header'),
+    hgroup: tag('hgroup'),
+    hr: tag('hr'),
+    html: tag('html'),
+    i: tag('i'),
+    iframe: tag('iframe'),
+    img: tag('img'),
+    input: tag('input'),
+    ins: tag('ins'),
+    kbd: tag('kbd'),
+    keygen: tag('keygen'),
+    label: tag('label'),
+    legend: tag('legend'),
+    li: tag('li'),
+    link: tag('link'),
+    main: tag('main'),
+    map: tag('map'),
+    mark: tag('mark'),
+    menu: tag('menu'),
+    menuitem: tag('menuitem'),
+    meta: tag('meta'),
+    meter: tag('meter'),
+    nav: tag('nav'),
+    noscript: tag('noscript'),
+    object: tag('object'),
+    ol: tag('ol'),
+    optgroup: tag('optgroup'),
+    option: tag('option'),
+    output: tag('output'),
+    p: tag('p'),
+    param: tag('param'),
+    pre: tag('pre'),
+    progress: tag('progress'),
+    q: tag('q'),
+    rb: tag('rb'),
+    rp: tag('rp'),
+    rt: tag('rt'),
+    rtc: tag('rtc'),
+    ruby: tag('ruby'),
+    s: tag('s'),
+    samp: tag('samp'),
+    script: tag('script'),
+    section: tag('section'),
+    select: tag('select'),
+    small: tag('small'),
+    source: tag('source'),
+    span: tag('span'),
+    strong: tag('strong'),
+    style: tag('style'),
+    sub: tag('sub'),
+    summary: tag('summary'),
+    sup: tag('sup'),
+    table: tag('table'),
+    tbody: tag('tbody'),
+    td: tag('td'),
+    template: tag('template'),
+    textarea: tag('textarea'),
+    tfoot: tag('tfoot'),
+    th: tag('th'),
+    thead: tag('thead'),
+    time: tag('time'),
+    title: tag('title'),
+    tr: tag('tr'),
+    track: tag('track'),
+    u: tag('u'),
+    ul: tag('ul'),
+    var: tag('var'),
+    video: tag('video'),
+    wbr: tag('wbr')
+  };
+
+  export function tag(tagName: string) {
+    return (attributes?: ComponentAttributes<Component>, children?: ComponentTree | ComponentTree[]): ComponentTree => {
+      return [Object.assign({ tagName }, attributes), children];
+    };
+  }
+
   /** Parser */
   export class Parser {
-    static tagEndRegex = /[\.\(]/;
-
     // TODO: Interpolate more than 1 expression in a string
     static expressionStartString = '{{';
     static expressionEndString = '}}';
     static expressionString = '(\\w+)\\.(\\w+)';
     static expressionRegex = new RegExp(Parser.expressionStartString + Parser.expressionString + Parser.expressionEndString);
 
-    static textNodeStartString = '> ';
+    static parseExpression(expression: string): string {
+      const matches = expression && expression.toString().match(Parser.expressionRegex);
+      if (!(matches && matches.length > 0)) return expression; // Move along, nothing to parse here...
 
-    static parseTagName(definition: string) {
-      return (definition.split(Parser.tagEndRegex)[0] || '').trim();
-    }
-
-    static parseClassNames(definition: string): string[] {
-      const classNamesStartIndex = definition.indexOf('.');
-      if (classNamesStartIndex === -1) return [];
-
-      const classNamesEndIndex = definition.indexOf('(');
-      if (classNamesEndIndex === -1) return definition.substring(classNamesStartIndex + 1).split('.');
-
-      if (classNamesEndIndex < classNamesStartIndex) return [];
-
-      return definition.substring(classNamesStartIndex + 1, classNamesEndIndex).split('.');
-    }
-
-    static parseAttributes(definition: string): ComponentAttributes {
-      const attributes: ComponentAttributes = {};
-
-      const attributesStartIndex = definition.indexOf('(');
-      const attributesEndIndex = definition.lastIndexOf(')');
-      if ((attributesStartIndex === -1) !== (attributesEndIndex === -1)) throw new Error(`Missing parentheses in attributes definition: ${definition}`);
-
-      if (attributesStartIndex !== -1 && attributesEndIndex !== -1) {
-        const attributesString = definition.substring(attributesStartIndex + 1, attributesEndIndex);
-        if (attributesString) {
-          let attributeMatches: RegExpExecArray;
-          const attributesRegex = /(?:\s*(\w+="[^"]+")\s*)/g;
-          while (attributeMatches = attributesRegex.exec(attributesString)) {
-            const [key, value] = attributeMatches[1].split('=');
-            attributes[key] = value.slice(1, -1);
-          }
-        }
-      }
-
-      return attributes;
+      const [componentId, componentKey] = matches.slice(1, 3);
+      const value = (<any>componentInstancesCache[componentId])[componentKey];
+      const parsedExpression = expression.replace(Parser.expressionRegex, value != null ? value : '');
+      return Parser.parseExpression(parsedExpression);
     }
   }
 
@@ -60,19 +153,16 @@ module compote.core {
   }
 
   /** Component */
-  type ComponentElement = HTMLElement | Text;
+  export type ComponentTree = string | [ComponentAttributes<Component>, any];
 
-  type ComponentAttributes = Record<string, string>;
+  export type ComponentAttributes<DataType> = {
+    [key: string]: any
+    Component?: typeof Component
+    data?: ComponentData<DataType>
+    tagName?: string
+  };
 
-  export type ComponentTree = [
-    string,
-    ComponentData<Component>,
-    ComponentChild[]
-  ];
-
-  export type ComponentData<DataType> = Partial<DataType>;
-
-  type ComponentChild = string | Component;
+  type ComponentData<DataType> = Partial<DataType>;
 
   export interface Component {
     $onInit?(): void;
@@ -80,28 +170,147 @@ module compote.core {
   }
 
   export class Component {
+    private static reservedAttributes = ['Component', 'data', 'tagName'];
+
     $id = uniqueId(`${this.constructor.name}_`);
-    $el: ComponentElement;
-    $rendering: boolean;
+    $el: HTMLElement | Text;
     $initializing: boolean;
+    $rendering: boolean;
 
-    private $definition: string;
-    private $data: ComponentData<Component>;
-    private $children: ComponentChild[];
+    private $textContent: string;
+    private $attributes: ComponentAttributes<Component> = {};
+    private $children: Component[] = [];
 
-    private $tagName: string;
-    private $classNames: string[] = [];
-    private $attributes: ComponentAttributes = {};
+    private $constructorTextContent: string;
+    private $constructorAttributes: ComponentAttributes<Component> = {};
+    private $constructorChildren: ComponentTree | ComponentTree[] = [];
 
     constructor(
-      private $constructorDefinition?: string,
-      private $constructorData?: ComponentData<Component>,
-      private $constructorChildren?: ComponentChild[]
+      attributes: string | ComponentAttributes<Component> = {},
+      children: ComponentTree | ComponentTree[] = []
     ) {
       componentInstancesCache[this.$id] = this;
 
+      if (typeof attributes === 'string') {
+        this.$constructorTextContent = attributes; // Switch arguments
+      }
+      else {
+        this.$constructorAttributes = attributes;
+        this.$constructorChildren = children;
+      }
+
       this.$initializing = true;
       Renderer.defer(() => this.$init());
+    }
+
+    private $init() {
+      this.$rendering = true;
+      const tree = this.$render();
+      this.$rendering = false;
+
+      if (typeof tree === 'string') {
+        this.$textContent = tree;
+        this.$el = Renderer.document.createTextNode(this.$textContent);
+      }
+      else {
+        // Attributes
+        const attributes = tree[0];
+        Object.assign(this.$attributes, attributes, this.$constructorAttributes);
+        Object.assign(this, this.$attributes.data, this.$constructorAttributes.data);
+
+        this.$el = Renderer.document.createElement(this.$attributes['tagName'] || 'div');
+        this.$setAttributes(this.$el, this.$attributes);
+        this.$updateAttributeExpressions(this.$el, this.$attributes);
+
+        // Children
+        let children: ComponentTree | ComponentTree[] = tree[1];
+        if (!Array.isArray(children)) {
+          children = [children];
+        }
+
+        this.$setChildren(this.$el, this.$children, children);
+        this.$updateChildren(this.$children);
+      }
+
+      if (this.$onInit) {
+        this.$onInit();
+      }
+
+      this.$initializing = false;
+    }
+
+    $render(): ComponentTree {
+      return this.$constructorTextContent || [this.$constructorAttributes, this.$constructorChildren];
+    }
+
+    // TODO: Only update changed expressions
+    private $setAttributes($el: HTMLElement, attributes: ComponentAttributes<Component>) {
+      for (let key in attributes) {
+        if (this.$attributeIsAllowed(attributes, key)) {
+          $el.setAttribute(key, attributes[key]);
+        }
+      }
+    }
+
+    private $updateAttributeExpressions($el: HTMLElement, attributes: ComponentAttributes<Component>) {
+      for (let key in attributes) {
+        if (this.$attributeIsAllowed(attributes, key)) {
+          const expression = this.$attributes[key];
+          const parsedExpression = Parser.parseExpression(expression);
+          if (parsedExpression !== expression) {
+            $el.setAttribute(key, parsedExpression);
+          }
+        }
+      }
+    }
+
+    private $attributeIsAllowed(attributes: ComponentAttributes<Component>, key: string): boolean {
+      return attributes.hasOwnProperty(key) && Component.reservedAttributes.indexOf(key) === -1;
+    }
+
+    private $setChildren($el: HTMLElement, children: Component[], childTrees: ComponentTree[]) {
+      childTrees.forEach((childTree) => {
+        if (!childTree) return;
+
+        let component: Component;
+        if (typeof childTree === 'string') {
+          component = new Component(childTree);
+        }
+        else {
+          const ComponentClass = childTree[0].Component || Component;
+          component = new ComponentClass(childTree[0], childTree[1]);
+        }
+
+        children.push(component);
+        component.$appendTo($el);
+      });
+    }
+
+    private $updateChildren(children: Component[]) {
+      children.forEach((child: Component) => child.$update());
+    }
+
+    $update() {
+      if (this.$initializing) {
+        Renderer.defer(() => this.$update());
+        return;
+      }
+
+      if (this.$el.nodeType === Node.ELEMENT_NODE) {
+        this.$updateAttributeExpressions(<HTMLElement>this.$el, this.$attributes);
+        this.$updateChildren(this.$children);
+      }
+      else if (this.$el.nodeType === Node.TEXT_NODE) {
+        const expression = this.$textContent;
+        const parsedExpression = Parser.parseExpression(expression);
+        if (parsedExpression !== expression) {
+          this.$el.textContent = parsedExpression;
+        }
+      }
+    }
+
+    private $appendTo($container: HTMLElement) {
+      this.$mountTo($container, false);
     }
 
     $mountTo($container: HTMLElement, removeAllChildren = true) {
@@ -118,30 +327,10 @@ module compote.core {
       $container.appendChild(this.$el);
     }
 
-    $appendTo($container: HTMLElement) {
-      this.$mountTo($container, false);
-    }
-
-    $render(): ComponentTree {
-      return [this.$constructorDefinition, this.$constructorData, this.$constructorChildren];
-    }
-
-    $update() {
-      if (this.$initializing) {
-        Renderer.defer(() => this.$update());
-        return;
-      }
-
-      if (this.$el.nodeType === Node.ELEMENT_NODE) {
-        this.$updateAttributeExpressions(<HTMLElement>this.$el, this.$attributes);
-        this.$updateChildren(this.$children);
-      }
-      else if (this.$el.nodeType === Node.TEXT_NODE) {
-        const expression = this.$definition.substring(Parser.textNodeStartString.length);
-        const matches = expression && expression.match(Parser.expressionRegex);
-        if (matches && matches.length > 0) {
-          this.$el.textContent = this.$parseExpression(expression, matches[1], matches[2]);
-        }
+    // http://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
+    private $removeAllChildren($el: HTMLElement) {
+      while ($el.firstChild) {
+        $el.removeChild($el.lastChild);
       }
     }
 
@@ -153,123 +342,6 @@ module compote.core {
       this.$el.parentNode.removeChild(this.$el);
       delete componentInstancesCache[this.$id];
     }
-
-    private $init() {
-      this.$rendering = true;
-      const tree = this.$render();
-      this.$rendering = false;
-
-      const [definition, data, children] = tree;
-      // TODO: Support merging definition / children
-
-      this.$definition = definition;
-      this.$data = data;
-      this.$setData(this.$data);
-      this.$setData(this.$constructorData);
-
-      if (definition.startsWith(Parser.textNodeStartString)) {
-        this.$el = Renderer.document.createTextNode(definition.substring(Parser.textNodeStartString.length));
-      }
-      else {
-        this.$parseDefinition(definition);
-
-        this.$children = children;
-
-        this.$el = Renderer.document.createElement(this.$tagName);
-        if (this.$classNames.length > 0) {
-          this.$el.className = this.$classNames.join(' ');
-        }
-
-        // Attributes
-        this.$setAttributes(this.$el, this.$attributes);
-        this.$updateAttributeExpressions(this.$el, this.$attributes);
-
-        // Children
-        this.$setChildren(this.$el, this.$children);
-        this.$updateChildren(this.$children);
-      }
-
-      if (this.$onInit) {
-        this.$onInit();
-      }
-
-      this.$initializing = false;
-    }
-
-    // TODO: Deep copy instead of shallow to prevent overriding the original object
-    private $setData(data: Partial<Component>) {
-      Object.assign(this, data);
-    }
-
-    private $parseDefinition(definition: string) {
-      if (definition) {
-        this.$tagName = Parser.parseTagName(definition);
-        this.$classNames = Parser.parseClassNames(definition);
-        this.$attributes = Parser.parseAttributes(definition);
-      }
-
-      if (!this.$tagName) {
-        this.$tagName = 'div';
-      }
-    }
-
-    // TODO: Only update changed expressions
-    private $setAttributes($el: HTMLElement, attributes: ComponentAttributes) {
-      for (let key in attributes) {
-        if (attributes.hasOwnProperty(key)) {
-          $el.setAttribute(key, attributes[key]);
-        }
-      }
-    }
-
-    private $updateAttributeExpressions($el: HTMLElement, attributes: ComponentAttributes) {
-      for (let key in attributes) {
-        if (attributes.hasOwnProperty(key)) {
-          const expression = this.$attributes[key];
-          const matches = expression && expression.match(Parser.expressionRegex);
-          if (matches && matches.length > 0) {
-            $el.setAttribute(key, this.$parseExpression(expression, matches[1], matches[2]));
-          }
-        }
-      }
-    }
-
-    private $parseExpression(expression: string, componentId: string, componentKey: string): string {
-      const value = (<any>componentInstancesCache[componentId])[componentKey];
-      const matches = value && value.toString().match(Parser.expressionRegex);
-      if (matches && matches.length > 0) {
-        return this.$parseExpression(value, matches[1], matches[2]);
-      }
-
-      return expression.replace(Parser.expressionRegex, value != null ? value : '');
-    }
-
-    private $setChildren($el: HTMLElement, children: ComponentChild[]) {
-      children.forEach((child, index) => {
-        if (typeof child === 'string') {
-          const childComponent = children[index] = $(Parser.textNodeStartString + child);
-          childComponent.$appendTo($el);
-        }
-        else {
-          child.$appendTo($el);
-        }
-      });
-    }
-
-    private $updateChildren(children: ComponentChild[]) {
-      children.forEach((child: Component) => child.$update());
-    }
-
-    // http://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
-    private $removeAllChildren($el: ComponentElement) {
-      while ($el.firstChild) {
-        $el.removeChild($el.lastChild);
-      }
-    }
-  }
-
-  export function $(definition = 'div', data: ComponentData<Component> = {}, children: ComponentChild[] = []): Component {
-    return new Component(definition, data, children);
   }
 
   /** Decorators */

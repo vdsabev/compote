@@ -6,6 +6,7 @@ module compote.app.browser {
   function bootstrap() {
     Object.assign(Renderer, {
       document,
+      // TODO: Find a way to preserve the stack trace
       defer(fn: Function) {
         setTimeout(fn, 0);
       }
