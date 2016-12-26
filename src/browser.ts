@@ -1,31 +1,18 @@
 module compote.app.browser {
-  const { setRenderer } = core;
+  const { Renderer } = core;
 
-  const renderer = virtualDom;
+  bootstrap();
 
-  export class BrowserAppComponent extends AppComponent {
-    $el: Element;
-    $node: VirtualDOM.VNode;
-
-    $mount() {
-      this.$node = this.$render();
-      this.$el = renderer.create(this.$node);
-
-      // http://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
-      const container = document.getElementById('container');
-      while (container.firstChild) {
-        container.removeChild(container.lastChild);
+  function bootstrap() {
+    Object.assign(Renderer, {
+      document,
+      defer(fn: Function) {
+        setTimeout(fn, 0);
       }
-      container.appendChild(this.$el);
-    }
+    });
 
-    $update() {
-      const diff = renderer.diff(this.$node, this.$render());
-      this.$el = renderer.patch(this.$el, diff);
-    }
+    const app = new AppComponent();
+    const $container = document.getElementById('container');
+    app.$mountTo($container);
   }
-
-  setRenderer(virtualDom);
-  const app = new BrowserAppComponent();
-  app.$mount();
 }

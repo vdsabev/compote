@@ -1,13 +1,14 @@
 {
   "name": "compote",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "scripts": {
+    "build": "tsc",
+    "start": "serve",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "@types/virtual-dom": "2.0.27",
-    "typescript": "2.1.4",
-    "virtual-dom": "2.1.1"
+    "serve": "2.1.2",
+    "typescript": "2.1.4"
   },
   "devDependencies": {}
 }
