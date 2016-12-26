@@ -129,7 +129,6 @@ module compote.core {
 
   /** Parser */
   export class Parser {
-    // TODO: Interpolate more than 1 expression in a string
     static expressionStartString = '{{';
     static expressionEndString = '}}';
     static expressionString = '(\\w+)\\.(\\w+)';
@@ -243,22 +242,41 @@ module compote.core {
       return this.$constructorTextContent || [this.$constructorAttributes, this.$constructorChildren];
     }
 
-    // TODO: Only update changed expressions
     private $setAttributes($el: HTMLElement, attributes: ComponentAttributes<Component>) {
-      for (let key in attributes) {
-        if (this.$attributeIsAllowed(attributes, key)) {
-          $el.setAttribute(key, attributes[key]);
+      for (let attributeKey in attributes) {
+        if (this.$attributeIsAllowed(attributes, attributeKey)) {
+          const attributeValue = attributes[attributeKey];
+          switch (attributeKey) {
+            case 'class':
+              $el.setAttribute(attributeKey, attributeValue.replace(/\./g, ' '));
+              break;
+            case 'style':
+              if (typeof attributeValue === 'object') {
+                const style: string[] = [];
+                for (let propertyKey in attributeValue) {
+                  if (attributeValue.hasOwnProperty(propertyKey)) {
+                    style.push(`${propertyKey}: ${attributeValue[propertyKey]}`);
+                  }
+                }
+                $el.setAttribute(attributeKey, style.join('; '));
+                break;
+              }
+              /* falls through */
+            default:
+              $el.setAttribute(attributeKey, attributeValue);
+              break;
+          }
         }
       }
     }
 
     private $updateAttributeExpressions($el: HTMLElement, attributes: ComponentAttributes<Component>) {
-      for (let key in attributes) {
-        if (this.$attributeIsAllowed(attributes, key)) {
-          const expression = this.$attributes[key];
+      for (let attributeKey in attributes) {
+        if (this.$attributeIsAllowed(attributes, attributeKey)) {
+          const expression = this.$attributes[attributeKey];
           const parsedExpression = Parser.parseExpression(expression);
           if (parsedExpression !== expression) {
-            $el.setAttribute(key, parsedExpression);
+            $el.setAttribute(attributeKey, parsedExpression);
           }
         }
       }
@@ -323,7 +341,7 @@ module compote.core {
         this.$removeAllChildren($container);
       }
 
-      // TODO: Preserve appending order of children when rendering
+      // TODO: Preserve appending order of children when debugging
       $container.appendChild(this.$el);
     }
 

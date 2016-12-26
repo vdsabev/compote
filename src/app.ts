@@ -13,11 +13,14 @@ module compote.app {
           br(),
           img({ alt: `Element attribute: ${this.name}` }),
           div({}, `Element content: ${this.name}`),
-          // TODO: Support merging definition / children
-          Label({ class: 'todo', data: { text: `Custom component: ${this.name}` } }),
+          Label({
+            class: `a.b.c`,
+            style: { 'background-color': `red` },
+            data: { text: `Custom component: ${this.name}` }
+          }),
 
           hr(),
-          button({ type: 'button', onClick: this.incrementCounter() }, `Count me in!`),
+          button({ type: `button`, onClick: this.incrementCounter() }, `Count me in!`),
           ` Button clicked ${this.counter} times`
         ])
       );
@@ -26,18 +29,17 @@ module compote.app {
     @bind name = `Alice`;
     @bind counter = 0;
 
-    @bind
-    setName($event?: Event) {
+    @bind setName($event?: Event) {
       this.name = (<HTMLInputElement>$event.target).value;
     }
 
-    @bind
-    incrementCounter() {
+    @bind incrementCounter() {
       this.counter++;
     }
   }
 
   /** Label */
+  // TODO: Support merging definition / children
   export function Label(attributes?: core.ComponentAttributes<LabelComponent>): core.ComponentTree {
     return [Object.assign({ Component: LabelComponent }, attributes), []];
   }
