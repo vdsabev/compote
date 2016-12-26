@@ -129,51 +129,11 @@ module compote.core {
 
   /** Parser */
   export class Parser {
-    static tagEndRegex = /[\.\(]/;
-
     // TODO: Interpolate more than 1 expression in a string
     static expressionStartString = '{{';
     static expressionEndString = '}}';
     static expressionString = '(\\w+)\\.(\\w+)';
     static expressionRegex = new RegExp(Parser.expressionStartString + Parser.expressionString + Parser.expressionEndString);
-
-    static parseTagName(definition: string) {
-      return (definition.split(Parser.tagEndRegex)[0] || '').trim();
-    }
-
-    static parseClassNames(definition: string): string[] {
-      const classNamesStartIndex = definition.indexOf('.');
-      if (classNamesStartIndex === -1) return [];
-
-      const classNamesEndIndex = definition.indexOf('(');
-      if (classNamesEndIndex === -1) return definition.substring(classNamesStartIndex + 1).split('.');
-
-      if (classNamesEndIndex < classNamesStartIndex) return [];
-
-      return definition.substring(classNamesStartIndex + 1, classNamesEndIndex).split('.');
-    }
-
-    static parseAttributes(definition: string): ComponentAttributes<Component> {
-      const attributes: ComponentAttributes<Component> = {};
-
-      const attributesStartIndex = definition.indexOf('(');
-      const attributesEndIndex = definition.lastIndexOf(')');
-      if ((attributesStartIndex === -1) !== (attributesEndIndex === -1)) throw new Error(`Missing parentheses in attributes definition: ${definition}`);
-
-      if (attributesStartIndex !== -1 && attributesEndIndex !== -1) {
-        const attributesString = definition.substring(attributesStartIndex + 1, attributesEndIndex);
-        if (attributesString) {
-          let attributeMatches: RegExpExecArray;
-          const attributesRegex = /(?:\s*(\w+="[^"]+")\s*)/g;
-          while (attributeMatches = attributesRegex.exec(attributesString)) {
-            const [key, value] = attributeMatches[1].split('=');
-            attributes[key] = value.slice(1, -1);
-          }
-        }
-      }
-
-      return attributes;
-    }
   }
 
   /** Renderer */
@@ -183,8 +143,6 @@ module compote.core {
   }
 
   /** Component */
-  type ComponentElement = HTMLElement | Text;
-
   export type ComponentTree = string | [ComponentAttributes<Component>, any];
 
   export type ComponentAttributes<DataType> = {
@@ -194,7 +152,7 @@ module compote.core {
     tagName?: string
   };
 
-  export type ComponentData<DataType> = Partial<DataType>;
+  type ComponentData<DataType> = Partial<DataType>;
 
   export interface Component {
     $onInit?(): void;
@@ -202,12 +160,12 @@ module compote.core {
   }
 
   export class Component {
-    static reservedAttributes = ['Component', 'data', 'tagName'];
+    private static reservedAttributes = ['Component', 'data', 'tagName'];
 
     $id = uniqueId(`${this.constructor.name}_`);
-    $el: ComponentElement;
-    $rendering: boolean;
+    $el: HTMLElement | Text;
     $initializing: boolean;
+    $rendering: boolean;
 
     private $textContent: string;
     private $attributes: ComponentAttributes<Component> = {};
@@ -251,8 +209,8 @@ module compote.core {
         Object.assign(this, this.$attributes.data, this.$constructorAttributes.data);
 
         this.$el = Renderer.document.createElement(this.$attributes['tagName'] || 'div');
-        this.$setAttributes(<HTMLElement>this.$el, this.$attributes);
-        this.$updateAttributeExpressions(<HTMLElement>this.$el, this.$attributes);
+        this.$setAttributes(this.$el, this.$attributes);
+        this.$updateAttributeExpressions(this.$el, this.$attributes);
 
         // Children
         let children: ComponentTree | ComponentTree[] = tree[1];
@@ -260,7 +218,7 @@ module compote.core {
           children = [children];
         }
 
-        this.$setChildren(<HTMLElement>this.$el, this.$children, children);
+        this.$setChildren(this.$el, this.$children, children);
         this.$updateChildren(this.$children);
       }
 
@@ -278,7 +236,7 @@ module compote.core {
     // TODO: Only update changed expressions
     private $setAttributes($el: HTMLElement, attributes: ComponentAttributes<Component>) {
       for (let key in attributes) {
-        if (this.$attributeHasBinding(attributes, key)) {
+        if (this.$attributeIsAllowed(attributes, key)) {
           $el.setAttribute(key, attributes[key]);
         }
       }
@@ -286,7 +244,7 @@ module compote.core {
 
     private $updateAttributeExpressions($el: HTMLElement, attributes: ComponentAttributes<Component>) {
       for (let key in attributes) {
-        if (this.$attributeHasBinding(attributes, key)) {
+        if (this.$attributeIsAllowed(attributes, key)) {
           const expression = this.$attributes[key];
           const matches = expression && expression.match(Parser.expressionRegex);
           if (matches && matches.length > 0) {
@@ -296,7 +254,7 @@ module compote.core {
       }
     }
 
-    private $attributeHasBinding(attributes: ComponentAttributes<Component>, key: string): boolean {
+    private $attributeIsAllowed(attributes: ComponentAttributes<Component>, key: string): boolean {
       return attributes.hasOwnProperty(key) && Component.reservedAttributes.indexOf(key) === -1;
     }
 
@@ -370,7 +328,7 @@ module compote.core {
     }
 
     // http://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
-    private $removeAllChildren($el: ComponentElement) {
+    private $removeAllChildren($el: HTMLElement) {
       while ($el.firstChild) {
         $el.removeChild($el.lastChild);
       }
