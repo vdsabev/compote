@@ -4,11 +4,12 @@ module compote.app.browser {
   bootstrap();
 
   function bootstrap() {
-    Renderer.defer = (fn: Function) => {
-      setTimeout(fn, 0);
-    };
-
-    Renderer.document = document;
+    Object.assign(Renderer, {
+      document,
+      defer(fn: Function) {
+        setTimeout(fn, 0);
+      }
+    });
 
     const app = new AppComponent();
     const $container = document.getElementById('container');

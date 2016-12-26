@@ -1,27 +1,38 @@
 module compote.app {
   const { $, bind, Component } = core;
 
+  /** App */
   export class AppComponent extends Component {
-    @bind name = `World`;
-
     $render(): core.ComponentTree {
       return [
-        `div.app(title="Hello ${this.name}")`, {}, [
+        `div.app(title="${this.name}")`, {}, [
+          $(`input(type="text" value="${this.name}" onInput="${this.setName()}")`),
+          $(`br`),
           `Text node: ${this.name}`,
           $(`br`),
           $(`img(alt="Element attribute: ${this.name}")`),
           $(`div`, {}, [`Element content: ${this.name}`]),
-          // TODO: Support overriding definition
-          Label(`span.todo`, { text: `Custom component 1: ${this.name}` }),
-          Label(`span.todo`, { text: `Custom component 2: ${this.name}` })
+          // TODO: Support merging definition / children
+          Label(`span.todo`, { text: `Custom component: ${this.name}` }),
+
+          $(`hr`),
+          $(`button(type="button" onClick="${this.incrementCounter()}")`, {}, [`Count me in!`]),
+          ` Button clicked ${this.counter} times`
         ]
       ];
     }
 
-    $onInit() {
-      setInterval(() => {
-        this.name = new Date().toISOString();
-      }, 1e3);
+    @bind name = `Alice`;
+    @bind counter = 0;
+
+    @bind
+    setName($event?: Event) {
+      this.name = (<HTMLInputElement>$event.target).value;
+    }
+
+    @bind
+    incrementCounter() {
+      this.counter++;
     }
   }
 
@@ -31,10 +42,10 @@ module compote.app {
   }
 
   export class LabelComponent extends Component {
-    @bind text: string;
-
     $render(): core.ComponentTree {
       return [`div`, {}, [this.text]];
     }
+
+    @bind text: string;
   }
 }

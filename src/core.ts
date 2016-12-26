@@ -1,6 +1,6 @@
 module compote.core {
   /** Caches */
-  const componentInstancesCache: Record<string, Component> = {};
+  const componentInstancesCache: Record<string, Component> = (<any>window).Compote = {};
 
   /** Parser */
   export class Parser {
@@ -34,16 +34,14 @@ module compote.core {
       const attributes: ComponentAttributes = {};
 
       const attributesStartIndex = definition.indexOf('(');
-      const attributesEndIndex = definition.indexOf(')', attributesStartIndex + 1);
+      const attributesEndIndex = definition.lastIndexOf(')');
       if ((attributesStartIndex === -1) !== (attributesEndIndex === -1)) throw new Error(`Missing parentheses in attributes definition: ${definition}`);
 
       if (attributesStartIndex !== -1 && attributesEndIndex !== -1) {
         const attributesString = definition.substring(attributesStartIndex + 1, attributesEndIndex);
         if (attributesString) {
-          definition = definition.substring(0, attributesStartIndex);
-
           let attributeMatches: RegExpExecArray;
-          const attributesRegex = /(?:\s*(\w+="[^"]+")\s*)+/g;
+          const attributesRegex = /(?:\s*(\w+="[^"]+")\s*)/g;
           while (attributeMatches = attributesRegex.exec(attributesString)) {
             const [key, value] = attributeMatches[1].split('=');
             attributes[key] = value.slice(1, -1);
@@ -82,7 +80,7 @@ module compote.core {
   }
 
   export class Component {
-    $id = uniqueId('_');
+    $id = uniqueId(`${this.constructor.name}_`);
     $el: ComponentElement;
     $rendering: boolean;
     $initializing: boolean;
@@ -162,8 +160,7 @@ module compote.core {
       this.$rendering = false;
 
       const [definition, data, children] = tree;
-      // TODO: Merge definition with constructor definition
-      // TODO: Merge children with constructor children
+      // TODO: Support merging definition / children
 
       this.$definition = definition;
       this.$data = data;
@@ -239,7 +236,7 @@ module compote.core {
 
     private $parseExpression(expression: string, componentId: string, componentKey: string): string {
       const value = (<any>componentInstancesCache[componentId])[componentKey];
-      const matches = value && value.match(Parser.expressionRegex);
+      const matches = value && value.toString().match(Parser.expressionRegex);
       if (matches && matches.length > 0) {
         return this.$parseExpression(value, matches[1], matches[2]);
       }
@@ -276,21 +273,34 @@ module compote.core {
   }
 
   /** Decorators */
-  export function bind(target: Component, key: string) {
-    const privateKey = `$$${key}`;
-    Object.defineProperty(target, key, {
-      get(this: Component) {
+  export function bind(target: Component, key: string, propertyDescriptor?: PropertyDescriptor): any {
+    // Class method
+    if (propertyDescriptor && typeof propertyDescriptor.value === 'function') {
+      const originalMethod = propertyDescriptor.value;
+      propertyDescriptor.value = function (...args: any[]): any {
         if (this.$rendering) {
-          const expression = `${this.$id}.${key}`;
-          return Parser.expressionStartString + expression + Parser.expressionEndString;
+          return `Compote.${this.$id}.${key}(event)`;
         }
-        return (<any>this)[privateKey];
-      },
-      set(this: Component, value: any) {
-        (<any>this)[privateKey] = value;
-        this.$update();
-      }
-    });
+        originalMethod.apply(this, args);
+      };
+    }
+    // Class property
+    else {
+      const privateKey = `$$${key}`;
+      Object.defineProperty(target, key, {
+        get(this: Component) {
+          if (this.$rendering) {
+            const expression = `${this.$id}.${key}`;
+            return Parser.expressionStartString + expression + Parser.expressionEndString;
+          }
+          return (<any>this)[privateKey];
+        },
+        set(this: Component, value: any) {
+          (<any>this)[privateKey] = value;
+          this.$update();
+        }
+      });
+    }
   }
 
   /** Utils */
