@@ -1,6 +1,6 @@
 module compote.core {
   /** Caches */
-  const componentInstancesCache: Record<string, Component> = (<any>window).Compote = {};
+  export const componentInstancesCache: Record<string, Component> = (<any>window).Compote = {};
 
   /** HTML tags */
   // http://www.quackit.com/html_5/tags
@@ -143,6 +143,10 @@ module compote.core {
       const parsedExpression = expression.replace(Parser.expressionRegex, value != null ? value : '');
       return Parser.parseExpression(parsedExpression);
     }
+
+    static surroundExpression(expression: string): string {
+      return Parser.expressionStartString + expression + Parser.expressionEndString;
+    }
   }
 
   /** Renderer */
@@ -246,26 +250,7 @@ module compote.core {
       for (let attributeKey in attributes) {
         if (this.$attributeIsAllowed(attributes, attributeKey)) {
           const attributeValue = attributes[attributeKey];
-          switch (attributeKey) {
-            case 'class':
-              $el.setAttribute(attributeKey, attributeValue.replace(/\./g, ' '));
-              break;
-            case 'style':
-              if (typeof attributeValue === 'object') {
-                const style: string[] = [];
-                for (let propertyKey in attributeValue) {
-                  if (attributeValue.hasOwnProperty(propertyKey)) {
-                    style.push(`${propertyKey}: ${attributeValue[propertyKey]}`);
-                  }
-                }
-                $el.setAttribute(attributeKey, style.join('; '));
-                break;
-              }
-              /* falls through */
-            default:
-              $el.setAttribute(attributeKey, attributeValue);
-              break;
-          }
+          $el.setAttribute(attributeKey, this.$getAttributeValue(attributeKey, attributeValue));
         }
       }
     }
@@ -273,9 +258,10 @@ module compote.core {
     private $updateAttributeExpressions($el: HTMLElement, attributes: ComponentAttributes<Component>) {
       for (let attributeKey in attributes) {
         if (this.$attributeIsAllowed(attributes, attributeKey)) {
-          const expression = this.$attributes[attributeKey];
-          const parsedExpression = Parser.parseExpression(expression);
-          if (parsedExpression !== expression) {
+          // TODO: Handle empty style properties, e.g. `background: `
+          const attributeValue = this.$getAttributeValue(attributeKey, this.$attributes[attributeKey]);
+          const parsedExpression = Parser.parseExpression(attributeValue);
+          if (parsedExpression !== attributeValue) {
             $el.setAttribute(attributeKey, parsedExpression);
           }
         }
@@ -284,6 +270,29 @@ module compote.core {
 
     private $attributeIsAllowed(attributes: ComponentAttributes<Component>, key: string): boolean {
       return attributes.hasOwnProperty(key) && Component.reservedAttributes.indexOf(key) === -1;
+    }
+
+    private $getAttributeValue(attributeKey: string, attributeValue: any): string {
+      switch (attributeKey) {
+        case 'class':
+          return attributeValue.replace(/\./g, ' ');
+        case 'style':
+          if (typeof attributeValue === 'object') {
+            const style: string[] = [];
+            for (let propertyKey in attributeValue) {
+              if (attributeValue.hasOwnProperty(propertyKey)) {
+                const propertyValue = attributeValue[propertyKey];
+                if (propertyValue) {
+                  style.push(`${propertyKey}: ${propertyValue}`);
+                }
+              }
+            }
+            return style.join('; ');
+          }
+          /* falls through */
+        default:
+          return attributeValue;
+      }
     }
 
     private $setChildren($el: HTMLElement, children: Component[], childTrees: ComponentTree[]) {
@@ -317,6 +326,7 @@ module compote.core {
       if (this.$el.nodeType === Node.ELEMENT_NODE) {
         this.$updateAttributeExpressions(<HTMLElement>this.$el, this.$attributes);
         this.$updateChildren(this.$children);
+        // TODO: Update sibling & parent bindings
       }
       else if (this.$el.nodeType === Node.TEXT_NODE) {
         const expression = this.$textContent;
@@ -363,34 +373,41 @@ module compote.core {
   }
 
   /** Decorators */
-  export function bind(target: Component, key: string, propertyDescriptor?: PropertyDescriptor): any {
-    // Class method
-    if (propertyDescriptor && typeof propertyDescriptor.value === 'function') {
-      const originalMethod = propertyDescriptor.value;
-      propertyDescriptor.value = function (...args: any[]): any {
-        if (this.$rendering) {
-          return `Compote.${this.$id}.${key}(event)`;
-        }
-        originalMethod.apply(this, args);
-      };
-    }
-    // Class property
-    else {
-      const privateKey = `$$${key}`;
-      Object.defineProperty(target, key, {
-        get(this: Component) {
+  export function bind(access: 'get' | 'set') {
+    return (target: Component, key: string, propertyDescriptor?: PropertyDescriptor): any => {
+      // Class method
+      if (propertyDescriptor && typeof propertyDescriptor.value === 'function') {
+        const originalMethod = propertyDescriptor.value;
+        propertyDescriptor.value = function (...args: any[]): any {
           if (this.$rendering) {
-            const expression = `${this.$id}.${key}`;
-            return Parser.expressionStartString + expression + Parser.expressionEndString;
+            const binding = `${this.$id}.${key}(event)`;
+            switch (access) {
+              case 'get':
+                return Parser.surroundExpression(binding);
+              case 'set':
+                return `Compote.${binding}`;
+            }
           }
-          return (<any>this)[privateKey];
-        },
-        set(this: Component, value: any) {
-          (<any>this)[privateKey] = value;
-          this.$update();
-        }
-      });
-    }
+          originalMethod.apply(this, args);
+        };
+      }
+      // Class property
+      else {
+        const privateKey = `$$${key}`;
+        Object.defineProperty(target, key, {
+          get(this: Component) {
+            if (this.$rendering) {
+              return Parser.surroundExpression(`${this.$id}.${key}`);
+            }
+            return (<any>this)[privateKey];
+          },
+          set(this: Component, value: any) {
+            (<any>this)[privateKey] = value;
+            this.$update(); // TODO: Pass component, key, and value
+          }
+        });
+      }
+    };
   }
 
   /** Utils */

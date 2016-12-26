@@ -10,44 +10,82 @@ module compote.test {
 
   type Tests = {
     [key: string]: Function | Tests
+    before?: Function
+    beforeEach?: Function
+    after?: Function
+    afterEach?: Function
   };
 
-  function run(tests: Tests) {
+  async function run(tests: Tests): Promise<void> {
+    const { before, beforeEach, after, afterEach } = tests;
+
+    if (before) {
+      before();
+    }
+
     for (let key in tests) {
-      if (tests.hasOwnProperty(key)) {
+      if (tests.hasOwnProperty(key) && key !== 'beforeEach') {
         const test = tests[key];
         console.warn('\t'.repeat(expect.level) + key);
         expect.level++;
 
         if (typeof test === 'object') {
-          run(test);
+          await run(test);
         }
         else {
-          test();
+          if (beforeEach) {
+            beforeEach();
+          }
+
+          await new Promise((resolve, reject) => {
+            test(() => resolve());
+          });
+
+          if (afterEach) {
+            afterEach();
+          }
         }
 
         expect.level--;
       }
     }
+
+    if (after) {
+      after();
+    }
   }
 
-  // const { Parser } = core;
-  //
-  // run({
-  //   Parser: {
-  //     parseTemplate: {
-  //       tagName: {
-  //         'should parse `tagName`'() {
-  //           const tree = Parser.parseTemplate(`<div></div>`);
-  //           expect.equal(tree.tagName, 'div');
-  //         },
-  //
-  //         'should parse spaces'() {
-  //           const tree = Parser.parseTemplate(`  \n<div>\n</div>\n  `);
-  //           expect.equal(tree.tagName, 'div');
-  //         }
-  //       }
-  //     }
-  //   }
-  // });
+  const { Component, Parser } = core;
+
+  run({
+    Parser: {
+      parseExpression: {
+        'should parse property expression'(done: Function) {
+          new Component({
+            data: {
+              a: 'b',
+              $onInit() {
+                const value = Parser.parseExpression(`{{${this.$id}.a}}`);
+                expect.equal(value, 'b');
+                done();
+              }
+            }
+          });
+        },
+
+        'should parse function expression'(done: Function) {
+          new Component({
+            data: {
+              a: () => 'b',
+              $onInit() {
+                const value = Parser.parseExpression(`{{Compote.${this.$id}.a(event)}}`);
+                expect.equal(value, 'b');
+                done();
+              }
+            }
+          });
+        }
+      }
+    }
+  });
 }

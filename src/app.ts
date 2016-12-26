@@ -1,6 +1,6 @@
 module compote.app {
   const { HTML, bind, Component } = core;
-  const { div, input, br, img, hr, button } = HTML;
+  const { div, input, br, img, hr, button, label } = HTML;
 
   /** App */
   export class AppComponent extends Component {
@@ -13,28 +13,51 @@ module compote.app {
           br(),
           img({ alt: `Element attribute: ${this.name}` }),
           div({}, `Element content: ${this.name}`),
+
+          hr(),
+          input({ type: `color`, value: this.background, onInput: this.setBackground() }),
           Label({
             class: `a.b.c`,
-            style: { 'background-color': `red` },
-            data: { text: `Custom component: ${this.name}` }
+            style: { background: this.background },
+            data: { text: `Custom component: input data` }
           }),
 
           hr(),
           button({ type: `button`, onClick: this.incrementCounter() }, `Count me in!`),
-          ` Button clicked ${this.counter} times`
+          ` Button clicked ${this.counter} times`,
+
+          hr(),
+          label({}, [
+            input({ type: `checkbox`, checked: this.checked, onChange: this.toggleChecked() }),
+            this.getCheckedText()
+          ]),
+          div({ if: `${this.checked} === true` }, `Conditional component A`),
+          div({ if: `${this.checked} !== true` }, `Conditional component B`)
         ])
       );
     }
 
-    @bind name = `Alice`;
-    @bind counter = 0;
-
-    @bind setName($event?: Event) {
+    @bind('get') name = `Alice`;
+    @bind('set') setName($event?: Event) {
       this.name = (<HTMLInputElement>$event.target).value;
     }
 
-    @bind incrementCounter() {
+    @bind('get') background: string;
+    @bind('set') setBackground($event?: Event) {
+      this.background = (<HTMLInputElement>$event.target).value;
+    }
+
+    @bind('get') counter = 0;
+    @bind('set') incrementCounter() {
       this.counter++;
+    }
+
+    @bind('get') checked = true;
+    @bind('get') getCheckedText() {
+      return this.checked ? 'Checked' : 'Unchecked';
+    }
+    @bind('set') toggleChecked($event?: Event) {
+      this.checked = !this.checked;
     }
   }
 
@@ -49,6 +72,6 @@ module compote.app {
       return div({}, this.text);
     }
 
-    @bind text: string;
+    @bind('get') text: string;
   }
 }
