@@ -134,6 +134,16 @@ module compote.core {
     static expressionEndString = '}}';
     static expressionString = '(\\w+)\\.(\\w+)';
     static expressionRegex = new RegExp(Parser.expressionStartString + Parser.expressionString + Parser.expressionEndString);
+
+    static parseExpression(expression: string): string {
+      const matches = expression && expression.toString().match(Parser.expressionRegex);
+      if (!(matches && matches.length > 0)) return expression; // Move along, nothing to parse here...
+
+      const [componentId, componentKey] = matches.slice(1, 3);
+      const value = (<any>componentInstancesCache[componentId])[componentKey];
+      const parsedExpression = expression.replace(Parser.expressionRegex, value != null ? value : '');
+      return Parser.parseExpression(parsedExpression);
+    }
   }
 
   /** Renderer */
@@ -246,9 +256,9 @@ module compote.core {
       for (let key in attributes) {
         if (this.$attributeIsAllowed(attributes, key)) {
           const expression = this.$attributes[key];
-          const matches = expression && expression.match(Parser.expressionRegex);
-          if (matches && matches.length > 0) {
-            $el.setAttribute(key, this.$parseExpression(expression, matches[1], matches[2]));
+          const parsedExpression = Parser.parseExpression(expression);
+          if (parsedExpression !== expression) {
+            $el.setAttribute(key, parsedExpression);
           }
         }
       }
@@ -256,16 +266,6 @@ module compote.core {
 
     private $attributeIsAllowed(attributes: ComponentAttributes<Component>, key: string): boolean {
       return attributes.hasOwnProperty(key) && Component.reservedAttributes.indexOf(key) === -1;
-    }
-
-    private $parseExpression(expression: string, componentId: string, componentKey: string): string {
-      const value = (<any>componentInstancesCache[componentId])[componentKey];
-      const matches = value && value.toString().match(Parser.expressionRegex);
-      if (matches && matches.length > 0) {
-        return this.$parseExpression(value, matches[1], matches[2]);
-      }
-
-      return expression.replace(Parser.expressionRegex, value != null ? value : '');
     }
 
     private $setChildren($el: HTMLElement, children: Component[], childTrees: ComponentTree[]) {
@@ -302,14 +302,14 @@ module compote.core {
       }
       else if (this.$el.nodeType === Node.TEXT_NODE) {
         const expression = this.$textContent;
-        const matches = expression && expression.match(Parser.expressionRegex);
-        if (matches && matches.length > 0) {
-          this.$el.textContent = this.$parseExpression(expression, matches[1], matches[2]);
+        const parsedExpression = Parser.parseExpression(expression);
+        if (parsedExpression !== expression) {
+          this.$el.textContent = parsedExpression;
         }
       }
     }
 
-    $appendTo($container: HTMLElement) {
+    private $appendTo($container: HTMLElement) {
       this.$mountTo($container, false);
     }
 
