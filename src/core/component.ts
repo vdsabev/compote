@@ -7,7 +7,11 @@ module compote.core {
   export type ComponentAttributes<DataType> = {
     [key: string]: any
     Component?: typeof Component
+    class?: string
     data?: ComponentData<DataType>
+    if?: string
+    ifNot?: string
+    style?: Record<string, string>
     tagName?: string
   };
 
@@ -19,10 +23,11 @@ module compote.core {
   }
 
   export class Component {
-    private static reservedAttributes = ['Component', 'data', 'tagName'];
+    private static reservedAttributeKeys = ['Component', 'data', 'if', 'tagName'];
 
-    $id = uniqueId(`${this.constructor.name}_`);
+    $id: string;
     $el: HTMLElement | Text;
+    $comment: Comment;
     $initializing: boolean;
     $rendering: boolean;
 
@@ -32,12 +37,14 @@ module compote.core {
 
     private $constructorTextContent: string;
     private $constructorAttributes: ComponentAttributes<Component> = {};
+    // TODO: Use rest parameters instead of array
     private $constructorChildren: ComponentTree | ComponentTree[] = [];
 
     constructor(
       attributes: string | ComponentAttributes<Component> = {},
       children: ComponentTree | ComponentTree[] = []
     ) {
+      this.$id = uniqueId(`${this.constructor.name}_`);
       componentInstancesCache[this.$id] = this;
 
       if (typeof attributes === 'string') {
@@ -67,7 +74,7 @@ module compote.core {
         Object.assign(this.$attributes, attributes, this.$constructorAttributes);
         Object.assign(this, this.$attributes.data, this.$constructorAttributes.data);
 
-        this.$el = Renderer.document.createElement(this.$attributes['tagName'] || 'div');
+        this.$el = Renderer.document.createElement(this.$attributes.tagName || 'div');
         this.$setAttributes(this.$el, this.$attributes);
         this.$updateAttributeExpressions(this.$el, this.$attributes);
 
@@ -115,7 +122,7 @@ module compote.core {
     }
 
     private $attributeIsAllowed(attributes: ComponentAttributes<Component>, key: string): boolean {
-      return attributes.hasOwnProperty(key) && Component.reservedAttributes.indexOf(key) === -1;
+      return attributes.hasOwnProperty(key) && Component.reservedAttributeKeys.indexOf(key) === -1;
     }
 
     private $getAttributeValue(attributeKey: string, attributeValue: any): string {

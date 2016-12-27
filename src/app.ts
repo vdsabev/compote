@@ -31,8 +31,8 @@ module compote.app {
             input({ type: `checkbox`, checked: this.checked, onChange: this.toggleChecked() }),
             this.getCheckedText()
           ]),
-          div({ if: `${this.checked} === true` }, `Conditional component A`),
-          div({ if: `${this.checked} !== true` }, `Conditional component B`)
+          div({ if: `${this.checked}` }, `Conditional component A`),
+          div({ ifNot: `${this.checked}` }, `Conditional component B`)
         ])
       );
     }
