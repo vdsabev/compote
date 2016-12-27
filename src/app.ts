@@ -37,7 +37,7 @@ module compote.app {
       );
     }
 
-    @bind('get') name = `Alice`;
+    @bind('get') name = `rendered`;
     @bind('set') setName($event?: Event) {
       this.name = (<HTMLInputElement>$event.target).value;
     }

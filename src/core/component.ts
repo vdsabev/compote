@@ -26,7 +26,7 @@ module compote.core {
     private static reservedAttributeKeys = ['Component', 'data', 'if', 'unless', 'tagName'];
 
     $id: string;
-    // private $comment: Comment;
+    private $comment: Comment;
     private $el: HTMLElement | Text;
     private $initializing: boolean;
     $rendering: boolean;
@@ -112,10 +112,20 @@ module compote.core {
       for (let attributeKey in attributes) {
         if (this.$attributeIsAllowed(attributes, attributeKey)) {
           // TODO: Handle empty style properties, e.g. `background: `
-          const attributeValue = this.$getAttributeValue(attributeKey, this.$attributes[attributeKey]);
+          const attributeValue = this.$getAttributeValue(attributeKey, attributes[attributeKey]);
           const parsedExpression = Parser.parse(attributeValue);
           if (parsedExpression !== attributeValue) {
             $el.setAttribute(attributeKey, parsedExpression);
+          }
+        }
+        else if (attributeKey === 'if' || attributeKey === 'unless') {
+          const parsedConditionalExpression = Parser.parse(attributes.if || attributes.unless);
+
+          if (attributeKey === 'if') {
+            this.$replaceConditionalNode(parsedConditionalExpression === 'true');
+          }
+          else if (attributeKey === 'unless') {
+            this.$replaceConditionalNode(parsedConditionalExpression !== 'true');
           }
         }
       }
@@ -190,6 +200,19 @@ module compote.core {
       }
     }
 
+    private $replaceConditionalNode(condition: boolean) {
+      if (condition) {
+        if (this.$comment.parentNode) {
+          this.$comment.parentNode.replaceChild(this.$el, this.$comment);
+        }
+      }
+      else {
+        if (this.$el.parentNode) {
+          this.$el.parentNode.replaceChild(this.$comment, this.$el);
+        }
+      }
+    }
+
     private $appendTo($container: HTMLElement) {
       this.$mountTo($container, false);
     }
@@ -204,15 +227,20 @@ module compote.core {
         this.$removeAllChildren($container);
       }
 
-      // Preserve appending order of children when debugging
-      // this.$comment.parentNode.replaceChild(this.$el, this.$comment);
-      // if (this.$attributes.if) {
-      //   const parsedIfExpression = Parser.parse(this.$attributes.if);
-      //   if (parsedIfExpression !== 'true') {
-      //     this.$el = document.createComment(this.$id);
-      //   }
-      // }
-      $container.appendChild(this.$el);
+      let appendEl = true;
+      if (this.$attributes.if || this.$attributes.unless) {
+        this.$comment = document.createComment(this.$id);
+        const parsedConditionalExpression = Parser.parse(this.$attributes.if || this.$attributes.unless);
+
+        if (this.$attributes.if) {
+          appendEl = parsedConditionalExpression === 'true';
+        }
+        else if (this.$attributes.unless) {
+          appendEl = parsedConditionalExpression !== 'true';
+        }
+      }
+
+      $container.appendChild(appendEl ? this.$el : this.$comment);
     }
 
     // http://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
