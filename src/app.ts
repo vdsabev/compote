@@ -1,5 +1,5 @@
 module compote.app {
-  const { HTML, bind, Component } = core;
+  const { Component, HTML, Value, Event } = core;
   const { div, input, br, img, hr, button, label } = HTML;
 
   /** App */
@@ -37,26 +37,26 @@ module compote.app {
       );
     }
 
-    @bind('get') name = `rendered`;
-    @bind('set') setName($event?: Event) {
+    @Value name = `rendered`;
+    @Event setName($event?: Event) {
       this.name = (<HTMLInputElement>$event.target).value;
     }
 
-    @bind('get') background: string;
-    @bind('set') setBackground($event?: Event) {
+    @Value background: string;
+    @Event setBackground($event?: Event) {
       this.background = (<HTMLInputElement>$event.target).value;
     }
 
-    @bind('get') counter = 0;
-    @bind('set') incrementCounter() {
+    @Value counter = 0;
+    @Event incrementCounter() {
       this.counter++;
     }
 
-    @bind('get') checked = true;
-    @bind('get') getCheckedText() {
+    @Value checked = true;
+    @Value getCheckedText() {
       return this.checked ? 'Checked' : 'Unchecked';
     }
-    @bind('set') toggleChecked($event?: Event) {
+    @Event toggleChecked($event?: Event) {
       this.checked = !this.checked;
     }
   }
@@ -68,10 +68,10 @@ module compote.app {
   }
 
   export class LabelComponent extends Component {
-    $render(): core.ComponentTree {
+    $render() {
       return div({}, this.text);
     }
 
-    @bind('get') text: string;
+    @Value text: string;
   }
 }

@@ -176,13 +176,9 @@ module compote.core {
       });
     }
 
-    private $updateChildren(children: Component[]) {
-      children.forEach((child: Component) => child.$update());
-    }
-
-    $update() {
+    $update(changes: Record<string, any>) {
       if (this.$initializing) {
-        Renderer.defer(() => this.$update());
+        Renderer.defer(() => this.$update(changes));
         return;
       }
 
@@ -195,7 +191,7 @@ module compote.core {
       }
       else if (this.$el.nodeType === Node.ELEMENT_NODE) {
         this.$updateAttributeExpressions(<HTMLElement>this.$el, this.$attributes);
-        this.$updateChildren(this.$children);
+        this.$children.forEach((child) => child.$update(changes));
         // TODO: Update sibling & parent bindings
       }
     }
