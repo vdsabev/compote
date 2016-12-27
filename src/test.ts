@@ -37,7 +37,7 @@ module compote.test {
             beforeEach();
           }
 
-          await new Promise((resolve, reject) => {
+          await new Promise((resolve) => {
             test(() => resolve());
           });
 
@@ -64,7 +64,7 @@ module compote.test {
           new Component({
             data: {
               a: 'b',
-              $onInit() {
+              $onInit(this: core.Component) {
                 const value = Parser.parse(`{{${this.$id}.a}}`);
                 expect.equal(value, 'b');
                 done();
@@ -77,7 +77,7 @@ module compote.test {
           new Component({
             data: {
               a: () => 'b',
-              $onInit() {
+              $onInit(this: core.Component) {
                 const value = Parser.parse(`{{Compote.${this.$id}.a(event)}}`);
                 expect.equal(value, 'b');
                 done();

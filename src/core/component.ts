@@ -88,10 +88,6 @@ module compote.core {
     }
 
     private $init() {
-      if (this.$el.nodeType === Node.ELEMENT_NODE) {
-        this.$children.forEach((child) => child.$appendTo(<HTMLElement>this.$el));
-      }
-
       if (this.$onInit) {
         this.$onInit();
       }
@@ -156,17 +152,17 @@ module compote.core {
       childTrees.forEach((childTree) => {
         if (!childTree) return;
 
-        let component: Component;
+        let childComponent: Component;
         if (typeof childTree === 'string') {
-          component = new Component(childTree);
+          childComponent = new Component(childTree);
         }
         else {
           const ComponentClass = childTree[0].Component || Component;
-          component = new ComponentClass(childTree[0], childTree[1]);
+          childComponent = new ComponentClass(childTree[0], childTree[1]);
         }
 
-        children.push(component);
-        component.$appendTo($el);
+        children.push(childComponent);
+        childComponent.$appendTo($el);
       });
     }
 

@@ -5,7 +5,7 @@ module compote.core {
       // Class method
       if (propertyDescriptor && typeof propertyDescriptor.value === 'function') {
         const originalMethod = propertyDescriptor.value;
-        propertyDescriptor.value = function (...args: any[]): any {
+        propertyDescriptor.value = function (this: Component, ...args: any[]): any {
           if (this.$rendering) {
             const binding = `${this.$id}.${key}(event)`;
             switch (access) {
