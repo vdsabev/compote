@@ -10,9 +10,9 @@ module compote.core {
     class?: string
     data?: ComponentData<DataType>
     if?: string
-    ifNot?: string
     style?: Record<string, string>
     tagName?: string
+    unless?: string
   };
 
   type ComponentData<DataType> = Partial<DataType>;
@@ -23,12 +23,12 @@ module compote.core {
   }
 
   export class Component {
-    private static reservedAttributeKeys = ['Component', 'data', 'if', 'tagName'];
+    private static reservedAttributeKeys = ['Component', 'data', 'if', 'unless', 'tagName'];
 
     $id: string;
-    $el: HTMLElement | Text;
-    $comment: Comment;
-    $initializing: boolean;
+    // private $comment: Comment;
+    private $el: HTMLElement | Text;
+    private $initializing: boolean;
     $rendering: boolean;
 
     private $textContent: string;
@@ -45,6 +45,7 @@ module compote.core {
       children: ComponentTree | ComponentTree[] = []
     ) {
       this.$id = uniqueId(`${this.constructor.name}_`);
+      // this.$comment = document.createComment(this.$id);
       componentInstancesCache[this.$id] = this;
 
       if (typeof attributes === 'string') {
@@ -56,10 +57,7 @@ module compote.core {
       }
 
       this.$initializing = true;
-      Renderer.defer(() => this.$init());
-    }
 
-    private $init() {
       this.$rendering = true;
       const tree = this.$render();
       this.$rendering = false;
@@ -70,22 +68,28 @@ module compote.core {
       }
       else {
         // Attributes
-        const attributes = tree[0];
-        Object.assign(this.$attributes, attributes, this.$constructorAttributes);
+        const treeAttributes = tree[0];
+        Object.assign(this.$attributes, treeAttributes, this.$constructorAttributes);
         Object.assign(this, this.$attributes.data, this.$constructorAttributes.data);
 
         this.$el = Renderer.document.createElement(this.$attributes.tagName || 'div');
         this.$setAttributes(this.$el, this.$attributes);
-        this.$updateAttributeExpressions(this.$el, this.$attributes);
 
         // Children
-        let children: ComponentTree | ComponentTree[] = tree[1];
-        if (!Array.isArray(children)) {
-          children = [children];
+        let treeChildren: ComponentTree | ComponentTree[] = tree[1];
+        if (!Array.isArray(treeChildren)) {
+          treeChildren = [treeChildren];
         }
 
-        this.$setChildren(this.$el, this.$children, children);
-        this.$updateChildren(this.$children);
+        this.$setChildren(this.$el, this.$children, treeChildren);
+      }
+
+      Renderer.defer(() => this.$init());
+    }
+
+    private $init() {
+      if (this.$el.nodeType === Node.ELEMENT_NODE) {
+        this.$children.forEach((child) => child.$appendTo(<HTMLElement>this.$el));
       }
 
       if (this.$onInit) {
@@ -204,7 +208,14 @@ module compote.core {
         this.$removeAllChildren($container);
       }
 
-      // TODO: Preserve appending order of children when debugging
+      // Preserve appending order of children when debugging
+      // this.$comment.parentNode.replaceChild(this.$el, this.$comment);
+      // if (this.$attributes.if) {
+      //   const parsedIfExpression = Parser.parse(this.$attributes.if);
+      //   if (parsedIfExpression !== 'true') {
+      //     this.$el = document.createComment(this.$id);
+      //   }
+      // }
       $container.appendChild(this.$el);
     }
 

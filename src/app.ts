@@ -32,7 +32,7 @@ module compote.app {
             this.getCheckedText()
           ]),
           div({ if: `${this.checked}` }, `Conditional component A`),
-          div({ ifNot: `${this.checked}` }, `Conditional component B`)
+          div({ unless: `${this.checked}` }, `Conditional component B`)
         ])
       );
     }
