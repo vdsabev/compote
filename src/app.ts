@@ -53,7 +53,7 @@ module compote.app {
       this.name = (<HTMLInputElement>$event.target).value;
     }
 
-    @Value background: string;
+    @Value background = '#990000';
     @Event setBackground($event?: Event) {
       this.background = (<HTMLInputElement>$event.target).value;
     }

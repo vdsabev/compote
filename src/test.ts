@@ -69,6 +69,7 @@ module compote.test {
           };
           Component.prototype['$updateAttributeExpressions'].call(Component.prototype, $mockEl, mockAttributes);
           expect.equal(mockAttributes['style'], 'a: b; c: d;');
+          done();
         }
       }
     },
