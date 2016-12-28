@@ -111,9 +111,20 @@ module compote.core {
     private $updateAttributeExpressions($el: HTMLElement, attributes: ComponentAttributes<Component>) {
       for (let attributeKey in attributes) {
         if (this.$attributeIsAllowed(attributes, attributeKey)) {
-          // TODO: Handle empty style properties, e.g. `background: `
           const attributeValue = this.$getAttributeValue(attributeKey, attributes[attributeKey]);
-          const parsedExpression = Parser.parse(attributeValue);
+          let parsedExpression = Parser.parse(attributeValue);
+
+          if (attributeKey === 'style') {
+            const styleRules: string[] = [];
+            parsedExpression.split(/\s*;\s*/).forEach((styleRule) => {
+              const [property, value] = styleRule.split(/\s*:\s*/);
+              if (value) {
+                styleRules.push(`${property}: ${value};`);
+              }
+            });
+            parsedExpression = styleRules.join(' ');
+          }
+
           if (parsedExpression !== attributeValue) {
             $el.setAttribute(attributeKey, parsedExpression);
           }

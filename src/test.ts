@@ -58,6 +58,20 @@ module compote.test {
   const { Component, Parser } = core;
 
   run({
+    Component: {
+      $updateAttributeExpressions: {
+        'should remove empty style properties'(done: Function) {
+          const mockAttributes: Record<string, any> = { style: 'a: b; c: d; empty: ;' };
+          const $mockEl = {
+            setAttribute(key: string, value: any) {
+              mockAttributes[key] = value;
+            }
+          };
+          Component.prototype['$updateAttributeExpressions'].call(Component.prototype, $mockEl, mockAttributes);
+          expect.equal(mockAttributes['style'], 'a: b; c: d;');
+        }
+      }
+    },
     Parser: {
       parse: {
         'should parse property expression'(done: Function) {
