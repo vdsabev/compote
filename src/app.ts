@@ -1,13 +1,13 @@
 module compote.app {
   const { Component, HTML, Value, Event } = core;
-  const { div, input, br, img, hr, button, label } = HTML;
+  const { div, input, br, img, hr, button, label, span } = HTML;
 
   /** App */
   export class AppComponent extends Component {
     $render() {
       return (
         div({ class: `app`, title: this.name }, [
-          input({ type: `text`, value: this.name, onInput: this.setName() }),
+          input({ type: `text`, value: this.name, onInput: this.setName(event) }),
           br(),
           `Text node: ${this.name}`,
           br(),
@@ -15,7 +15,7 @@ module compote.app {
           div({}, `Element content: ${this.name}`),
 
           hr(),
-          input({ type: `color`, value: this.background, onInput: this.setBackground() }),
+          input({ type: `color`, value: this.background, onInput: this.setBackground(event) }),
           Label({
             class: `a.b.c`,
             style: { background: this.background },
@@ -28,11 +28,22 @@ module compote.app {
 
           hr(),
           label({ class: `pointer` }, [
-            input({ type: `checkbox`, checked: this.checked, onChange: this.toggleChecked() }),
+            input({ type: `checkbox`, checked: this.checked, onChange: this.toggleChecked(event) }),
             this.getCheckedText()
           ]),
-          div({ if: `${this.checked}` }, `Conditional component A`),
-          div({ unless: `${this.checked}` }, `Conditional component B`)
+          div({ if: this.checked }, `Conditional component A`),
+          div({ unless: this.checked }, `Conditional component B`),
+
+          // Router
+          hr(),
+          div({}, [
+            button({ onClick: this.setPage(`home`) }, `Home Page`),
+            button({ onClick: this.setPage(`other`) }, `Other Page`)
+          ]),
+
+          `Selected Page: `,
+          span({ if: this.pageIs(`home`) }, `Home Page`),
+          span({ if: this.pageIs(`other`) }, `Other Page`)
         ])
       );
     }
@@ -54,10 +65,18 @@ module compote.app {
 
     @Value checked = true;
     @Value getCheckedText() {
-      return this.checked ? 'Checked' : 'Unchecked';
+      return this.checked ? `Checked` : `Unchecked`;
     }
     @Event toggleChecked($event?: Event) {
       this.checked = !this.checked;
+    }
+
+    @Value page = `home`;
+    @Value pageIs(page: string) {
+      return this.page === page;
+    }
+    @Event setPage(page: string) {
+      this.page = page;
     }
   }
 

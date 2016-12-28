@@ -9,10 +9,10 @@ module compote.core {
     Component?: typeof Component
     class?: string
     data?: ComponentData<DataType>
-    if?: string
+    if?: any
     style?: Record<string, string>
     tagName?: string
-    unless?: string
+    unless?: any
   };
 
   type ComponentData<DataType> = Partial<DataType>;
