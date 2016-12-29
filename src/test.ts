@@ -60,7 +60,7 @@ module compote.test {
     }
   }
 
-  const { Component, Parser, Value, Watch } = core;
+  const { Component, Parser, Value, Watch, tag } = core;
 
   run({
     Component: {
@@ -78,6 +78,7 @@ module compote.test {
         }
       }
     },
+
     Decorators: {
       Value: {
         method: {
@@ -149,6 +150,23 @@ module compote.test {
         }
       }
     },
+
+    HTML: {
+      tag: {
+        'should return function that renders a tree'(done: Function) {
+          const tagFn = tag('a');
+          expect.equal(typeof tagFn, 'function');
+
+          const children: any[] = [];
+          const tree = tagFn({ b: 'c' }, children);
+          expect.equal(tree[0].tagName, 'a');
+          expect.equal(tree[0].b, 'c');
+          expect.equal(tree[1], children);
+          done();
+        }
+      }
+    },
+
     Parser: {
       parse: {
         'should parse property expression'(done: Function) {
