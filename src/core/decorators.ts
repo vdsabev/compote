@@ -42,12 +42,12 @@ module compote.core {
     key4?: keyof T, key5?: keyof T, key6?: keyof T,
     key7?: keyof T, key8?: keyof T, key9?: keyof T
   ) {
-    return (target: T, key: keyof T, propertyDescriptor?: PropertyDescriptor) => {
+    return (target: T, key: keyof T, propertyDescriptor: PropertyDescriptor) => {
       if (!target.$watches) {
         target.$watches = [];
       }
 
-      target.$watches.push([key, <any>target[key]]);
+      target.$watches.push([key, Array.from(arguments)]);
     };
   }
 }

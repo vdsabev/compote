@@ -60,7 +60,7 @@ module compote.test {
     }
   }
 
-  const { Component, Parser, Value } = core;
+  const { Component, Parser, Value, Watch } = core;
 
   run({
     Component: {
@@ -133,6 +133,19 @@ module compote.test {
             expect.equal(updateCalls, 1);
             done();
           }
+        }
+      },
+
+      Watch: {
+        'should initialize watches list and push values in'(done: Function) {
+          const component: any = {};
+          Watch<any>('a', 'b', 'c')(component, 'd', {});
+          expect.equal(component.$watches.length, 1);
+          expect.equal(component.$watches[0][0], 'd');
+          expect.equal(component.$watches[0][1][0], 'a');
+          expect.equal(component.$watches[0][1][1], 'b');
+          expect.equal(component.$watches[0][1][2], 'c');
+          done();
         }
       }
     },

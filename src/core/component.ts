@@ -33,7 +33,7 @@ module compote.core {
     private $el: HTMLElement | Text;
     $initializing: boolean;
     $rendering: boolean;
-    $watches: [string, Function][];
+    $watches: [string, string[]][];
 
     private $textContent: string;
     private $attributes: ComponentAttributes<Component> = {};
