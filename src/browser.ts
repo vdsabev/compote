@@ -14,6 +14,7 @@ module compote.app.browser {
 
     const app = new AppComponent();
     const $container = document.getElementById('container');
+    // TODO: Replace / merge element instead of appending
     app.$mountTo($container);
   }
 }

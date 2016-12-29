@@ -11,7 +11,7 @@ module compote.core {
       if (!(matches && matches.length > 0)) return expression; // Move along, nothing to parse here...
 
       const [componentId, componentKey, componentArguments] = matches.slice(1);
-      const component = Compote.components[componentId];
+      const component = Compote[componentId];
       let value = (<any>component)[componentKey];
       if (typeof value === 'function') {
         const args = (componentArguments || '').split(/\s*,\s*/).map((arg) => arg.slice(1, -1));
