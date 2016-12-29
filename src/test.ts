@@ -3,7 +3,12 @@ module compote.test {
     level: 0,
     equal(actual: any, expected: any) {
       if (actual !== expected) {
-        console.error(`${'\t'.repeat(expect.level)}Expected ${JSON.stringify(expected)}, actual ${JSON.stringify(actual)}`);
+        console.error(`${'\t'.repeat(expect.level)}Expected ${JSON.stringify(actual)} === ${JSON.stringify(expected)}`);
+      }
+    },
+    notEqual(actual: any, expected: any) {
+      if (actual === expected) {
+        console.error(`${'\t'.repeat(expect.level)}Expected ${JSON.stringify(actual)} !== ${JSON.stringify(expected)}`);
       }
     }
   };
@@ -55,21 +60,79 @@ module compote.test {
     }
   }
 
-  const { Component, Parser } = core;
+  const { Component, Parser, Value } = core;
 
   run({
     Component: {
       $updateAttributeExpressions: {
         'should remove empty style properties'(done: Function) {
-          const mockAttributes: Record<string, any> = { style: 'a: b; c: d; empty: ;' };
-          const $mockEl = {
+          const attributes: Record<string, any> = { style: 'a: b; c: d; empty: ;' };
+          const $el = {
             setAttribute(key: string, value: any) {
-              mockAttributes[key] = value;
+              attributes[key] = value;
             }
           };
-          Component.prototype['$updateAttributeExpressions'].call(Component.prototype, $mockEl, mockAttributes);
-          expect.equal(mockAttributes['style'], 'a: b; c: d;');
+          Component.prototype['$updateAttributeExpressions'].call(Component.prototype, $el, attributes);
+          expect.equal(attributes['style'], 'a: b; c: d;');
           done();
+        }
+      }
+    },
+    Decorators: {
+      Value: {
+        method: {
+          'should replace original property descriptor method'(done: Function) {
+            function value() { /**/ }
+            const propertyDescriptor = { value };
+            Value(<any>{}, 'a', propertyDescriptor);
+            expect.notEqual(propertyDescriptor.value, value);
+            done();
+          },
+
+          'should return function value when not rendering'(done: Function) {
+            const propertyDescriptor = { value: (...args: string[]) => args.join('') };
+            Value(<any>{}, 'a', propertyDescriptor);
+            expect.equal(propertyDescriptor.value('a', 'b', 'c'), 'abc');
+            done();
+          },
+
+          'should return function expression when rendering'(done: Function) {
+            const propertyDescriptor = {
+              $rendering: true,
+              $id: 'a',
+              value: (...args: string[]) => args.join('')
+            };
+            Value(<any>{}, 'b', propertyDescriptor);
+            expect.equal(propertyDescriptor.value('c', 'd', 'e'), Parser.surroundExpression(`a.b('c', 'd', 'e')`));
+            done();
+          }
+        },
+
+        property: {
+          'should define property with getter & setter'(done: Function) {
+            const component: any = { $update() { /**/ } };
+            Value(component, 'a');
+            component.a = 'b';
+            expect.equal(component.$$a, 'b');
+            expect.equal(component.a, 'b');
+            done();
+          },
+
+          'should return expression when rendering'(done: Function) {
+            const component: any = { $id: 'a', $rendering: true, $update() { /**/ } };
+            Value(component, 'b');
+            expect.equal(component.b, Parser.surroundExpression('a.b'));
+            done();
+          },
+
+          'should call update when setting'(done: Function) {
+            let updateCalls = 0;
+            const component: any = { $update: () => updateCalls++ };
+            Value(component, 'a');
+            component.a = 'b';
+            expect.equal(updateCalls, 1);
+            done();
+          }
         }
       }
     },

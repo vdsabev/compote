@@ -31,7 +31,7 @@ module compote.core {
     $id: string;
     private $comment: Comment;
     private $el: HTMLElement | Text;
-    private $initializing: boolean;
+    $initializing: boolean;
     $rendering: boolean;
     $watches: [string, Function][];
 
@@ -213,7 +213,6 @@ module compote.core {
       else if (this.$el.nodeType === Node.ELEMENT_NODE) {
         this.$updateAttributeExpressions(<HTMLElement>this.$el, this.$attributes);
         this.$children.forEach((child) => child.$update(changes));
-        // TODO: Update sibling & parent bindings
       }
     }
 

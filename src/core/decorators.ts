@@ -9,6 +9,7 @@ module compote.core {
       const originalMethod = propertyDescriptor.value;
       propertyDescriptor.value = function (this: Component, ...args: any[]): any {
         if (this.$rendering) {
+          // TODO: Possibly cache the arguments instead of parsing them
           const additionalArguments = args.map((arg) => `'${arg}'`).join(', ');
           return Parser.surroundExpression(`${this.$id}.${key}(${additionalArguments})`);
         }
@@ -27,7 +28,10 @@ module compote.core {
         },
         set(this: Component, value: any) {
           (<any>this)[privateKey] = value;
+          // TODO: Don't update while initializing
+          // if (!this.$initializing) {
           this.$update({ [key]: value });
+          // }
         }
       });
     }
