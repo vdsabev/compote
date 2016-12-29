@@ -101,20 +101,6 @@ module compote.test {
           });
         },
 
-        'should parse event argument'(done: Function) {
-          new Component({
-            data: {
-              a: ($argumentEvent: Event) => $argumentEvent.type,
-              $onInit(this: core.Component) {
-                const $event = window.event = new Event('b');
-                const value = Parser.parse(`{{Compote.${this.$id}.a(event)}}`);
-                expect.equal(value, $event.type);
-                done();
-              }
-            }
-          });
-        },
-
         'should parse string argument'(done: Function) {
           new Component({
             data: {

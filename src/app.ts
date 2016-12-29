@@ -1,5 +1,5 @@
 module compote.app {
-  const { Component, HTML, Value, Event } = core;
+  const { Component, HTML, Value, Watch } = core;
   const { div, input, br, img, hr, button, label, span } = HTML;
 
   /** App */
@@ -7,7 +7,11 @@ module compote.app {
     $render() {
       return (
         div({ class: `app`, title: this.name }, [
-          input({ type: `text`, value: this.name, onInput: this.setName(event) }),
+          input({
+            type: `text`,
+            value: this.name,
+            onInput: ($event: Event) => this.name = (<HTMLInputElement>$event.target).value
+          }),
           br(),
           `Text node: ${this.name}`,
           br(),
@@ -15,20 +19,31 @@ module compote.app {
           div({}, `Element content: ${this.name}`),
 
           hr(),
-          input({ type: `color`, value: this.background, onInput: this.setBackground(event) }),
-          Label({
+          input({
+            type: `color`,
+            value: this.color,
+            onInput: ($event: Event) => this.color = (<HTMLInputElement>$event.target).value
+          }),
+          Custom({
             class: `a.b.c`,
-            style: { background: this.background },
-            data: { text: `Custom component: input data` }
+            style: { color: this.color, padding: '7px 2px 2px 2px' },
+            data: {
+              text: this.name,
+              onChange: (text) => this.name = text
+            }
           }),
 
           hr(),
-          button({ type: `button`, onClick: this.incrementCounter() }, `Count me in!`),
+          button({ type: `button`, onClick: () => this.counter++ }, `Count me in!`),
           ` Button clicked ${this.counter} times`,
 
           hr(),
           label({ class: `pointer` }, [
-            input({ type: `checkbox`, checked: this.checked, onChange: this.toggleChecked(event) }),
+            input({
+              type: `checkbox`,
+              checked: this.checked,
+              onChange: ($event?: Event) => this.checked = (<HTMLInputElement>$event.target).checked
+            }),
             this.getCheckedText()
           ]),
           div({ if: this.checked }, `Conditional component A`),
@@ -37,8 +52,8 @@ module compote.app {
           // Router
           hr(),
           div({}, [
-            button({ onClick: this.setPage(`home`) }, `Home Page`),
-            button({ onClick: this.setPage(`other`) }, `Other Page`)
+            button({ onClick: () => this.page = `home` }, `Home Page`),
+            button({ onClick: () => this.page = `other` }, `Other Page`)
           ]),
 
           `Selected Page: `,
@@ -49,48 +64,42 @@ module compote.app {
     }
 
     @Value name = `rendered`;
-    @Event setName($event?: Event) {
-      this.name = (<HTMLInputElement>$event.target).value;
-    }
-
-    @Value background = '#990000';
-    @Event setBackground($event?: Event) {
-      this.background = (<HTMLInputElement>$event.target).value;
-    }
-
+    @Value color = '#ffffff';
     @Value counter = 0;
-    @Event incrementCounter() {
-      this.counter++;
-    }
-
     @Value checked = true;
+    @Value page = `home`;
+
+    @Watch<AppComponent>('checked')
     @Value getCheckedText() {
       return this.checked ? `Checked` : `Unchecked`;
     }
-    @Event toggleChecked($event?: Event) {
-      this.checked = !this.checked;
-    }
 
-    @Value page = `home`;
+    @Watch<AppComponent>('page')
     @Value pageIs(page: string) {
       return this.page === page;
     }
-    @Event setPage(page: string) {
-      this.page = page;
-    }
   }
 
-  /** Label */
+  /** Custom */
   // TODO: Support merging definition / children
-  export function Label(attributes?: core.ComponentAttributes<LabelComponent>): core.ComponentTree {
-    return [Object.assign({ Component: LabelComponent }, attributes), []];
+  export function Custom(attributes?: core.ComponentAttributes<CustomComponent>): core.ComponentTree {
+    return [Object.assign({ Component: CustomComponent }, attributes), []];
   }
 
-  export class LabelComponent extends Component {
+  export class CustomComponent extends Component {
     $render() {
-      return div({}, this.text);
+      return div({}, [
+        div({}, `Custom component: send event data`),
+        input({
+          type: `text`,
+          value: this.text,
+          onInput: ($event: Event) => this.onChange((<HTMLInputElement>$event.target).value)
+        })
+      ]);
     }
 
     @Value text: string;
+
+    onChange: (text: string) => void;
   }
 }

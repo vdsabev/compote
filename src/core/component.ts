@@ -1,6 +1,9 @@
 module compote.core {
   /** Component */
-  export const componentInstancesCache: Record<string, Component> = (<any>window).Compote = {};
+  export const Compote = (<any>window).Compote = {
+    components: <Record<string, Component>>{},
+    functions: <Record<string, Function>>{}
+  };
 
   export type ComponentTree = string | [ComponentAttributes<Component>, any];
 
@@ -30,6 +33,7 @@ module compote.core {
     private $el: HTMLElement | Text;
     private $initializing: boolean;
     $rendering: boolean;
+    $watches: [string, Function][];
 
     private $textContent: string;
     private $attributes: ComponentAttributes<Component> = {};
@@ -45,8 +49,7 @@ module compote.core {
       children: ComponentTree | ComponentTree[] = []
     ) {
       this.$id = uniqueId(`${this.constructor.name}_`);
-      // this.$comment = document.createComment(this.$id);
-      componentInstancesCache[this.$id] = this;
+      Compote.components[this.$id] = this;
 
       if (typeof attributes === 'string') {
         this.$constructorTextContent = attributes; // Switch arguments
@@ -103,7 +106,14 @@ module compote.core {
       for (let attributeKey in attributes) {
         if (this.$attributeIsAllowed(attributes, attributeKey)) {
           const attributeValue = attributes[attributeKey];
-          $el.setAttribute(attributeKey, this.$getAttributeValue(attributeKey, attributeValue));
+          if (typeof attributeValue === 'function') {
+            const functionKey = `${this.$id}_${attributeKey}`;
+            Compote.functions[functionKey] = attributeValue;
+            $el.setAttribute(attributeKey, `Compote.functions.${functionKey}(event)`);
+          }
+          else {
+            $el.setAttribute(attributeKey, this.$getAttributeValue(attributeKey, attributeValue));
+          }
         }
       }
     }
@@ -263,7 +273,7 @@ module compote.core {
       }
 
       this.$el.parentNode.removeChild(this.$el);
-      delete componentInstancesCache[this.$id];
+      delete Compote.components[this.$id];
     }
   }
 }
