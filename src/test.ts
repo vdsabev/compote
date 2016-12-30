@@ -140,7 +140,7 @@ module compote.test {
       Watch: {
         'should initialize watches list and push values in'(done: Function) {
           const component: any = {};
-          Watch<any>('a', 'b', 'c')(component, 'd', {});
+          Watch<any>('a', 'b', 'c')(component, 'd', { value() { /**/ } });
           expect.equal(component.$watches.length, 1);
           expect.equal(component.$watches[0][0], 'd');
           expect.equal(component.$watches[0][1][0], 'a');

@@ -28,10 +28,10 @@ module compote.core {
         },
         set(this: Component, value: any) {
           (<any>this)[privateKey] = value;
-          // TODO: Don't update while initializing
-          // if (!this.$initializing) {
-          this.$update({ [key]: value });
-          // }
+          if (!this.$initializing) {
+            const changes = getChanges(target.$watches, this, key, value);
+            this.$update(changes);
+          }
         }
       });
     }
@@ -42,12 +42,30 @@ module compote.core {
     key4?: keyof T, key5?: keyof T, key6?: keyof T,
     key7?: keyof T, key8?: keyof T, key9?: keyof T
   ) {
+    const argKeys = Array.from(arguments);
+
     return (target: T, key: keyof T, propertyDescriptor: PropertyDescriptor) => {
+      if (typeof propertyDescriptor.value !== 'function') throw new Error(`Invalid watched function: ${propertyDescriptor.value}`);
+
       if (!target.$watches) {
         target.$watches = [];
       }
 
-      target.$watches.push([key, Array.from(arguments)]);
+      target.$watches.push([key, argKeys]);
     };
+  }
+
+  /** Utils */
+  function getChanges(watches: ComponentWatch[], component: Component, key: string, value: any): Record<string, any> {
+    const changes = { [key]: value };
+    if (watches) {
+      for (let [watchKey, watchDependencies] of watches) {
+        if (watchDependencies.indexOf(key) !== -1) {
+          changes[watchKey] = (<any>component)[watchKey]();
+        }
+      }
+    }
+
+    return changes;
   }
 }
