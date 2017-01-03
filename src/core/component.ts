@@ -1,6 +1,8 @@
 module compote.core {
   /** Component */
-  export const componentInstancesCache: Record<string, Component> = (<any>window).Compote = {};
+  export const Compote: Record<string, Component> = (<any>window).Compote = {};
+
+  type CompoteItem = { component: Component, functions: Record<string, Function> };
 
   export type ComponentTree = string | [ComponentAttributes<Component>, any];
 
@@ -17,19 +19,25 @@ module compote.core {
 
   type ComponentData<DataType> = Partial<DataType>;
 
+  export type ComponentWatch = [string, string[]];
+
   export interface Component {
     $onInit?(): void;
+    $onUpdate?(changes: Record<string, any>): void;
     $onDestroy?(): void;
   }
 
+  // TODO: Currently, the change detection model manually updates all attributes and text content
+  // We should switch to a model where each component keeps a list of its watch dependencies
   export class Component {
     private static reservedAttributeKeys = ['Component', 'data', 'if', 'unless', 'tagName'];
 
     $id: string;
     private $comment: Comment;
     private $el: HTMLElement | Text;
-    private $initializing: boolean;
+    $initializing: boolean;
     $rendering: boolean;
+    $watches: ComponentWatch[];
 
     private $textContent: string;
     private $attributes: ComponentAttributes<Component> = {};
@@ -45,8 +53,7 @@ module compote.core {
       children: ComponentTree | ComponentTree[] = []
     ) {
       this.$id = uniqueId(`${this.constructor.name}_`);
-      // this.$comment = document.createComment(this.$id);
-      componentInstancesCache[this.$id] = this;
+      Compote[this.$id] = this;
 
       if (typeof attributes === 'string') {
         this.$constructorTextContent = attributes; // Switch arguments
@@ -165,6 +172,9 @@ module compote.core {
           }
           /* falls through */
         default:
+          if (typeof attributeValue === 'function') {
+            return `Compote.${this.$id}.$attributes.${attributeKey}(event)`;
+          }
           return attributeValue;
       }
     }
@@ -187,7 +197,8 @@ module compote.core {
       });
     }
 
-    $update(changes: Record<string, any>) {
+    $update(changes?: Record<string, any>) {
+      // TODO: Don't call while initializing
       if (this.$initializing) {
         Renderer.defer(() => this.$update(changes));
         return;
@@ -203,7 +214,10 @@ module compote.core {
       else if (this.$el.nodeType === Node.ELEMENT_NODE) {
         this.$updateAttributeExpressions(<HTMLElement>this.$el, this.$attributes);
         this.$children.forEach((child) => child.$update(changes));
-        // TODO: Update sibling & parent bindings
+      }
+
+      if (this.$onUpdate) {
+        this.$onUpdate(changes);
       }
     }
 
@@ -247,6 +261,7 @@ module compote.core {
         }
       }
 
+      this.$update();
       $container.appendChild(appendEl ? this.$el : this.$comment);
     }
 
@@ -263,7 +278,7 @@ module compote.core {
       }
 
       this.$el.parentNode.removeChild(this.$el);
-      delete componentInstancesCache[this.$id];
+      delete Compote[this.$id];
     }
   }
 }

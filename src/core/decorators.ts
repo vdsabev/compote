@@ -6,10 +6,15 @@ module compote.core {
   export function Value(target: Component, key: string, propertyDescriptor?: PropertyDescriptor) {
     // Class method
     if (propertyDescriptor && typeof propertyDescriptor.value === 'function') {
-      decorateComponentMethod(key, propertyDescriptor, function (this: Component, ...args: any[]) {
-        const additionalArguments = getAdditionalArguments(args);
-        return Parser.surroundExpression(`${this.$id}.${key}(${additionalArguments.join(', ')})`);
-      });
+      const originalMethod = propertyDescriptor.value;
+      propertyDescriptor.value = function (this: Component, ...args: any[]): any {
+        if (this.$rendering) {
+          // TODO: Possibly cache the arguments instead of parsing them
+          const additionalArguments = args.map((arg) => `'${arg}'`).join(', ');
+          return Parser.surroundExpression(`${this.$id}.${key}(${additionalArguments})`);
+        }
+        return originalMethod.apply(this, args);
+      };
     }
     // Class property
     else {
@@ -23,45 +28,44 @@ module compote.core {
         },
         set(this: Component, value: any) {
           (<any>this)[privateKey] = value;
-          this.$update({ [key]: value });
+          if (!this.$initializing) {
+            const changes = getChanges(target.$watches, this, key, value);
+            this.$update(changes);
+          }
         }
       });
     }
   }
 
-  /**
-   * Event
-   * Decorates a class method to be used as an element event handler
-   */
-  export function Event(target: Component, key: string, propertyDescriptor: PropertyDescriptor): any {
-    if (!(propertyDescriptor && typeof propertyDescriptor.value === 'function')) throw new Error(`Invalid event method: ${propertyDescriptor.value}`);
-    decorateComponentMethod(key, propertyDescriptor, function (this: Component, ...args: any[]) {
-      const additionalArguments = getAdditionalArguments(args);
-      return `Compote.${this.$id}.${key}(${additionalArguments.join(', ')})`;
-    });
-  }
-
-  /** Utils */
-  function decorateComponentMethod(
-    key: string,
-    propertyDescriptor: PropertyDescriptor,
-    getExpression: () => string
+  export function Watch<T extends Component>(
+    key1: keyof T, key2?: keyof T, key3?: keyof T,
+    key4?: keyof T, key5?: keyof T, key6?: keyof T,
+    key7?: keyof T, key8?: keyof T, key9?: keyof T
   ) {
-    const originalMethod = propertyDescriptor.value;
-    propertyDescriptor.value = function (this: Component, ...args: any[]): any {
-      if (this.$rendering) {
-        return getExpression.apply(this, args);
+    const argKeys = Array.from(arguments);
+
+    return (target: T, key: keyof T, propertyDescriptor: PropertyDescriptor) => {
+      if (typeof propertyDescriptor.value !== 'function') throw new Error(`Invalid watched function: ${propertyDescriptor.value}`);
+
+      if (!target.$watches) {
+        target.$watches = [];
       }
-      return originalMethod.apply(this, args);
+
+      target.$watches.push([key, argKeys]);
     };
   }
 
-  function getAdditionalArguments(args: any[]): string[] {
-    return args.map((arg) => {
-      if (arg === event) return 'event';
-      if (typeof arg === 'string') return `'${arg}'`;
+  /** Utils */
+  function getChanges(watches: ComponentWatch[], component: Component, key: string, value: any): Record<string, any> {
+    const changes = { [key]: value };
+    if (watches) {
+      for (let [watchKey, watchDependencies] of watches) {
+        if (watchDependencies.indexOf(key) !== -1) {
+          changes[watchKey] = (<any>component)[watchKey]();
+        }
+      }
+    }
 
-      throw new Error(`Invalid value function argument: ${arg}`);
-    });
+    return changes;
   }
 }
