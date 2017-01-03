@@ -13,7 +13,7 @@ module compote.app {
             button({ onClick: () => this.page = `examples` }, `Examples`)
           ]),
 
-          HomePage({ if: this.pageIs(`home`), data: { level: 0 } }),
+          HomePage({ if: this.pageIs(`home`), data: { level: 1 } }),
           ExamplesPage({ if: this.pageIs(`examples`) })
         ])
       );
@@ -34,18 +34,34 @@ module compote.app {
   }
 
   export class HomePageComponent extends Component {
+    level: number;
+
+    @Value color: string;
+    @Value updated: number;
+
     $render() {
-      const children = [];
+      const children: core.ComponentTree[] = [
+        `- Level ${this.level}`,
+        button({ type: `button`, onClick: () => this.updated = Date.now() }, `Update`)
+      ];
+
       if (this.level < 3) {
         children.push(HomePage({ data: { level: this.level + 1 } }));
         children.push(HomePage({ data: { level: this.level + 1 } }));
         children.push(HomePage({ data: { level: this.level + 1 } }));
       }
 
-      return div({}, children);
+      return div({ style: { 'margin-left': `${10 * (this.level - 1)}px`, color: this.color } }, children);
     }
 
-    level: number;
+    $onUpdate(changes: Record<string, any>) {
+      if (changes && changes['updated']) {
+        this.color = 'green';
+        setTimeout(() => {
+          this.color = null;
+        }, 3e3);
+      }
+    }
   }
 
   /** ExamplesPage */

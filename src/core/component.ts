@@ -23,7 +23,7 @@ module compote.core {
 
   export interface Component {
     $onInit?(): void;
-    $onUpdate?(changes: Record<string, any>): void;
+    $onUpdate?(changes?: Record<string, any>): void;
     $onDestroy?(): void;
   }
 
@@ -52,6 +52,8 @@ module compote.core {
       attributes: string | ComponentAttributes<Component> = {},
       children: ComponentTree | ComponentTree[] = []
     ) {
+      this.$initializing = true;
+
       this.$id = uniqueId(`${this.constructor.name}_`);
       Compote[this.$id] = this;
 
@@ -60,10 +62,12 @@ module compote.core {
       }
       else {
         this.$constructorAttributes = attributes;
+        if (this.$constructorAttributes && this.$constructorAttributes.data) {
+          Object.assign(this, this.$constructorAttributes.data);
+        }
+
         this.$constructorChildren = children;
       }
-
-      this.$initializing = true;
 
       this.$rendering = true;
       const tree = this.$render();
@@ -77,7 +81,7 @@ module compote.core {
         // Attributes
         const treeAttributes = tree[0];
         Object.assign(this.$attributes, treeAttributes, this.$constructorAttributes);
-        Object.assign(this, this.$attributes.data, this.$constructorAttributes.data);
+        Object.assign(this, this.$attributes.data);
 
         this.$el = Renderer.document.createElement(this.$attributes.tagName || 'div');
         this.$setAttributes(this.$el, this.$attributes);
