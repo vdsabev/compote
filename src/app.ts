@@ -1,7 +1,6 @@
 module compote.app {
   const { Component, HTML, Value } = core;
-  // const { div, input, br, img, hr, button, label } = HTML;
-  const { div, input, button } = HTML;
+  const { div, input, br, img, hr, button, label } = HTML;
 
   /** App */
   export class AppComponent extends Component {
@@ -72,16 +71,16 @@ module compote.app {
   export class ExamplesPageComponent extends Component {
     $render() {
       return div({ title: this.name }, [
-        // input({
-        //   type: `text`,
-        //   value: this.name,
-        //   onInput: ($event: Event) => this.name = (<HTMLInputElement>$event.target).value
-        // }),
-        // br(),
-        // `Text node: ${this.name}`,
-        // br(),
-        // img({ alt: `Element property: ${this.name}` }),
-        // div({}, `Element content: ${this.name}`),
+        input({
+          type: `text`,
+          value: this.name,
+          onInput: ($event: Event) => this.name = (<HTMLInputElement>$event.target).value
+        }),
+        br(),
+        `Text node: ${this.name}`,
+        br(),
+        img({ alt: `Element property: ${this.name}` }),
+        div({}, `Element content: ${this.name}`),
 
         // hr(),
         input({
@@ -98,20 +97,22 @@ module compote.app {
           }
         }),
 
-        // hr(),
+        hr(),
         button({ type: `button`, onClick: () => this.counter++ }, `Count me in!`),
-        ` Button clicked ${this.counter} times`
-        // ,
+        ` Button clicked ${this.counter} times`,
 
-        // hr(),
-        // label({ class: `pointer` }, [
-        //   input({
-        //     type: `checkbox`,
-        //     checked: this.checked,
-        //     onChange: ($event?: Event) => this.checked = (<HTMLInputElement>$event.target).checked
-        //   }),
-        //   this.getCheckedText()
-        // ]),
+        hr(),
+        label({ class: `pointer` }, [
+          input({
+            type: `checkbox`,
+            checked: this.checked,
+            onChange: ($event?: Event) => {
+              this.checked = (<HTMLInputElement>$event.target).checked;
+            }
+          }),
+          this.getCheckedText()
+        ])
+        // ,
         // div({ if: this.checked }, `Conditional component A`),
         // div({ unless: this.checked }, `Conditional component B`)
       ]);
@@ -120,12 +121,12 @@ module compote.app {
     @Value name = `rendered`;
     @Value color = `#ffffff`;
     @Value counter = 0;
-    // @Value checked = true;
-    //
+    @Value checked = true;
+
     // @Watch<ExamplesPageComponent>(`checked`)
-    // @Value getCheckedText() {
-    //   return this.checked ? `Checked` : `Unchecked`;
-    // }
+    @Value getCheckedText() {
+      return this.checked ? `Checked` : `Unchecked`;
+    }
   }
 
   /** Custom */

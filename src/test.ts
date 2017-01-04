@@ -171,13 +171,39 @@ module compote.test {
 
     Parser: {
       evaluate: {
-        'should evaluate property expression'(done: Function) {
+        'should evaluate string expression'(done: Function) {
           new Component({
             data: {
               a: 'b',
               $onInit(this: core.Component) {
                 const value = Parser.evaluate(`{{${this.$id}.a}}`);
                 expect.equal(value, 'b');
+                done();
+              }
+            }
+          });
+        },
+
+        'should evaluate boolean expression'(done: Function) {
+          new Component({
+            data: {
+              a: true,
+              $onInit(this: core.Component) {
+                const value = Parser.evaluate(`{{${this.$id}.a}}`);
+                expect.equal(value, true);
+                done();
+              }
+            }
+          });
+        },
+
+        'should evaluate number expression'(done: Function) {
+          new Component({
+            data: {
+              a: 1,
+              $onInit(this: core.Component) {
+                const value = Parser.evaluate(`{{${this.$id}.a}}`);
+                expect.equal(value, 1);
                 done();
               }
             }

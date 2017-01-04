@@ -6,6 +6,17 @@ module compote.core {
     static expressionString = `(?:Compote\\.)?(\\w+)\\.(\\w+)(?:\\((.*)\\))?`;
     static expressionRegex = new RegExp(Parser.expressionStartString + Parser.expressionString + Parser.expressionEndString);
 
+    static createExpression(id: string, key: string, args?: string[]) {
+      if (args) {
+        const additionalArguments = args.map((arg) => `'${arg}'`).join(', ');
+        const expression = `${id}.${key}(${additionalArguments})`;
+        return Parser.expressionStartString + expression + Parser.expressionEndString;
+      }
+
+      const expression = `${id}.${key}`;
+      return Parser.expressionStartString + expression + Parser.expressionEndString;
+    }
+
     static evaluate(expression: string): string {
       const matches = expression && expression.match(Parser.expressionRegex);
       if (!(matches && matches.length > 0)) return expression; // Move along, nothing to evaluate here...
@@ -13,10 +24,17 @@ module compote.core {
       const [componentId, componentKey, componentArguments] = matches.slice(1);
       const component = Compote[componentId];
       let value = (<any>component)[componentKey];
-      if (typeof value === 'function') {
-        const args = (componentArguments || '').split(/\s*,\s*/).map((arg) => arg.slice(1, -1));
-        value = value.apply(component, args);
+      switch (typeof value) {
+        case 'function':
+          const args = (componentArguments || '').split(/\s*,\s*/).map((arg) => arg.slice(1, -1));
+          value = value.apply(component, args);
+          break;
+        case 'boolean':
+        case 'number':
+          if (expression === Parser.createExpression(componentId, componentKey)) return value;
+          break;
       }
+
       const evaluatedExpression = expression.replace(Parser.expressionRegex, value != null ? value : '');
       return Parser.evaluate(evaluatedExpression);
     }
@@ -31,10 +49,6 @@ module compote.core {
       }
 
       return watches.length > 0 ? watches : null;
-    }
-
-    static surroundExpression(expression: string): string {
-      return Parser.expressionStartString + expression + Parser.expressionEndString;
     }
   }
 }

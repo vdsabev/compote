@@ -9,9 +9,8 @@ module compote.core {
       const originalMethod = propertyDescriptor.value;
       propertyDescriptor.value = function (this: Component, ...args: any[]): any {
         if (this.$rendering) {
-          // TODO: Possibly cache the arguments instead of parsing them
-          const additionalArguments = args.map((arg) => `'${arg}'`).join(', ');
-          return Parser.surroundExpression(`${this.$id}.${key}(${additionalArguments})`);
+          // TODO: Possibly cache the arguments instead of parsing them if we want to support more than strings
+          return Parser.createExpression(this.$id, key, args);
         }
         return originalMethod.apply(this, args);
       };
@@ -22,7 +21,7 @@ module compote.core {
       Object.defineProperty(target, key, {
         get(this: Component) {
           if (this.$rendering) {
-            return Parser.surroundExpression(`${this.$id}.${key}`);
+            return Parser.createExpression(this.$id, key);
           }
           return (<any>this)[privateKey];
         },
