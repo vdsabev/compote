@@ -10,8 +10,8 @@ module compote.core {
     [key: string]: any
     // Aliased native properties
     tagName?: string
-    class?: string
-    style?: string | Record<string, string>
+    class?: string // actually a custom dot-separated string, but shorter and more usable than `className`
+    style?: string | Partial<CSSStyleDeclaration>
     // Custom properties
     $component?: typeof Component
     $data?: ComponentData<DataType>
@@ -30,7 +30,7 @@ module compote.core {
   }
 
   export class Component {
-    private static reservedPropertyKeys = ['tagName', '$component', '$data', '$if', '$unless'];
+    private static reservedPropertyKeys = ['tagName', '$component', '$data'];
 
     $id: string;
     private $comment: Comment;
@@ -139,7 +139,9 @@ module compote.core {
           }
         }
 
-        (<any>$el)[propertyKey] = propertyValue;
+        if (!(propertyKey === '$if' || propertyKey === '$unless')) {
+          (<any>$el)[propertyKey] = propertyValue;
+        }
       }
     }
 
@@ -194,8 +196,21 @@ module compote.core {
           const watches = this.$propertyWatches[propertyKey];
           watches.forEach((watch) => {
             if (watch.id === componentId && !(changedDataKeys && changedDataKeys.indexOf(watch.key) === -1)) {
-              const propertyValue = this.$getPropertyValue(propertyKey, this.$properties[propertyKey]);
-              (<any>this.$el)[propertyKey] = Parser.evaluate(propertyValue.toString());
+              if (propertyKey === '$if' || propertyKey === '$unless') {
+                const evaluatedConditionalExpression = Parser.evaluate(this.$properties.$if || this.$properties.$unless);
+
+                if (propertyKey === '$if') {
+                  this.$replaceConditionalNode(evaluatedConditionalExpression === true);
+                }
+                else if (propertyKey === '$unless') {
+                  this.$replaceConditionalNode(evaluatedConditionalExpression !== true);
+                }
+              }
+              else {
+                // TODO: Don't set empty style properties
+                const propertyValue = this.$getPropertyValue(propertyKey, this.$properties[propertyKey]);
+                (<any>this.$el)[propertyKey] = Parser.evaluate(propertyValue.toString());
+              }
             }
           });
         }
@@ -208,36 +223,18 @@ module compote.core {
       }
     }
 
-    // private $updateAttributeExpressions($el: HTMLElement, attributes: ComponentAttributes<Component>) {
-    //   for (let attributeKey in attributes) {
-    //     if (this.$attributeIsAllowed(attributes, attributeKey)) {
-    //       ...
-    //     }
-    //     else if (attributeKey === 'if' || attributeKey === 'unless') {
-    //       const parsedConditionalExpression = Parser.evaluate(attributes.if || attributes.unless);
-    //
-    //       if (attributeKey === 'if') {
-    //         this.$replaceConditionalNode(parsedConditionalExpression === 'true');
-    //       }
-    //       else if (attributeKey === 'unless') {
-    //         this.$replaceConditionalNode(parsedConditionalExpression !== 'true');
-    //       }
-    //     }
-    //   }
-    // }
-
-    // private $replaceConditionalNode(condition: boolean) {
-    //   if (condition) {
-    //     if (this.$comment.parentNode) {
-    //       this.$comment.parentNode.replaceChild(this.$el, this.$comment);
-    //     }
-    //   }
-    //   else {
-    //     if (this.$el.parentNode) {
-    //       this.$el.parentNode.replaceChild(this.$comment, this.$el);
-    //     }
-    //   }
-    // }
+    private $replaceConditionalNode(condition: boolean) {
+      if (condition) {
+        if (this.$comment.parentNode) {
+          this.$comment.parentNode.replaceChild(this.$el, this.$comment);
+        }
+      }
+      else {
+        if (this.$el.parentNode) {
+          this.$el.parentNode.replaceChild(this.$comment, this.$el);
+        }
+      }
+    }
 
     private $appendTo($container: HTMLElement) {
       this.$mountTo($container, false);
@@ -254,17 +251,17 @@ module compote.core {
       }
 
       let appendEl = true;
-      // if (this.$properties.if || this.$properties.unless) {
-      //   this.$comment = document.createComment(this.$id);
-      //   const parsedConditionalExpression = Parser.evaluate(this.$properties.if || this.$properties.unless);
-      //
-      //   if (this.$properties.if) {
-      //     appendEl = parsedConditionalExpression === 'true';
-      //   }
-      //   else if (this.$properties.unless) {
-      //     appendEl = parsedConditionalExpression !== 'true';
-      //   }
-      // }
+      if (this.$properties.$if || this.$properties.$unless) {
+        this.$comment = document.createComment(this.$id);
+        const evaluatedConditionalExpression = Parser.evaluate(this.$properties.$if || this.$properties.$unless);
+
+        if (this.$properties.$if) {
+          appendEl = evaluatedConditionalExpression === true;
+        }
+        else if (this.$properties.$unless) {
+          appendEl = evaluatedConditionalExpression !== true;
+        }
+      }
 
       this.$update(this.$id);
       $container.appendChild(appendEl ? this.$el : this.$comment);
@@ -277,8 +274,12 @@ module compote.core {
       }
     }
 
+    /**
+     * Destroys the component, recursively destroying all of its children, and removing its element from the DOM.
+     * We don't need to clean up the component's watches because of the 1-way data flow model.
+     */
     $destroy() {
-      // TODO: Destroy children
+      this.$children.forEach((child) => child.$destroy());
 
       if (this.$onDestroy) {
         this.$onDestroy();

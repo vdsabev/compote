@@ -60,114 +60,105 @@ module compote.test {
     }
   }
 
-  // const { Component, Parser, Value, tag } = core;
-  const { Component, Parser } = core;
+  const { Component, Parser, Value, Watch, tag } = core;
 
   run({
-  //   Component: {
-  //     // $updateAttributeExpressions: {
-  //     //   'should remove empty style properties'(done: Function) {
-  //     //     const attributes: Record<string, any> = { style: 'a: b; c: d; empty: ;' };
-  //     //     const $el = {
-  //     //       setAttribute(key: string, value: any) {
-  //     //         attributes[key] = value;
-  //     //       }
-  //     //     };
-  //     //     Component.prototype['$updateAttributeExpressions'].call(Component.prototype, $el, attributes);
-  //     //     expect.equal(attributes['style'], 'a: b; c: d;');
-  //     //     done();
-  //     //   }
-  //     // }
-  //   },
-  //
-  //   Decorators: {
-  //     Value: {
-  //       method: {
-  //         'should replace original property descriptor method'(done: Function) {
-  //           function value() { /**/ }
-  //           const propertyDescriptor = { value };
-  //           Value(<any>{}, 'a', propertyDescriptor);
-  //           expect.notEqual(propertyDescriptor.value, value);
-  //           done();
-  //         },
-  //
-  //         'should return function value when not rendering'(done: Function) {
-  //           const propertyDescriptor = { value: (...args: string[]) => args.join('') };
-  //           Value(<any>{}, 'a', propertyDescriptor);
-  //           expect.equal(propertyDescriptor.value('a', 'b', 'c'), 'abc');
-  //           done();
-  //         },
-  //
-  //         'should return function expression when rendering'(done: Function) {
-  //           const propertyDescriptor = {
-  //             $rendering: true,
-  //             $id: 'a',
-  //             value: (...args: string[]) => args.join('')
-  //           };
-  //           Value(<any>{}, 'b', propertyDescriptor);
-  //           expect.equal(propertyDescriptor.value('c', 'd', 'e'), Parser.surroundExpression(`a.b('c', 'd', 'e')`));
-  //           done();
-  //         }
-  //       },
-  //
-  //       property: {
-  //         'should define property with getter & setter'(done: Function) {
-  //           const component: any = { $update() { /**/ } };
-  //           Value(component, 'a');
-  //           component.a = 'b';
-  //           expect.equal(component.$$a, 'b');
-  //           expect.equal(component.a, 'b');
-  //           done();
-  //         },
-  //
-  //         'should return expression when rendering'(done: Function) {
-  //           const component: any = { $id: 'a', $rendering: true, $update() { /**/ } };
-  //           Value(component, 'b');
-  //           expect.equal(component.b, Parser.surroundExpression('a.b'));
-  //           done();
-  //         },
-  //
-  //         'should call update when setting'(done: Function) {
-  //           let updateCalls = 0;
-  //           const component: any = { $update: () => updateCalls++ };
-  //           Value(component, 'a');
-  //           component.a = 'b';
-  //           expect.equal(updateCalls, 1);
-  //           done();
-  //         }
-  //       }
-  //     }
-  //     // ,
-  //
-  //     // Watch: {
-  //     //   'should initialize watches list and push values in'(done: Function) {
-  //     //     const component: any = {};
-  //     //     Watch<any>('a', 'b', 'c')(component, 'd', { value() { /**/ } });
-  //     //     expect.equal(component.$watches.length, 1);
-  //     //     expect.equal(component.$watches[0][0], 'd');
-  //     //     expect.equal(component.$watches[0][1][0], 'a');
-  //     //     expect.equal(component.$watches[0][1][1], 'b');
-  //     //     expect.equal(component.$watches[0][1][2], 'c');
-  //     //     done();
-  //     //   }
-  //     // }
-  //   },
-  //
-  //   HTML: {
-  //     tag: {
-  //       'should return function that renders a tree'(done: Function) {
-  //         const tagFn = tag('a');
-  //         expect.equal(typeof tagFn, 'function');
-  //
-  //         const children: any[] = [];
-  //         const tree = tagFn({ b: 'c' }, children);
-  //         expect.equal(tree[0].tagName, 'a');
-  //         expect.equal(tree[0].b, 'c');
-  //         expect.equal(tree[1], children);
-  //         done();
-  //       }
-  //     }
-  //   },
+    Component: {
+      $getPropertyValue: {
+        'should remove empty style properties'(done: Function) {
+          const style = Component.prototype['$getPropertyValue']('style', { a: 'b', c: 'd', empty: '' });
+          expect.equal(style, 'a: b; c: d;');
+          done();
+        }
+      }
+    },
+
+    Decorators: {
+      Value: {
+        method: {
+          'should replace original property descriptor method'(done: Function) {
+            function value() { /**/ }
+            const propertyDescriptor = { value };
+            Value(<any>{}, 'a', propertyDescriptor);
+            expect.notEqual(propertyDescriptor.value, value);
+            done();
+          },
+
+          'should return function value when not rendering'(done: Function) {
+            const propertyDescriptor = { value: (...args: string[]) => args.join('') };
+            Value(<any>{}, 'a', propertyDescriptor);
+            expect.equal(propertyDescriptor.value('a', 'b', 'c'), 'abc');
+            done();
+          },
+
+          'should return function expression when rendering'(done: Function) {
+            const propertyDescriptor = {
+              $rendering: true,
+              $id: 'a',
+              value: (...args: string[]) => args.join('')
+            };
+            Value(<any>{}, 'b', propertyDescriptor);
+            expect.equal(propertyDescriptor.value('c', 'd', 'e'), Parser.createExpression('a', 'b', ['c', 'd', 'e']));
+            done();
+          }
+        },
+
+        property: {
+          'should define property with getter & setter'(done: Function) {
+            const component: any = { $update() { /**/ } };
+            Value(component, 'a');
+            component.a = 'b';
+            expect.equal(component.$$a, 'b');
+            expect.equal(component.a, 'b');
+            done();
+          },
+
+          'should return expression when rendering'(done: Function) {
+            const component: any = { $id: 'a', $rendering: true, $update() { /**/ } };
+            Value(component, 'b');
+            expect.equal(component.b, Parser.createExpression('a', 'b'));
+            done();
+          },
+
+          'should call update when setting'(done: Function) {
+            let updateCalls = 0;
+            const component: any = { $update: () => updateCalls++ };
+            Value(component, 'a');
+            component.a = 'b';
+            expect.equal(updateCalls, 1);
+            done();
+          }
+        }
+      },
+
+      Watch: {
+        'should initialize method watches and push values in'(done: Function) {
+          const component: Partial<core.Component> = {};
+          Watch<any>('a', 'b', 'c')(component, 'd', { value() { /**/ } });
+          expect.notEqual(component.$methodWatches, undefined);
+          expect.equal(component.$methodWatches['d'][0], 'a');
+          expect.equal(component.$methodWatches['d'][1], 'b');
+          expect.equal(component.$methodWatches['d'][2], 'c');
+          done();
+        }
+      }
+    },
+
+    HTML: {
+      tag: {
+        'should return function that renders a tree'(done: Function) {
+          const tagFn = tag('a');
+          expect.equal(typeof tagFn, 'function');
+
+          const children: any[] = [];
+          const tree = tagFn({ b: 'c' }, children);
+          expect.equal(tree[0].tagName, 'a');
+          expect.equal(tree[0].b, 'c');
+          expect.equal(tree[1], children);
+          done();
+        }
+      }
+    },
 
     Parser: {
       evaluate: {
@@ -215,7 +206,7 @@ module compote.test {
             $data: {
               a: () => 'b',
               $onInit(this: core.Component) {
-                const value = Parser.evaluate(`{{Compote.${this.$id}.a()}}`);
+                const value = Parser.evaluate(Parser.createExpression(this.$id, 'a', []));
                 expect.equal(value, 'b');
                 done();
               }
@@ -228,8 +219,34 @@ module compote.test {
             $data: {
               a: (b: string) => b.repeat(3),
               $onInit(this: core.Component) {
-                const value = Parser.evaluate(`{{Compote.${this.$id}.a('b')}}`);
+                const value = Parser.evaluate(Parser.createExpression(this.$id, 'a', ['b']));
                 expect.equal(value, 'bbb');
+                done();
+              }
+            }
+          });
+        },
+
+        'should evaluate boolean function'(done: Function) {
+          new Component({
+            $data: {
+              a: () => true,
+              $onInit(this: core.Component) {
+                const value = Parser.evaluate(Parser.createExpression(this.$id, 'a', []));
+                expect.equal(value, true);
+                done();
+              }
+            }
+          });
+        },
+
+        'should evaluate number function'(done: Function) {
+          new Component({
+            $data: {
+              a: () => 1,
+              $onInit(this: core.Component) {
+                const value = Parser.evaluate(`{{${this.$id}.a()}}`);
+                expect.equal(value, 1);
                 done();
               }
             }

@@ -17,26 +17,33 @@ module compote.core {
       return Parser.expressionStartString + expression + Parser.expressionEndString;
     }
 
-    static evaluate(expression: string): string {
+    static evaluate(expression: string): any {
       const matches = expression && expression.match(Parser.expressionRegex);
       if (!(matches && matches.length > 0)) return expression; // Move along, nothing to evaluate here...
 
       const [componentId, componentKey, componentArguments] = matches.slice(1);
       const component = Compote[componentId];
       let value = (<any>component)[componentKey];
-      switch (typeof value) {
-        case 'function':
-          const args = (componentArguments || '').split(/\s*,\s*/).map((arg) => arg.slice(1, -1));
-          value = value.apply(component, args);
-          break;
-        case 'boolean':
-        case 'number':
-          if (expression === Parser.createExpression(componentId, componentKey)) return value;
-          break;
+      if (typeof value === 'function') {
+        const args = componentArguments ? componentArguments.split(/\s*,\s*/).map((arg) => arg.slice(1, -1)) : [];
+        value = value.apply(component, args);
+        const createdExpression = Parser.createExpression(componentId, componentKey, args);
+        if (Parser.isLiteralExpressionValue(expression, createdExpression, value)) return value;
       }
+
+      const createdExpression = Parser.createExpression(componentId, componentKey);
+      if (Parser.isLiteralExpressionValue(expression, createdExpression, value)) return value;
 
       const evaluatedExpression = expression.replace(Parser.expressionRegex, value != null ? value : '');
       return Parser.evaluate(evaluatedExpression);
+    }
+
+    static isLiteralExpressionValue(originalExpression: string, createdExpression: string, value: any): boolean {
+      if (typeof value === 'boolean' || typeof value === 'number') {
+        return originalExpression === createdExpression;
+      }
+
+      return false;
     }
 
     static getExpressionWatches(expression: string): ComponentWatch[] {
