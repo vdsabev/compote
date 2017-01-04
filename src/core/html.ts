@@ -119,8 +119,8 @@ module compote.core {
   };
 
   export function tag(tagName: string) {
-    return (attributes?: ComponentAttributes<Component>, children?: ComponentTree | ComponentTree[]): ComponentTree => {
-      return [Object.assign({ tagName }, attributes), children];
+    return (properties?: ComponentProperties<Component>, children?: ComponentTree | ComponentTree[]): ComponentTree => {
+      return [Object.assign({ tagName }, properties), children];
     };
   }
 }

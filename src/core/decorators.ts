@@ -1,17 +1,16 @@
 module compote.core {
   /**
    * Value
-   * Decorates a class property or method to be used in element attributes or content
+   * Decorates a class property or method to be used in element properties or content
    */
-  export function Value(target: Component, key: string, propertyDescriptor?: PropertyDescriptor) {
+  export function Value(ComponentClass: Component, key: string, propertyDescriptor?: PropertyDescriptor) {
     // Class method
     if (propertyDescriptor && typeof propertyDescriptor.value === 'function') {
       const originalMethod = propertyDescriptor.value;
       propertyDescriptor.value = function (this: Component, ...args: any[]): any {
         if (this.$rendering) {
-          // TODO: Possibly cache the arguments instead of parsing them
-          const additionalArguments = args.map((arg) => `'${arg}'`).join(', ');
-          return Parser.surroundExpression(`${this.$id}.${key}(${additionalArguments})`);
+          // TODO: Possibly cache the arguments instead of parsing them if we want to support more than strings
+          return Parser.createExpression(this.$id, key, args);
         }
         return originalMethod.apply(this, args);
       };
@@ -19,18 +18,17 @@ module compote.core {
     // Class property
     else {
       const privateKey = `$$${key}`;
-      Object.defineProperty(target, key, {
+      Object.defineProperty(ComponentClass, key, {
         get(this: Component) {
           if (this.$rendering) {
-            return Parser.surroundExpression(`${this.$id}.${key}`);
+            return Parser.createExpression(this.$id, key);
           }
           return (<any>this)[privateKey];
         },
         set(this: Component, value: any) {
           (<any>this)[privateKey] = value;
           if (!this.$initializing) {
-            const changes = getChanges(target.$watches, this, key, value);
-            this.$update(changes);
+            this.$update(this.$id, getChangedDataKeys(this, key));
           }
         }
       });
@@ -38,34 +36,37 @@ module compote.core {
   }
 
   export function Watch<T extends Component>(
-    key1: keyof T, key2?: keyof T, key3?: keyof T,
-    key4?: keyof T, key5?: keyof T, key6?: keyof T,
-    key7?: keyof T, key8?: keyof T, key9?: keyof T
+    propertyKey1: keyof T, propertyKey2?: keyof T, propertyKey3?: keyof T,
+    propertyKey4?: keyof T, propertyKey5?: keyof T, propertyKey6?: keyof T,
+    propertyKey7?: keyof T, propertyKey8?: keyof T, propertyKey9?: keyof T
   ) {
-    const argKeys = Array.from(arguments);
+    const propertyKeys = Array.from(arguments);
 
-    return (target: T, key: keyof T, propertyDescriptor: PropertyDescriptor) => {
-      if (typeof propertyDescriptor.value !== 'function') throw new Error(`Invalid watched function: ${propertyDescriptor.value}`);
+    return (component: T, methodKey: string, propertyDescriptor: PropertyDescriptor) => {
+      if (typeof propertyDescriptor.value !== 'function') throw new Error(`Invalid watched method: ${methodKey}`);
 
-      if (!target.$watches) {
-        target.$watches = [];
+      if (!component.$methodWatches) {
+        component.$methodWatches = {};
       }
 
-      target.$watches.push([key, argKeys]);
+      component.$methodWatches[methodKey] = propertyKeys;
     };
   }
 
   /** Utils */
-  function getChanges(watches: ComponentWatch[], component: Component, key: string, value: any): Record<string, any> {
-    const changes = { [key]: value };
-    if (watches) {
-      for (let [watchKey, watchDependencies] of watches) {
-        if (watchDependencies.indexOf(key) !== -1) {
-          changes[watchKey] = (<any>component)[watchKey]();
+  function getChangedDataKeys(component: Component, changedPropertyKey: string): string[] {
+    const changedDataKeys = [changedPropertyKey];
+    if (component.$methodWatches) {
+      for (let methodKey in component.$methodWatches) {
+        if (component.$methodWatches.hasOwnProperty(methodKey)) {
+          const propertyKeys = component.$methodWatches[methodKey];
+          if (propertyKeys.indexOf(changedPropertyKey) !== -1) {
+            changedDataKeys.push(methodKey);
+          }
         }
       }
     }
 
-    return changes;
+    return changedDataKeys;
   }
 }

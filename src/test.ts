@@ -64,16 +64,10 @@ module compote.test {
 
   run({
     Component: {
-      $updateAttributeExpressions: {
+      $getPropertyValue: {
         'should remove empty style properties'(done: Function) {
-          const attributes: Record<string, any> = { style: 'a: b; c: d; empty: ;' };
-          const $el = {
-            setAttribute(key: string, value: any) {
-              attributes[key] = value;
-            }
-          };
-          Component.prototype['$updateAttributeExpressions'].call(Component.prototype, $el, attributes);
-          expect.equal(attributes['style'], 'a: b; c: d;');
+          const style = Component.prototype['$getPropertyValue']('style', { a: 'b', c: 'd', empty: '' });
+          expect.equal(style, 'a: b; c: d;');
           done();
         }
       }
@@ -104,7 +98,7 @@ module compote.test {
               value: (...args: string[]) => args.join('')
             };
             Value(<any>{}, 'b', propertyDescriptor);
-            expect.equal(propertyDescriptor.value('c', 'd', 'e'), Parser.surroundExpression(`a.b('c', 'd', 'e')`));
+            expect.equal(propertyDescriptor.value('c', 'd', 'e'), Parser.createExpression('a', 'b', ['c', 'd', 'e']));
             done();
           }
         },
@@ -122,7 +116,7 @@ module compote.test {
           'should return expression when rendering'(done: Function) {
             const component: any = { $id: 'a', $rendering: true, $update() { /**/ } };
             Value(component, 'b');
-            expect.equal(component.b, Parser.surroundExpression('a.b'));
+            expect.equal(component.b, Parser.createExpression('a', 'b'));
             done();
           },
 
@@ -138,14 +132,13 @@ module compote.test {
       },
 
       Watch: {
-        'should initialize watches list and push values in'(done: Function) {
-          const component: any = {};
+        'should initialize method watches and push values in'(done: Function) {
+          const component: Partial<core.Component> = {};
           Watch<any>('a', 'b', 'c')(component, 'd', { value() { /**/ } });
-          expect.equal(component.$watches.length, 1);
-          expect.equal(component.$watches[0][0], 'd');
-          expect.equal(component.$watches[0][1][0], 'a');
-          expect.equal(component.$watches[0][1][1], 'b');
-          expect.equal(component.$watches[0][1][2], 'c');
+          expect.notEqual(component.$methodWatches, undefined);
+          expect.equal(component.$methodWatches['d'][0], 'a');
+          expect.equal(component.$methodWatches['d'][1], 'b');
+          expect.equal(component.$methodWatches['d'][2], 'c');
           done();
         }
       }
@@ -168,13 +161,13 @@ module compote.test {
     },
 
     Parser: {
-      parse: {
-        'should parse property expression'(done: Function) {
+      evaluate: {
+        'should evaluate string expression'(done: Function) {
           new Component({
-            data: {
+            $data: {
               a: 'b',
               $onInit(this: core.Component) {
-                const value = Parser.parse(`{{${this.$id}.a}}`);
+                const value = Parser.evaluate(`{{${this.$id}.a}}`);
                 expect.equal(value, 'b');
                 done();
               }
@@ -182,12 +175,38 @@ module compote.test {
           });
         },
 
-        'should parse function expression'(done: Function) {
+        'should evaluate boolean expression'(done: Function) {
           new Component({
-            data: {
+            $data: {
+              a: true,
+              $onInit(this: core.Component) {
+                const value = Parser.evaluate(`{{${this.$id}.a}}`);
+                expect.equal(value, true);
+                done();
+              }
+            }
+          });
+        },
+
+        'should evaluate number expression'(done: Function) {
+          new Component({
+            $data: {
+              a: 1,
+              $onInit(this: core.Component) {
+                const value = Parser.evaluate(`{{${this.$id}.a}}`);
+                expect.equal(value, 1);
+                done();
+              }
+            }
+          });
+        },
+
+        'should evaluate function expression'(done: Function) {
+          new Component({
+            $data: {
               a: () => 'b',
               $onInit(this: core.Component) {
-                const value = Parser.parse(`{{Compote.${this.$id}.a()}}`);
+                const value = Parser.evaluate(Parser.createExpression(this.$id, 'a', []));
                 expect.equal(value, 'b');
                 done();
               }
@@ -195,17 +214,75 @@ module compote.test {
           });
         },
 
-        'should parse string argument'(done: Function) {
+        'should evaluate string argument'(done: Function) {
           new Component({
-            data: {
+            $data: {
               a: (b: string) => b.repeat(3),
               $onInit(this: core.Component) {
-                const value = Parser.parse(`{{Compote.${this.$id}.a('b')}}`);
+                const value = Parser.evaluate(Parser.createExpression(this.$id, 'a', ['b']));
                 expect.equal(value, 'bbb');
                 done();
               }
             }
           });
+        },
+
+        'should evaluate boolean function'(done: Function) {
+          new Component({
+            $data: {
+              a: () => true,
+              $onInit(this: core.Component) {
+                const value = Parser.evaluate(Parser.createExpression(this.$id, 'a', []));
+                expect.equal(value, true);
+                done();
+              }
+            }
+          });
+        },
+
+        'should evaluate number function'(done: Function) {
+          new Component({
+            $data: {
+              a: () => 1,
+              $onInit(this: core.Component) {
+                const value = Parser.evaluate(`{{${this.$id}.a()}}`);
+                expect.equal(value, 1);
+                done();
+              }
+            }
+          });
+        }
+      },
+
+      getExpressionWatches: {
+        'should get a single watch'(done: Function) {
+          const watches = Parser.getExpressionWatches(`a.b {{c.d}} e.f`);
+
+          expect.notEqual(watches, null);
+          expect.equal(watches.length, 1);
+
+          expect.equal(watches[0].id, 'c');
+          expect.equal(watches[0].key, 'd');
+
+          done();
+        },
+
+        'should get more watches'(done: Function) {
+          const watches = Parser.getExpressionWatches(`a.b {{c.d}} {{e.f}} {{g.h}} i.j`);
+
+          expect.notEqual(watches, null);
+          expect.equal(watches.length, 3);
+
+          expect.equal(watches[0].id, 'c');
+          expect.equal(watches[0].key, 'd');
+
+          expect.equal(watches[1].id, 'e');
+          expect.equal(watches[1].key, 'f');
+
+          expect.equal(watches[2].id, 'g');
+          expect.equal(watches[2].key, 'h');
+
+          done();
         }
       }
     }

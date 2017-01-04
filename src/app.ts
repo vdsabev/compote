@@ -6,15 +6,15 @@ module compote.app {
   export class AppComponent extends Component {
     $render() {
       return (
-        div({ class: `app` }, [
+        div({}, [
           // Router
           div({}, [
             button({ onClick: () => this.page = `home` }, `Home`),
             button({ onClick: () => this.page = `examples` }, `Examples`)
           ]),
 
-          HomePage({ if: this.pageIs(`home`), data: { level: 0 } }),
-          ExamplesPage({ if: this.pageIs(`examples`) })
+          HomePage({ $if: this.pageIs(`home`), $data: { level: 1 } }),
+          ExamplesPage({ $if: this.pageIs(`examples`) })
         ])
       );
     }
@@ -29,29 +29,43 @@ module compote.app {
 
   /** HomePage */
   // TODO: Support merging definition / children
-  export function HomePage(attributes?: core.ComponentAttributes<HomePageComponent>): core.ComponentTree {
-    return [Object.assign({ Component: HomePageComponent }, attributes), []];
+  export function HomePage(properties?: core.ComponentProperties<HomePageComponent>): core.ComponentTree {
+    return [Object.assign({ $component: HomePageComponent }, properties), []];
   }
 
   export class HomePageComponent extends Component {
     $render() {
-      const children = [];
+      const children: core.ComponentTree[] = [
+        `- Level ${this.level}`,
+        button({ type: `button`, onClick: () => this.updated = Date.now() }, `Update`)
+      ];
+
       if (this.level < 3) {
-        children.push(HomePage({ data: { level: this.level + 1 } }));
-        children.push(HomePage({ data: { level: this.level + 1 } }));
-        children.push(HomePage({ data: { level: this.level + 1 } }));
+        children.push(HomePage({ $data: { level: this.level + 1 } }));
+        children.push(HomePage({ $data: { level: this.level + 1 } }));
+        children.push(HomePage({ $data: { level: this.level + 1 } }));
       }
 
-      return div({}, children);
+      return div({ style: { 'margin-left': `${10 * (this.level - 1)}px`, color: this.color } }, children);
+    }
+
+    $onUpdate(changedDataKeys: string[]) {
+      if (changedDataKeys.indexOf(`updated`) !== -1) {
+        this.color = `green`;
+        setTimeout(() => this.color = null, 3e3);
+      }
     }
 
     level: number;
+
+    @Value color: string;
+    @Value updated: number;
   }
 
   /** ExamplesPage */
   // TODO: Support merging definition / children
-  export function ExamplesPage(attributes?: core.ComponentAttributes<ExamplesPageComponent>): core.ComponentTree {
-    return [Object.assign({ Component: ExamplesPageComponent }, attributes), []];
+  export function ExamplesPage(properties?: core.ComponentProperties<ExamplesPageComponent>): core.ComponentTree {
+    return [Object.assign({ $component: ExamplesPageComponent }, properties), []];
   }
 
   export class ExamplesPageComponent extends Component {
@@ -65,7 +79,7 @@ module compote.app {
         br(),
         `Text node: ${this.name}`,
         br(),
-        img({ alt: `Element attribute: ${this.name}` }),
+        img({ alt: `Element property: ${this.name}` }),
         div({}, `Element content: ${this.name}`),
 
         hr(),
@@ -76,8 +90,8 @@ module compote.app {
         }),
         Custom({
           class: `a.b.c`,
-          style: { color: this.color, padding: '7px 2px 2px 2px' },
-          data: {
+          style: { color: this.color, padding: `7px 2px 2px 2px` },
+          $data: {
             text: this.name,
             onChange: (text) => this.name = text
           }
@@ -92,17 +106,19 @@ module compote.app {
           input({
             type: `checkbox`,
             checked: this.checked,
-            onChange: ($event?: Event) => this.checked = (<HTMLInputElement>$event.target).checked
+            onChange: ($event?: Event) => {
+              this.checked = (<HTMLInputElement>$event.target).checked;
+            }
           }),
           this.getCheckedText()
         ]),
-        div({ if: this.checked }, `Conditional component A`),
-        div({ unless: this.checked }, `Conditional component B`)
+        div({ $if: this.checked }, `Conditional component A`),
+        div({ $unless: this.checked }, `Conditional component B`)
       ]);
     }
 
     @Value name = `rendered`;
-    @Value color = '#ffffff';
+    @Value color = `#ffffff`;
     @Value counter = 0;
     @Value checked = true;
 
@@ -114,8 +130,8 @@ module compote.app {
 
   /** Custom */
   // TODO: Support merging definition / children
-  export function Custom(attributes?: core.ComponentAttributes<CustomComponent>): core.ComponentTree {
-    return [Object.assign({ Component: CustomComponent }, attributes), []];
+  export function Custom(properties?: core.ComponentProperties<CustomComponent>): core.ComponentTree {
+    return [Object.assign({ $component: CustomComponent }, properties), []];
   }
 
   export class CustomComponent extends Component {
