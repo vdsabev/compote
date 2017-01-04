@@ -7,7 +7,7 @@ module compote.core {
     static expressionRegex = new RegExp(Parser.expressionStartString + Parser.expressionString + Parser.expressionEndString);
 
     static evaluate(expression: string): string {
-      const matches = expression && expression.toString().match(Parser.expressionRegex);
+      const matches = expression && expression.match(Parser.expressionRegex);
       if (!(matches && matches.length > 0)) return expression; // Move along, nothing to evaluate here...
 
       const [componentId, componentKey, componentArguments] = matches.slice(1);
@@ -21,8 +21,8 @@ module compote.core {
       return Parser.evaluate(evaluatedExpression);
     }
 
-    static getExpressionWatches(expression: string): { id: string, key: string }[] {
-      const watches: { id: string, key: string }[] = [];
+    static getExpressionWatches(expression: string): ComponentWatch[] {
+      const watches: ComponentWatch[] = [];
 
       const expressionRegex = new RegExp(Parser.expressionStartString + Parser.expressionString + Parser.expressionEndString, 'g');
       let matches: RegExpExecArray;

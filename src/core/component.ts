@@ -21,6 +21,8 @@ module compote.core {
 
   // export type ComponentWatch = [string, string[]];
 
+  export type ComponentWatch = { id: string, key: string };
+
   export interface Component {
     $onInit?(): void;
     $onUpdate?(changedDataKey: string): void;
@@ -36,7 +38,7 @@ module compote.core {
     $initializing: boolean;
     $rendering: boolean;
     $watches: {
-      [key: string]: { id: string, key: string }[]
+      [key: string]: ComponentWatch[]
     };
 
     private $properties: ComponentProperties<Component> = {};
@@ -70,12 +72,12 @@ module compote.core {
       const tree = this.$render();
       this.$rendering = false;
 
-      // if (typeof tree === 'string') {
-      //   this.$properties = { textContent: tree };
-      //   this.$el = Renderer.document.createTextNode(this.$properties.textContent);
-      //   this.$setProperties(this.$el, this.$properties);
-      // }
-      // else {
+      if (typeof tree === 'string') {
+        this.$properties = { textContent: tree };
+        this.$el = Renderer.document.createTextNode(this.$properties.textContent);
+        this.$setProperties(this.$el, this.$properties);
+      }
+      else {
         // Properties
         const treeProperties = tree[0];
         Object.assign(this.$properties, treeProperties);
@@ -84,20 +86,20 @@ module compote.core {
         this.$el = Renderer.document.createElement(this.$properties.tagName || 'div');
         this.$setProperties(this.$el, this.$properties);
 
-        // // Children
-        // // TODO: Support setting a single string as `textContent` without creating a text node
-        // let treeChildren: ComponentTree | ComponentTree[] = tree[1];
-        // if (!Array.isArray(treeChildren)) {
-        //   // if (typeof treeChildren === 'string') {
-        //   //   this.$properties.textContent = treeChildren;
-        //   // }
-        //   // else {
-        //   treeChildren = [treeChildren];
-        //   // }
-        // }
-        //
-        // this.$setChildren(this.$el, this.$children, treeChildren);
-      // }
+        // Children
+        // TODO: Support setting a single string as `textContent` without creating a text node
+        let treeChildren: ComponentTree | ComponentTree[] = tree[1];
+        if (!Array.isArray(treeChildren)) {
+          // if (typeof treeChildren === 'string') {
+          //   this.$properties.textContent = treeChildren;
+          // }
+          // else {
+          treeChildren = [treeChildren];
+          // }
+        }
+
+        this.$setChildren(this.$el, this.$children, treeChildren);
+      }
 
       Renderer.defer(() => this.$init());
     }
@@ -183,30 +185,30 @@ module compote.core {
     //   }
     // }
 
-    // private $setChildren($el: HTMLElement, children: Component[], childTrees: ComponentTree[]) {
-    //   childTrees.forEach((childTree) => {
-    //     if (!childTree) return;
-    //
-    //     let childComponent: Component;
-    //     if (typeof childTree === 'string') {
-    //       childComponent = new Component(childTree);
-    //     }
-    //     else {
-    //       const ComponentClass = childTree[0].Component || Component;
-    //       childComponent = new ComponentClass(childTree[0], childTree[1]);
-    //     }
-    //
-    //     children.push(childComponent);
-    //     childComponent.$appendTo($el);
-    //   });
-    // }
+    private $setChildren($el: HTMLElement, children: Component[], childTrees: ComponentTree[]) {
+      childTrees.forEach((childTree) => {
+        if (!childTree) return;
 
-    $update(componentId: string, changedDataKey: string) {
+        let childComponent: Component;
+        if (typeof childTree === 'string') {
+          childComponent = new Component(childTree);
+        }
+        else {
+          const ComponentClass = childTree[0].Component || Component;
+          childComponent = new ComponentClass(childTree[0], childTree[1]);
+        }
+
+        children.push(childComponent);
+        childComponent.$appendTo($el);
+      });
+    }
+
+    $update(componentId: string, changedDataKey?: string) {
       for (let propertyKey in this.$watches) {
         if (this.$watches.hasOwnProperty(propertyKey)) {
           const watches = this.$watches[propertyKey];
           watches.forEach((watch) => {
-            if (watch.id === componentId && watch.key === changedDataKey) {
+            if (watch.id === componentId && (!changedDataKey || watch.key === changedDataKey)) {
               (<any>this.$el)[propertyKey] = Parser.evaluate(this.$properties[propertyKey]);
             }
           });
@@ -233,9 +235,9 @@ module compote.core {
     //   }
     // }
 
-    // private $appendTo($container: HTMLElement) {
-    //   this.$mountTo($container, false);
-    // }
+    private $appendTo($container: HTMLElement) {
+      this.$mountTo($container, false);
+    }
 
     $mountTo($container: HTMLElement, removeAllChildren = true) {
       if (this.$initializing) {
@@ -260,7 +262,7 @@ module compote.core {
       //   }
       // }
 
-      // this.$update(this.$id);
+      this.$update(this.$id);
       $container.appendChild(appendEl ? this.$el : this.$comment);
     }
 
