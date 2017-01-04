@@ -173,7 +173,7 @@ module compote.test {
       evaluate: {
         'should evaluate string expression'(done: Function) {
           new Component({
-            data: {
+            $data: {
               a: 'b',
               $onInit(this: core.Component) {
                 const value = Parser.evaluate(`{{${this.$id}.a}}`);
@@ -186,7 +186,7 @@ module compote.test {
 
         'should evaluate boolean expression'(done: Function) {
           new Component({
-            data: {
+            $data: {
               a: true,
               $onInit(this: core.Component) {
                 const value = Parser.evaluate(`{{${this.$id}.a}}`);
@@ -199,7 +199,7 @@ module compote.test {
 
         'should evaluate number expression'(done: Function) {
           new Component({
-            data: {
+            $data: {
               a: 1,
               $onInit(this: core.Component) {
                 const value = Parser.evaluate(`{{${this.$id}.a}}`);
@@ -212,7 +212,7 @@ module compote.test {
 
         'should evaluate function expression'(done: Function) {
           new Component({
-            data: {
+            $data: {
               a: () => 'b',
               $onInit(this: core.Component) {
                 const value = Parser.evaluate(`{{Compote.${this.$id}.a()}}`);
@@ -225,7 +225,7 @@ module compote.test {
 
         'should evaluate string argument'(done: Function) {
           new Component({
-            data: {
+            $data: {
               a: (b: string) => b.repeat(3),
               $onInit(this: core.Component) {
                 const value = Parser.evaluate(`{{Compote.${this.$id}.a('b')}}`);

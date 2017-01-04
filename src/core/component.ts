@@ -8,18 +8,18 @@ module compote.core {
 
   export type ComponentProperties<DataType> = Partial<Node> & {
     [key: string]: any
-    Component?: typeof Component
-    class?: string
-    data?: ComponentData<DataType>
-    if?: any
-    style?: string | Record<string, string>
+    // Aliased native properties
     tagName?: string
-    unless?: any
+    class?: string
+    style?: string | Record<string, string>
+    // Custom properties
+    $component?: typeof Component
+    $data?: ComponentData<DataType>
+    $if?: any
+    $unless?: any
   };
 
   type ComponentData<DataType> = Partial<DataType>;
-
-  // export type ComponentWatch = [string, string[]];
 
   export type ComponentWatch = { id: string, key: string };
 
@@ -30,7 +30,7 @@ module compote.core {
   }
 
   export class Component {
-    private static reservedPropertyKeys = ['Component', 'data', 'if', 'tagName', 'unless'];
+    private static reservedPropertyKeys = ['tagName', '$component', '$data', '$if', '$unless'];
 
     $id: string;
     private $comment: Comment;
@@ -66,7 +66,7 @@ module compote.core {
       else {
         this.$constructorProperties = properties;
         Object.assign(this.$properties, this.$constructorProperties);
-        Object.assign(this, this.$constructorProperties.data);
+        Object.assign(this, this.$constructorProperties.$data);
 
         this.$constructorChildren = children;
       }
@@ -84,7 +84,7 @@ module compote.core {
         // Properties
         const treeProperties = tree[0];
         Object.assign(this.$properties, treeProperties);
-        Object.assign(this, this.$properties.data);
+        Object.assign(this, this.$properties.$data);
 
         this.$el = Renderer.document.createElement(this.$properties.tagName || 'div');
         this.$setProperties(this.$el, this.$properties);
@@ -170,24 +170,6 @@ module compote.core {
       }
     }
 
-    // private $updateAttributeExpressions($el: HTMLElement, attributes: ComponentAttributes<Component>) {
-    //   for (let attributeKey in attributes) {
-    //     if (this.$attributeIsAllowed(attributes, attributeKey)) {
-    //       ...
-    //     }
-    //     else if (attributeKey === 'if' || attributeKey === 'unless') {
-    //       const parsedConditionalExpression = Parser.evaluate(attributes.if || attributes.unless);
-    //
-    //       if (attributeKey === 'if') {
-    //         this.$replaceConditionalNode(parsedConditionalExpression === 'true');
-    //       }
-    //       else if (attributeKey === 'unless') {
-    //         this.$replaceConditionalNode(parsedConditionalExpression !== 'true');
-    //       }
-    //     }
-    //   }
-    // }
-
     private $setChildren($el: HTMLElement, children: Component[], childTrees: ComponentTree[]) {
       childTrees.forEach((childTree) => {
         if (!childTree) return;
@@ -197,7 +179,7 @@ module compote.core {
           childComponent = new Component(childTree);
         }
         else {
-          const ComponentClass = childTree[0].Component || Component;
+          const ComponentClass = childTree[0].$component || Component;
           childComponent = new ComponentClass(childTree[0], childTree[1]);
         }
 
@@ -225,6 +207,24 @@ module compote.core {
         this.$onUpdate(changedDataKeys);
       }
     }
+
+    // private $updateAttributeExpressions($el: HTMLElement, attributes: ComponentAttributes<Component>) {
+    //   for (let attributeKey in attributes) {
+    //     if (this.$attributeIsAllowed(attributes, attributeKey)) {
+    //       ...
+    //     }
+    //     else if (attributeKey === 'if' || attributeKey === 'unless') {
+    //       const parsedConditionalExpression = Parser.evaluate(attributes.if || attributes.unless);
+    //
+    //       if (attributeKey === 'if') {
+    //         this.$replaceConditionalNode(parsedConditionalExpression === 'true');
+    //       }
+    //       else if (attributeKey === 'unless') {
+    //         this.$replaceConditionalNode(parsedConditionalExpression !== 'true');
+    //       }
+    //     }
+    //   }
+    // }
 
     // private $replaceConditionalNode(condition: boolean) {
     //   if (condition) {

@@ -13,7 +13,7 @@ module compote.app {
           //   button({ onClick: () => this.page = `examples` }, `Examples`)
           // ]),
           //
-          // HomePage({ if: this.pageIs(`home`), data: { level: 1 } }),
+          // HomePage({ if: this.pageIs(`home`), $data: { level: 1 } }),
           ExamplesPage(/*{ if: this.pageIs(`examples`) }*/)
         ])
       );
@@ -30,7 +30,7 @@ module compote.app {
   /** HomePage */
   // TODO: Support merging definition / children
   // export function HomePage(properties?: core.ComponentProperties<HomePageComponent>): core.ComponentTree {
-  //   return [Object.assign({ Component: HomePageComponent }, properties), []];
+  //   return [Object.assign({ $component: HomePageComponent }, properties), []];
   // }
 
   // export class HomePageComponent extends Component {
@@ -41,9 +41,9 @@ module compote.app {
     //   ];
     //
     //   if (this.level < 3) {
-    //     children.push(HomePage({ data: { level: this.level + 1 } }));
-    //     children.push(HomePage({ data: { level: this.level + 1 } }));
-    //     children.push(HomePage({ data: { level: this.level + 1 } }));
+    //     children.push(HomePage({ $data: { level: this.level + 1 } }));
+    //     children.push(HomePage({ $data: { level: this.level + 1 } }));
+    //     children.push(HomePage({ $data: { level: this.level + 1 } }));
     //   }
     //
     //   return div({ style: { marginLeft: `${10 * (this.level - 1)}px`, color: this.color } }, children);
@@ -65,7 +65,7 @@ module compote.app {
   /** ExamplesPage */
   // TODO: Support merging definition / children
   export function ExamplesPage(properties?: core.ComponentProperties<ExamplesPageComponent>): core.ComponentTree {
-    return [Object.assign({ Component: ExamplesPageComponent }, properties), []];
+    return [Object.assign({ $component: ExamplesPageComponent }, properties), []];
   }
 
   export class ExamplesPageComponent extends Component {
@@ -91,7 +91,7 @@ module compote.app {
         Custom({
           class: `a.b.c`,
           style: { color: this.color, padding: `7px 2px 2px 2px` },
-          data: {
+          $data: {
             text: this.name,
             onChange: (text) => this.name = text
           }
@@ -111,10 +111,9 @@ module compote.app {
             }
           }),
           this.getCheckedText()
-        ])
-        // ,
-        // div({ if: this.checked }, `Conditional component A`),
-        // div({ unless: this.checked }, `Conditional component B`)
+        ]),
+        div({ $if: this.checked }, `Conditional component A`),
+        div({ $unless: this.checked }, `Conditional component B`)
       ]);
     }
 
@@ -132,7 +131,7 @@ module compote.app {
   /** Custom */
   // TODO: Support merging definition / children
   export function Custom(properties?: core.ComponentProperties<CustomComponent>): core.ComponentTree {
-    return [Object.assign({ Component: CustomComponent }, properties), []];
+    return [Object.assign({ $component: CustomComponent }, properties), []];
   }
 
   export class CustomComponent extends Component {
