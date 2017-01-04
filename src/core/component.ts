@@ -25,7 +25,7 @@ module compote.core {
 
   export interface Component {
     $onInit?(): void;
-    $onUpdate?(changedDataKey: string): void;
+    $onUpdate?(changedDataKeys: string[]): void;
     $onDestroy?(): void;
   }
 
@@ -37,8 +37,11 @@ module compote.core {
     private $el: HTMLElement | Text;
     $initializing: boolean;
     $rendering: boolean;
-    $watches: {
+    $propertyWatches: {
       [key: string]: ComponentWatch[]
+    };
+    $methodWatches: {
+      [key: string]: string[]
     };
 
     private $properties: ComponentProperties<Component> = {};
@@ -128,11 +131,11 @@ module compote.core {
         else {
           const watches = Parser.getExpressionWatches(propertyValue);
           if (watches) {
-            if (!this.$watches) {
-              this.$watches = {};
+            if (!this.$propertyWatches) {
+              this.$propertyWatches = {};
             }
 
-            this.$watches[propertyKey] = watches;
+            this.$propertyWatches[propertyKey] = watches;
           }
         }
 
@@ -203,12 +206,12 @@ module compote.core {
       });
     }
 
-    $update(componentId: string, changedDataKey?: string) {
-      for (let propertyKey in this.$watches) {
-        if (this.$watches.hasOwnProperty(propertyKey)) {
-          const watches = this.$watches[propertyKey];
+    $update(componentId: string, changedDataKeys?: string[]) {
+      for (let propertyKey in this.$propertyWatches) {
+        if (this.$propertyWatches.hasOwnProperty(propertyKey)) {
+          const watches = this.$propertyWatches[propertyKey];
           watches.forEach((watch) => {
-            if (watch.id === componentId && (!changedDataKey || watch.key === changedDataKey)) {
+            if (watch.id === componentId && !(changedDataKeys && changedDataKeys.indexOf(watch.key) === -1)) {
               const propertyValue = this.$getPropertyValue(propertyKey, this.$properties[propertyKey]);
               (<any>this.$el)[propertyKey] = Parser.evaluate(propertyValue.toString());
             }
@@ -216,10 +219,10 @@ module compote.core {
         }
       }
 
-      this.$children.forEach((child) => child.$update(componentId, changedDataKey));
+      this.$children.forEach((child) => child.$update(componentId, changedDataKeys));
 
-      if (this.$onUpdate && componentId === this.$id && changedDataKey) {
-        this.$onUpdate(changedDataKey);
+      if (this.$onUpdate && componentId === this.$id && changedDataKeys) {
+        this.$onUpdate(changedDataKeys);
       }
     }
 

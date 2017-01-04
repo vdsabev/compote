@@ -1,5 +1,5 @@
 module compote.app {
-  const { Component, HTML, Value } = core;
+  const { Component, HTML, Value, Watch } = core;
   const { div, input, br, img, hr, button, label } = HTML;
 
   /** App */
@@ -49,8 +49,8 @@ module compote.app {
     //   return div({ style: { marginLeft: `${10 * (this.level - 1)}px`, color: this.color } }, children);
     // }
     //
-    // $onUpdate(changedDataKey: keyof HomePageComponent, changedDataValue: any) {
-    //   if (changedDataKey === `updated`) {
+    // $onUpdate(changedDataKeys: string[]) {
+    //   if (changedDataKeys.indexOf(`updated`) !== -1) {
     //     this.color = `green`;
     //     setTimeout(() => this.color = null, 3e3);
     //   }
@@ -82,7 +82,7 @@ module compote.app {
         img({ alt: `Element property: ${this.name}` }),
         div({}, `Element content: ${this.name}`),
 
-        // hr(),
+        hr(),
         input({
           type: `color`,
           value: this.color,
@@ -123,7 +123,7 @@ module compote.app {
     @Value counter = 0;
     @Value checked = true;
 
-    // @Watch<ExamplesPageComponent>(`checked`)
+    @Watch<ExamplesPageComponent>('checked')
     @Value getCheckedText() {
       return this.checked ? `Checked` : `Unchecked`;
     }
