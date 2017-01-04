@@ -1,55 +1,53 @@
 module compote.core {
   /** Component */
-  export const Compote: Record<string, Component> = (<any>window).Compote = {};
+  export const Compote: Record<string, Component> = {};
 
   type CompoteItem = { component: Component, functions: Record<string, Function> };
 
-  export type ComponentTree = string | [ComponentAttributes<Component>, any];
+  export type ComponentTree = string | [ComponentProperties<Component>, any];
 
-  export type ComponentAttributes<DataType> = {
+  export type ComponentProperties<DataType> = Partial<Node> & {
     [key: string]: any
     Component?: typeof Component
     class?: string
     data?: ComponentData<DataType>
     if?: any
-    style?: Record<string, string>
+    style?: string | Record<string, string>
     tagName?: string
     unless?: any
   };
 
   type ComponentData<DataType> = Partial<DataType>;
 
-  export type ComponentWatch = [string, string[]];
+  // export type ComponentWatch = [string, string[]];
 
   export interface Component {
     $onInit?(): void;
-    $onUpdate?(changes?: Record<string, any>): void;
+    $onUpdate?(changedDataKey: string): void;
     $onDestroy?(): void;
   }
 
-  // TODO: Currently, the change detection model manually updates all attributes and text content
-  // We should switch to a model where each component keeps a list of its watch dependencies
   export class Component {
-    private static reservedAttributeKeys = ['Component', 'data', 'if', 'unless', 'tagName'];
+    private static reservedPropertyKeys = ['Component', 'data', 'if', 'tagName', 'unless'];
 
     $id: string;
     private $comment: Comment;
     private $el: HTMLElement | Text;
     $initializing: boolean;
     $rendering: boolean;
-    $watches: ComponentWatch[];
+    $watches: {
+      [key: string]: { id: string, key: string }[]
+    };
 
-    private $textContent: string;
-    private $attributes: ComponentAttributes<Component> = {};
+    private $properties: ComponentProperties<Component> = {};
     private $children: Component[] = [];
 
-    private $constructorTextContent: string;
-    private $constructorAttributes: ComponentAttributes<Component> = {};
+    private $constructorProperties: ComponentProperties<Component> = {};
     // TODO: Use rest parameters instead of array
     private $constructorChildren: ComponentTree | ComponentTree[] = [];
 
     constructor(
-      attributes: string | ComponentAttributes<Component> = {},
+      properties: string | ComponentProperties<Component> = {},
       children: ComponentTree | ComponentTree[] = []
     ) {
       this.$initializing = true;
@@ -57,14 +55,13 @@ module compote.core {
       this.$id = uniqueId(`${this.constructor.name}_`);
       Compote[this.$id] = this;
 
-      if (typeof attributes === 'string') {
-        this.$constructorTextContent = attributes; // Switch arguments
+      if (typeof properties === 'string') {
+        this.$constructorProperties = { textContent: properties }; // Switch arguments
       }
       else {
-        this.$constructorAttributes = attributes;
-        if (this.$constructorAttributes && this.$constructorAttributes.data) {
-          Object.assign(this, this.$constructorAttributes.data);
-        }
+        this.$constructorProperties = properties;
+        Object.assign(this.$properties, this.$constructorProperties);
+        Object.assign(this, this.$constructorProperties.data);
 
         this.$constructorChildren = children;
       }
@@ -73,27 +70,34 @@ module compote.core {
       const tree = this.$render();
       this.$rendering = false;
 
-      if (typeof tree === 'string') {
-        this.$textContent = tree;
-        this.$el = Renderer.document.createTextNode(this.$textContent);
-      }
-      else {
-        // Attributes
-        const treeAttributes = tree[0];
-        Object.assign(this.$attributes, treeAttributes, this.$constructorAttributes);
-        Object.assign(this, this.$attributes.data);
+      // if (typeof tree === 'string') {
+      //   this.$properties = { textContent: tree };
+      //   this.$el = Renderer.document.createTextNode(this.$properties.textContent);
+      //   this.$setProperties(this.$el, this.$properties);
+      // }
+      // else {
+        // Properties
+        const treeProperties = tree[0];
+        Object.assign(this.$properties, treeProperties);
+        Object.assign(this, this.$properties.data);
 
-        this.$el = Renderer.document.createElement(this.$attributes.tagName || 'div');
-        this.$setAttributes(this.$el, this.$attributes);
+        this.$el = Renderer.document.createElement(this.$properties.tagName || 'div');
+        this.$setProperties(this.$el, this.$properties);
 
-        // Children
-        let treeChildren: ComponentTree | ComponentTree[] = tree[1];
-        if (!Array.isArray(treeChildren)) {
-          treeChildren = [treeChildren];
-        }
-
-        this.$setChildren(this.$el, this.$children, treeChildren);
-      }
+        // // Children
+        // // TODO: Support setting a single string as `textContent` without creating a text node
+        // let treeChildren: ComponentTree | ComponentTree[] = tree[1];
+        // if (!Array.isArray(treeChildren)) {
+        //   // if (typeof treeChildren === 'string') {
+        //   //   this.$properties.textContent = treeChildren;
+        //   // }
+        //   // else {
+        //   treeChildren = [treeChildren];
+        //   // }
+        // }
+        //
+        // this.$setChildren(this.$el, this.$children, treeChildren);
+      // }
 
       Renderer.defer(() => this.$init());
     }
@@ -107,140 +111,131 @@ module compote.core {
     }
 
     $render(): ComponentTree {
-      return this.$constructorTextContent || [this.$constructorAttributes, this.$constructorChildren];
+      return this.$constructorProperties.textContent || [this.$constructorProperties, this.$constructorChildren];
     }
 
-    private $setAttributes($el: HTMLElement, attributes: ComponentAttributes<Component>) {
-      for (let attributeKey in attributes) {
-        if (this.$attributeIsAllowed(attributes, attributeKey)) {
-          const attributeValue = attributes[attributeKey];
-          $el.setAttribute(attributeKey, this.$getAttributeValue(attributeKey, attributeValue));
+    private $setProperties($el: HTMLElement | Text, properties: ComponentProperties<Component>) {
+      for (let propertyKey in properties) {
+        if (!this.$propertyIsAllowed(properties, propertyKey)) continue;
+
+        const propertyValue = this.$getPropertyValue(propertyKey, properties[propertyKey]);
+
+        if (typeof propertyValue === 'function') {
+          propertyKey = propertyKey.toLowerCase();
         }
+        else {
+          const watches = Parser.getExpressionWatches(propertyValue);
+          if (watches) {
+            if (!this.$watches) {
+              this.$watches = {};
+            }
+
+            this.$watches[propertyKey] = watches;
+          }
+        }
+
+        (<any>$el)[propertyKey] = propertyValue;
       }
     }
 
-    private $updateAttributeExpressions($el: HTMLElement, attributes: ComponentAttributes<Component>) {
-      for (let attributeKey in attributes) {
-        if (this.$attributeIsAllowed(attributes, attributeKey)) {
-          const attributeValue = this.$getAttributeValue(attributeKey, attributes[attributeKey]);
-          let parsedExpression = Parser.parse(attributeValue);
-
-          if (attributeKey === 'style') {
-            const styleRules: string[] = [];
-            parsedExpression.split(/\s*;\s*/).forEach((styleRule) => {
-              const [property, value] = styleRule.split(/\s*:\s*/);
-              if (value) {
-                styleRules.push(`${property}: ${value};`);
-              }
-            });
-            parsedExpression = styleRules.join(' ');
-          }
-
-          if (parsedExpression !== attributeValue) {
-            $el.setAttribute(attributeKey, parsedExpression);
-          }
-        }
-        else if (attributeKey === 'if' || attributeKey === 'unless') {
-          const parsedConditionalExpression = Parser.parse(attributes.if || attributes.unless);
-
-          if (attributeKey === 'if') {
-            this.$replaceConditionalNode(parsedConditionalExpression === 'true');
-          }
-          else if (attributeKey === 'unless') {
-            this.$replaceConditionalNode(parsedConditionalExpression !== 'true');
-          }
-        }
-      }
+    private $propertyIsAllowed(properties: ComponentProperties<Component>, key: string): boolean {
+      return properties.hasOwnProperty(key) && Component.reservedPropertyKeys.indexOf(key) === -1;
     }
 
-    private $attributeIsAllowed(attributes: ComponentAttributes<Component>, key: string): boolean {
-      return attributes.hasOwnProperty(key) && Component.reservedAttributeKeys.indexOf(key) === -1;
-    }
-
-    private $getAttributeValue(attributeKey: string, attributeValue: any): string {
-      switch (attributeKey) {
+    private $getPropertyValue(propertyKey: string, propertyValue: any): any {
+      switch (propertyKey) {
         case 'class':
-          return attributeValue.replace(/\./g, ' ');
+          return propertyValue.replace(/\./g, ' ');
         case 'style':
-          if (typeof attributeValue === 'object') {
+          if (typeof propertyValue === 'object') {
             const style: string[] = [];
-            for (let propertyKey in attributeValue) {
-              if (attributeValue.hasOwnProperty(propertyKey)) {
-                const propertyValue = attributeValue[propertyKey];
-                if (propertyValue) {
-                  style.push(`${propertyKey}: ${propertyValue}`);
+            for (let stylePropertyKey in propertyValue) {
+              if (propertyValue.hasOwnProperty(stylePropertyKey)) {
+                const stylePropertyValue = propertyValue[stylePropertyKey];
+                if (stylePropertyValue) {
+                  style.push(`${stylePropertyKey}: ${stylePropertyValue};`);
                 }
               }
             }
-            return style.join('; ');
+            return style.join(' ');
           }
           /* falls through */
         default:
-          if (typeof attributeValue === 'function') {
-            return `Compote.${this.$id}.$attributes.${attributeKey}(event)`;
-          }
-          return attributeValue;
+          return propertyValue;
       }
     }
 
-    private $setChildren($el: HTMLElement, children: Component[], childTrees: ComponentTree[]) {
-      childTrees.forEach((childTree) => {
-        if (!childTree) return;
+    // private $updateAttributeExpressions($el: HTMLElement, attributes: ComponentAttributes<Component>) {
+    //   for (let attributeKey in attributes) {
+    //     if (this.$attributeIsAllowed(attributes, attributeKey)) {
+    //       ...
+    //     }
+    //     else if (attributeKey === 'if' || attributeKey === 'unless') {
+    //       const parsedConditionalExpression = Parser.evaluate(attributes.if || attributes.unless);
+    //
+    //       if (attributeKey === 'if') {
+    //         this.$replaceConditionalNode(parsedConditionalExpression === 'true');
+    //       }
+    //       else if (attributeKey === 'unless') {
+    //         this.$replaceConditionalNode(parsedConditionalExpression !== 'true');
+    //       }
+    //     }
+    //   }
+    // }
 
-        let childComponent: Component;
-        if (typeof childTree === 'string') {
-          childComponent = new Component(childTree);
-        }
-        else {
-          const ComponentClass = childTree[0].Component || Component;
-          childComponent = new ComponentClass(childTree[0], childTree[1]);
-        }
+    // private $setChildren($el: HTMLElement, children: Component[], childTrees: ComponentTree[]) {
+    //   childTrees.forEach((childTree) => {
+    //     if (!childTree) return;
+    //
+    //     let childComponent: Component;
+    //     if (typeof childTree === 'string') {
+    //       childComponent = new Component(childTree);
+    //     }
+    //     else {
+    //       const ComponentClass = childTree[0].Component || Component;
+    //       childComponent = new ComponentClass(childTree[0], childTree[1]);
+    //     }
+    //
+    //     children.push(childComponent);
+    //     childComponent.$appendTo($el);
+    //   });
+    // }
 
-        children.push(childComponent);
-        childComponent.$appendTo($el);
-      });
+    $update(componentId: string, changedDataKey: string) {
+      for (let propertyKey in this.$watches) {
+        if (this.$watches.hasOwnProperty(propertyKey)) {
+          const watches = this.$watches[propertyKey];
+          watches.forEach((watch) => {
+            if (watch.id === componentId && watch.key === changedDataKey) {
+              (<any>this.$el)[propertyKey] = Parser.evaluate(this.$properties[propertyKey]);
+            }
+          });
+        }
+      }
+
+      this.$children.forEach((child) => child.$update(componentId, changedDataKey));
+
+      if (this.$onUpdate && componentId === this.$id && changedDataKey) {
+        this.$onUpdate(changedDataKey);
+      }
     }
 
-    $update(changes?: Record<string, any>) {
-      // TODO: Don't call while initializing
-      if (this.$initializing) {
-        Renderer.defer(() => this.$update(changes));
-        return;
-      }
+    // private $replaceConditionalNode(condition: boolean) {
+    //   if (condition) {
+    //     if (this.$comment.parentNode) {
+    //       this.$comment.parentNode.replaceChild(this.$el, this.$comment);
+    //     }
+    //   }
+    //   else {
+    //     if (this.$el.parentNode) {
+    //       this.$el.parentNode.replaceChild(this.$comment, this.$el);
+    //     }
+    //   }
+    // }
 
-      if (this.$el.nodeType === Node.TEXT_NODE) {
-        const expression = this.$textContent;
-        const parsedExpression = Parser.parse(expression);
-        if (parsedExpression !== expression) {
-          this.$el.textContent = parsedExpression;
-        }
-      }
-      else if (this.$el.nodeType === Node.ELEMENT_NODE) {
-        this.$updateAttributeExpressions(<HTMLElement>this.$el, this.$attributes);
-        this.$children.forEach((child) => child.$update(changes));
-      }
-
-      if (this.$onUpdate) {
-        this.$onUpdate(changes);
-      }
-    }
-
-    private $replaceConditionalNode(condition: boolean) {
-      if (condition) {
-        if (this.$comment.parentNode) {
-          this.$comment.parentNode.replaceChild(this.$el, this.$comment);
-        }
-      }
-      else {
-        if (this.$el.parentNode) {
-          this.$el.parentNode.replaceChild(this.$comment, this.$el);
-        }
-      }
-    }
-
-    private $appendTo($container: HTMLElement) {
-      this.$mountTo($container, false);
-    }
+    // private $appendTo($container: HTMLElement) {
+    //   this.$mountTo($container, false);
+    // }
 
     $mountTo($container: HTMLElement, removeAllChildren = true) {
       if (this.$initializing) {
@@ -253,19 +248,19 @@ module compote.core {
       }
 
       let appendEl = true;
-      if (this.$attributes.if || this.$attributes.unless) {
-        this.$comment = document.createComment(this.$id);
-        const parsedConditionalExpression = Parser.parse(this.$attributes.if || this.$attributes.unless);
+      // if (this.$properties.if || this.$properties.unless) {
+      //   this.$comment = document.createComment(this.$id);
+      //   const parsedConditionalExpression = Parser.evaluate(this.$properties.if || this.$properties.unless);
+      //
+      //   if (this.$properties.if) {
+      //     appendEl = parsedConditionalExpression === 'true';
+      //   }
+      //   else if (this.$properties.unless) {
+      //     appendEl = parsedConditionalExpression !== 'true';
+      //   }
+      // }
 
-        if (this.$attributes.if) {
-          appendEl = parsedConditionalExpression === 'true';
-        }
-        else if (this.$attributes.unless) {
-          appendEl = parsedConditionalExpression !== 'true';
-        }
-      }
-
-      this.$update();
+      // this.$update(this.$id);
       $container.appendChild(appendEl ? this.$el : this.$comment);
     }
 
@@ -277,6 +272,8 @@ module compote.core {
     }
 
     $destroy() {
+      // TODO: Destroy children
+
       if (this.$onDestroy) {
         this.$onDestroy();
       }

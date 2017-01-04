@@ -1,7 +1,7 @@
 module compote.core {
   /**
    * Value
-   * Decorates a class property or method to be used in element attributes or content
+   * Decorates a class property or method to be used in element properties or content
    */
   export function Value(target: Component, key: string, propertyDescriptor?: PropertyDescriptor) {
     // Class method
@@ -29,43 +29,44 @@ module compote.core {
         set(this: Component, value: any) {
           (<any>this)[privateKey] = value;
           if (!this.$initializing) {
-            const changes = getChanges(target.$watches, this, key, value);
-            this.$update(changes);
+            // const changes = getChanges(this, key, value);
+            this.$update(this.$id, key);
           }
         }
       });
     }
   }
 
-  export function Watch<T extends Component>(
-    key1: keyof T, key2?: keyof T, key3?: keyof T,
-    key4?: keyof T, key5?: keyof T, key6?: keyof T,
-    key7?: keyof T, key8?: keyof T, key9?: keyof T
-  ) {
-    const argKeys = Array.from(arguments);
-
-    return (target: T, key: keyof T, propertyDescriptor: PropertyDescriptor) => {
-      if (typeof propertyDescriptor.value !== 'function') throw new Error(`Invalid watched function: ${propertyDescriptor.value}`);
-
-      if (!target.$watches) {
-        target.$watches = [];
-      }
-
-      target.$watches.push([key, argKeys]);
-    };
-  }
+  // TODO: Test function watches
+  // export function Watch<T extends Component>(
+  //   dependency1: keyof T, dependency2?: keyof T, dependency3?: keyof T,
+  //   dependency4?: keyof T, dependency5?: keyof T, dependency6?: keyof T,
+  //   dependency7?: keyof T, dependency8?: keyof T, dependency9?: keyof T
+  // ) {
+  //   const dependencies = Array.from(arguments);
+  //
+  //   return (target: T, key: keyof T, propertyDescriptor: PropertyDescriptor) => {
+  //     if (typeof propertyDescriptor.value !== 'function') throw new Error(`Invalid watched function: ${propertyDescriptor.value}`);
+  //
+  //     if (!target.$watches) {
+  //       target.$watches = [];
+  //     }
+  //
+  //     target.$watches.push([key, dependencies]);
+  //   };
+  // }
 
   /** Utils */
-  function getChanges(watches: ComponentWatch[], component: Component, key: string, value: any): Record<string, any> {
-    const changes = { [key]: value };
-    if (watches) {
-      for (let [watchKey, watchDependencies] of watches) {
-        if (watchDependencies.indexOf(key) !== -1) {
-          changes[watchKey] = (<any>component)[watchKey]();
-        }
-      }
-    }
-
-    return changes;
-  }
+  // function getChanges(component: Component, changedKey: string, changedValue: any): Record<string, any> {
+  //   const changes = { [changedKey]: changedValue };
+  //   if (component.$watches) {
+  //     for (let [watchKey, watchDependencies] of component.$watches) {
+  //       if (watchDependencies.indexOf(changedKey) !== -1) {
+  //         changes[watchKey] = (<any>component)[watchKey]();
+  //       }
+  //     }
+  //   }
+  //
+  //   return changes;
+  // }
 }
