@@ -1,4 +1,4 @@
-module compote.app {
+module compote.examples.app {
   const { Component, HTML, Value, Watch } = core;
   const { div, input, br, img, hr, button, label } = HTML;
 
