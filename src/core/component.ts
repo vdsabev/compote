@@ -209,7 +209,8 @@ module compote.core {
           const watches = this.$watches[propertyKey];
           watches.forEach((watch) => {
             if (watch.id === componentId && (!changedDataKey || watch.key === changedDataKey)) {
-              (<any>this.$el)[propertyKey] = Parser.evaluate(this.$properties[propertyKey]);
+              const propertyValue = this.$properties[propertyKey];
+              (<any>this.$el)[propertyKey] = Parser.evaluate(propertyValue.toString());
             }
           });
         }
