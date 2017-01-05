@@ -6,21 +6,41 @@ module compote.examples.todomvc {
   export class AppComponent extends Component {
     $render() {
       return (
-        div({}, [
-          input({
-            autofocus: true,
-            onKeyUp: ($event: KeyboardEvent) => {
-              const value = (<HTMLInputElement>$event.target).value;
-              if ($event.which === 13 && value) {
+        div({ class: 'todo-app' }, [
+          TodoInput({
+            $data: {
+              addItem: (value: string) => {
                 this.items.push(value);
               }
             }
           }),
-          ...this.items.map((item) => div({ $map: this.items }))
+          ...this.items.map((item) => div({}, item))
         ])
       );
     }
 
     @Value items: string[] = [];
+  }
+
+  /** Input */
+  export function TodoInput(properties?: core.ComponentProperties<TodoInputComponent>): core.ComponentTree {
+    return [Object.assign({ $component: TodoInputComponent }, properties), []];
+  }
+
+  export class TodoInputComponent extends Component {
+    $render() {
+      return input({
+        autofocus: true,
+        onKeyUp: ($event: KeyboardEvent) => {
+          const $el = <HTMLInputElement>$event.target;
+          if ($event.which === 13 && $el.value) {
+            this.addItem($el.value);
+            $el.value = '';
+          }
+        }
+      });
+    }
+
+    addItem: (text: string) => void;
   }
 }

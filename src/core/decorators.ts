@@ -20,10 +20,14 @@ module compote.core {
       const privateKey = `$$${key}`;
       Object.defineProperty(ComponentClass, key, {
         get(this: Component) {
+          const value = (<any>this)[privateKey];
+
           if (this.$rendering) {
-            return Parser.createExpression(this.$id, key);
+            const expression = Parser.createExpression(this.$id, key);
+            return Array.isArray(value) ? [expression] : expression;
           }
-          return (<any>this)[privateKey];
+
+          return value;
         },
         set(this: Component, value: any) {
           (<any>this)[privateKey] = value;

@@ -71,6 +71,10 @@ module compote.core {
         this.$constructorChildren = children;
       }
 
+      Renderer.defer(() => this.$init());
+    }
+
+    private $init() {
       this.$rendering = true;
       const tree = this.$render();
       this.$rendering = false;
@@ -104,10 +108,6 @@ module compote.core {
         this.$setChildren(this.$el, this.$children, treeChildren);
       }
 
-      Renderer.defer(() => this.$init());
-    }
-
-    private $init() {
       if (this.$onInit) {
         this.$onInit();
       }
