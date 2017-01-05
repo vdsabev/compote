@@ -7,8 +7,11 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "serve": "2.1.2",
+    "@reactivex/rxjs": "5.0.2",
+    "@types/rx": "4.1.1",
     "typescript": "2.1.4"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "serve": "2.1.2"
+  }
 }
