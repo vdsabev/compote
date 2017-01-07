@@ -1,25 +1,39 @@
 module compote.examples.todomvc {
   /** Compote */
   export class Compote {
+    private static components: Record<string, any> = {};
+
     static mount(ComponentClass: { new(): Component }, $container: HTMLElement) {
-      const componentInstance = new ComponentClass();
-      const [tagName, properties, children] = Compote.parseTree(componentInstance.render());
-
-      if (children) {
-        children.forEach((child: any) => {
-          // TODO: Implement
-        });
-      }
-
+      const tree = Compote.parseTree([ComponentClass]);
       $container.textContent = '';
-      const $el = document.createElement(tagName);
-      Object.assign($el, properties);
-
-      $container.appendChild($el);
+      Compote.sync(tree, $container);
     }
 
-    static parseTree(tree: any) {
+    private static parseTree(tree: any): any {
       let [tagName, properties, children] = tree;
+
+      if (typeof tagName === 'function') {
+        const ComponentClass = tagName;
+        const componentInstance = new ComponentClass();
+        if (properties && properties.$data) {
+          Object.assign(componentInstance, properties.$data);
+        }
+
+        let [componentTagName, componentProperties, componentChildren] = Compote.parseTree(componentInstance.render());
+
+        if (componentProperties) {
+          if (componentProperties.$data) {
+            Object.assign(componentInstance, componentProperties.$data);
+          }
+
+          Object.assign(componentProperties, properties);
+        }
+        else {
+          componentProperties = properties;
+        }
+
+        return [componentTagName, componentProperties, children || componentChildren];
+      }
 
       if (typeof properties === 'string') {
         properties = { textContent: properties };
@@ -33,7 +47,48 @@ module compote.examples.todomvc {
         children = undefined;
       }
 
+      if (children) {
+        children.forEach((child: any, index: number) => {
+          if (Array.isArray(child)) {
+            children[index] = Compote.parseTree(child);
+          }
+        });
+      }
+
       return [tagName, properties, children];
+    }
+
+    private static sync(tree: any, $container: HTMLElement) {
+      if (typeof tree === 'string') {
+        const $el = document.createTextNode(tree);
+        $container.appendChild($el);
+        return;
+      }
+
+      const [tagName, properties, children] = tree;
+      const $el = document.createElement(tagName);
+
+      for (let key in properties) {
+        if (properties.hasOwnProperty(key) && key !== '$data') {
+          $el[key] = properties[key];
+        }
+      }
+
+      if (children) {
+        children.forEach((child: any) => {
+          Compote.sync(child, $el);
+        });
+      }
+
+      $container.appendChild($el);
+    }
+
+    static registerComponent(componentId: string, component: Component) {
+      Compote.components[componentId] = component;
+    }
+
+    static update(componentId: string) {
+      // TODO: Implement
     }
   }
 
@@ -48,8 +103,19 @@ module compote.examples.todomvc {
   }
 
   /** Component */
-  interface Component {
-    render(): any; // TODO: Type
+  export abstract class Component {
+    private $id: string;
+
+    constructor() {
+      this.$id = uniqueId(`${this.constructor.name}_`);
+      Compote.registerComponent(this.$id, this);
+    }
+
+    abstract render(): any; // TODO: Type
+
+    protected update() {
+      Compote.update(this.$id);
+    }
   }
 
   type ComponentProperties<ComponentType> = Partial<HTMLElement> & {
@@ -62,8 +128,15 @@ module compote.examples.todomvc {
     };
   }
 
+  /** Utils */
+  let idCounter = -1;
+  export function uniqueId(prefix = '') {
+    idCounter++;
+    return prefix + idCounter.toString();
+  }
+
   /** TodoInput */
-  export class TodoInputComponent implements Component {
+  class TodoInputComponent extends Component {
    render() {
       return (
         input({
@@ -85,7 +158,7 @@ module compote.examples.todomvc {
   const TodoInput = component(TodoInputComponent);
 
   /** TodoItem */
-  export class TodoItemComponent implements Component {
+  class TodoItemComponent extends Component {
    render() {
       return div({}, this.item);
     }
@@ -96,7 +169,7 @@ module compote.examples.todomvc {
   const TodoItem = component(TodoItemComponent);
 
   /** TodoApp */
-  export class TodoAppComponent implements Component {
+  class TodoAppComponent extends Component {
     render() {
       return (
         div({ className: 'todo-app' }, [
@@ -104,6 +177,7 @@ module compote.examples.todomvc {
             $data: {
               addItem: (value: string) => {
                 this.items.push(value);
+                this.update();
               }
             }
           }),
