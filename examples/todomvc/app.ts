@@ -18,51 +18,56 @@ module compote.examples.todomvc {
     $data?: Partial<ComponentType>
   };
 
+  function component<ComponentType extends Component>(ComponentClass: { new(): ComponentType }) {
+    return (properties?: ComponentProperties<ComponentType>) => {
+      return [ComponentClass, properties];
+    };
+  }
+
   /** TodoApp */
+  const TodoInput = component(TodoInputComponent);
+  const TodoItem = component(TodoItemComponent);
+
   export class TodoAppComponent implements Component {
     $render() {
-      return div({ className: 'todo-app' }, [
-        TodoInput({
-          $data: {
-            addItem: (value: string) => {
-              this.items.push(value);
+      return (
+        div({ className: 'todo-app' }, [
+          TodoInput({
+            $data: {
+              addItem: (value: string) => {
+                this.items.push(value);
+              }
             }
-          }
-        }),
-        ...this.items.map((item) => TodoItem({ $data: { item } }))
-      ]);
+          }),
+          ...this.items.map((item) => TodoItem({ $data: { item } }))
+        ])
+      );
     }
 
     items: string[] = [];
   }
 
   /** TodoInput */
-  export function TodoInput(properties?: ComponentProperties<TodoInputComponent>) {
-    return [TodoInputComponent, properties];
-  }
-
   export class TodoInputComponent implements Component {
    $render() {
-      return input({
-        autofocus: true,
-        onkeyup: ($event: KeyboardEvent) => {
-          const $el = <HTMLInputElement>$event.target;
-          if ($event.which === 13 && $el.value) {
-            this.addItem($el.value);
-            $el.value = '';
+      return (
+        input({
+          autofocus: true,
+          onkeyup: ($event: KeyboardEvent) => {
+            const $el = <HTMLInputElement>$event.target;
+            if ($event.which === 13 && $el.value) {
+              this.addItem($el.value);
+              $el.value = '';
+            }
           }
-        }
-      });
+        })
+      );
     }
 
     addItem: (text: string) => void;
   }
 
   /** TodoItem */
-  export function TodoItem(properties?: ComponentProperties<TodoItemComponent>) {
-    return [TodoItemComponent, properties];
-  }
-
   export class TodoItemComponent implements Component {
    $render() {
       return div({}, this.item);
