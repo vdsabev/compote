@@ -1,37 +1,51 @@
 module compote.examples.todomvc {
-  const { Component, HTML, Value } = core;
-  const { div, input } = HTML;
+  /** HTML */
+  const div = tag('div');
+  const input = tag('input');
 
-  /** App */
-  export class AppComponent extends Component {
+  function tag<TagNameType extends keyof HTMLElementTagNameMap, HTMLElementType extends HTMLElementTagNameMap[TagNameType]>(tagName: TagNameType) {
+    return (properties: Partial<HTMLElementType>, children?: any) => {
+      return [tagName, properties, children];
+    };
+  }
+
+  /** Component */
+  interface Component {
+    $render(): any; // TODO: Type
+  }
+
+  type ComponentProperties<ComponentType> = Partial<HTMLElement> & {
+    $data?: Partial<ComponentType>
+  };
+
+  /** TodoApp */
+  export class TodoAppComponent implements Component {
     $render() {
-      return (
-        div({ class: 'todo-app' }, [
-          TodoInput({
-            $data: {
-              addItem: (value: string) => {
-                this.items.push(value);
-              }
+      return div({ className: 'todo-app' }, [
+        TodoInput({
+          $data: {
+            addItem: (value: string) => {
+              this.items.push(value);
             }
-          }),
-          ...this.items.map((item) => div({}, item))
-        ])
-      );
+          }
+        }),
+        ...this.items.map((item) => TodoItem({ $data: { item } }))
+      ]);
     }
 
-    @Value items: string[] = [];
+    items: string[] = [];
   }
 
-  /** Input */
-  export function TodoInput(properties?: core.ComponentProperties<TodoInputComponent>): core.ComponentTree {
-    return [Object.assign({ $component: TodoInputComponent }, properties), []];
+  /** TodoInput */
+  export function TodoInput(properties?: ComponentProperties<TodoInputComponent>) {
+    return [TodoInputComponent, properties];
   }
 
-  export class TodoInputComponent extends Component {
-    $render() {
+  export class TodoInputComponent implements Component {
+   $render() {
       return input({
         autofocus: true,
-        onKeyUp: ($event: KeyboardEvent) => {
+        onkeyup: ($event: KeyboardEvent) => {
           const $el = <HTMLInputElement>$event.target;
           if ($event.which === 13 && $el.value) {
             this.addItem($el.value);
@@ -42,5 +56,45 @@ module compote.examples.todomvc {
     }
 
     addItem: (text: string) => void;
+  }
+
+  /** TodoItem */
+  export function TodoItem(properties?: ComponentProperties<TodoItemComponent>) {
+    return [TodoItemComponent, properties];
+  }
+
+  export class TodoItemComponent implements Component {
+   $render() {
+      return div({}, this.item);
+    }
+
+    item: string;
+  }
+
+  /** Bootstrap */
+  bootstrap();
+
+  function bootstrap() {
+    const $container = document.getElementById('container');
+    while ($container.firstChild) {
+      $container.removeChild($container.lastChild);
+    }
+
+    const $pre = document.createElement('pre');
+    $container.appendChild($pre);
+
+    const todoApp = new TodoAppComponent();
+
+    let counter = 0;
+    setInterval(() => {
+      if (todoApp.items.length >= 3) {
+        todoApp.items.shift();
+      }
+
+      todoApp.items.push(counter.toString());
+      counter++;
+
+      $pre.textContent = JSON.stringify(todoApp.$render(), null, 2);
+    }, 1e3);
   }
 }
