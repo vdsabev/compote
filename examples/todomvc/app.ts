@@ -1,13 +1,17 @@
 module compote.examples.todomvc {
   /** Compote */
   export class Compote {
-    static mount(componentInstance: Component, $container: HTMLElement) {
-      while ($container.firstChild) {
-        $container.removeChild($container.lastChild);
+    static mount(ComponentClass: { new(): Component }, $container: HTMLElement) {
+      const componentInstance = new ComponentClass();
+      const [tagName, properties, children] = Compote.parseTree(componentInstance.render());
+
+      if (children) {
+        children.forEach((child: any) => {
+          // TODO: Implement
+        });
       }
 
-      const [tagName, properties/*, children*/] = Compote.parseTree(componentInstance.render());
-
+      $container.textContent = '';
       const $el = document.createElement(tagName);
       Object.assign($el, properties);
 
@@ -112,6 +116,5 @@ module compote.examples.todomvc {
   }
 
   /** Bootstrap */
-  const todoApp = new TodoAppComponent();
-  Compote.mount(todoApp, document.getElementById('container'));
+  Compote.mount(TodoAppComponent, document.getElementById('container'));
 }
