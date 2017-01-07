@@ -1,4 +1,38 @@
 module compote.examples.todomvc {
+  /** Compote */
+  export class Compote {
+    static mount(componentInstance: Component, $container: HTMLElement) {
+      while ($container.firstChild) {
+        $container.removeChild($container.lastChild);
+      }
+
+      const [tagName, properties/*, children*/] = Compote.parseTree(componentInstance.render());
+
+      const $el = document.createElement(tagName);
+      Object.assign($el, properties);
+
+      $container.appendChild($el);
+    }
+
+    static parseTree(tree: any) {
+      let [tagName, properties, children] = tree;
+
+      if (typeof properties === 'string') {
+        properties = { textContent: properties };
+      }
+      else if (Array.isArray(properties)) {
+        children = properties;
+        properties = undefined;
+      }
+      else if (typeof children === 'string') {
+        properties.textContent = children;
+        children = undefined;
+      }
+
+      return [tagName, properties, children];
+    }
+  }
+
   /** HTML */
   const div = tag('div');
   const input = tag('input');
@@ -11,7 +45,7 @@ module compote.examples.todomvc {
 
   /** Component */
   interface Component {
-    $render(): any; // TODO: Type
+    render(): any; // TODO: Type
   }
 
   type ComponentProperties<ComponentType> = Partial<HTMLElement> & {
@@ -24,32 +58,9 @@ module compote.examples.todomvc {
     };
   }
 
-  /** TodoApp */
-  const TodoInput = component(TodoInputComponent);
-  const TodoItem = component(TodoItemComponent);
-
-  export class TodoAppComponent implements Component {
-    $render() {
-      return (
-        div({ className: 'todo-app' }, [
-          TodoInput({
-            $data: {
-              addItem: (value: string) => {
-                this.items.push(value);
-              }
-            }
-          }),
-          ...this.items.map((item) => TodoItem({ $data: { item } }))
-        ])
-      );
-    }
-
-    items: string[] = [];
-  }
-
   /** TodoInput */
   export class TodoInputComponent implements Component {
-   $render() {
+   render() {
       return (
         input({
           autofocus: true,
@@ -67,39 +78,40 @@ module compote.examples.todomvc {
     addItem: (text: string) => void;
   }
 
+  const TodoInput = component(TodoInputComponent);
+
   /** TodoItem */
   export class TodoItemComponent implements Component {
-   $render() {
+   render() {
       return div({}, this.item);
     }
 
     item: string;
   }
 
-  /** Bootstrap */
-  bootstrap();
+  const TodoItem = component(TodoItemComponent);
 
-  function bootstrap() {
-    const $container = document.getElementById('container');
-    while ($container.firstChild) {
-      $container.removeChild($container.lastChild);
+  /** TodoApp */
+  export class TodoAppComponent implements Component {
+    render() {
+      return (
+        div({ className: 'todo-app' }, [
+          TodoInput({
+            $data: {
+              addItem: (value: string) => {
+                this.items.push(value);
+              }
+            }
+          }),
+          ...this.items.map((item) => TodoItem({ $data: { item } }))
+        ])
+      );
     }
 
-    const $pre = document.createElement('pre');
-    $container.appendChild($pre);
-
-    const todoApp = new TodoAppComponent();
-
-    let counter = 0;
-    setInterval(() => {
-      if (todoApp.items.length >= 3) {
-        todoApp.items.shift();
-      }
-
-      todoApp.items.push(counter.toString());
-      counter++;
-
-      $pre.textContent = JSON.stringify(todoApp.$render(), null, 2);
-    }, 1e3);
+    items: string[] = [];
   }
+
+  /** Bootstrap */
+  const todoApp = new TodoAppComponent();
+  Compote.mount(todoApp, document.getElementById('container'));
 }
