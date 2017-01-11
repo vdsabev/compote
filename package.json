@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "serve": "2.1.2",
+    "serve": "2.2.0",
     "typescript": "2.1.4"
   },
   "devDependencies": {}
