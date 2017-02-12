@@ -1,83 +1,86 @@
-module compote.examples.todomvc {
-  // TODO: Types
-  const { h, diff, patch, create } = (<any>window).virtualDom;
+module examples.virtualDom {
+  const { Component } = compote.core;
+  const { div, h1, input } = compote.html;
 
-  type RecursivePartial<T> = {
-    [P in keyof T]?: RecursivePartial<T[P]>;
-  };
-
-  const div = tag('div');
-  const button = tag('button');
-
-  function tag<TagNameType extends keyof HTMLElementTagNameMap, HTMLElementType extends HTMLElementTagNameMap[TagNameType]>(tagName: TagNameType) {
-    return (properties?: RecursivePartial<HTMLElementType>, children?: any) => {
-      return h(tagName, properties, children);
-    };
-  }
-
-  class Compote {
-    static mount(ComponentClass: { new(): Component }, $container: HTMLElement) {
-      const component = new ComponentClass();
-      setTimeout(() => {
-        $container.textContent = '';
-        $container.appendChild(component.node);
-      }, 0);
-    }
-  }
-
-  abstract class Component {
-    tree: any; // TODO: Type
-    node: any; // TODO: Type
-
-    constructor() {
-      setTimeout(() => {
-        this.tree = this.render();
-        this.node = create(this.tree);
-      }, 0);
-    }
-
-    abstract render(): any; // TODO: Type
-
-    update() {
-      const newTree = this.render();
-      const patches = diff(this.tree, newTree);
-      const patchedNode = patch(this.node, patches);
-      this.tree = newTree;
-      this.node = patchedNode;
-    }
+  function App() {
+    return new AppComponent();
   }
 
   class AppComponent extends Component {
     render() {
       return div({}, [
-        div({
-          style: {
-            textAlign: 'center',
-            lineHeight: '100px',
-            border: '1px solid red',
-            width: '100px',
-            height: '100px'
+        h1({}, 'todos'),
+        input({
+          type: 'text',
+          placeholder: 'What needs to be done?',
+          autofocus: true,
+          onkeyup: ($event: KeyboardEvent) => {
+            const $el = <HTMLInputElement>$event.target;
+            const value = $el.value.trim();
+            if ($event.which === Keyboard.ENTER && value) {
+              this.items.push(new Todo(value));
+              $el.value = '';
+              this.update();
+            }
           }
-        }, this.count),
-        button({
-          onclick: () => {
-            this.count--;
-            this.update();
-          },
-          style: { width: '51px' }
-        }, '-'),
-        button({
-          onclick: () => {
-            this.count++;
-            this.update();
-          },
-          style: { width: '51px' }
-        }, '+')
+        }),
+        this.items.map((item) => TodoItem({ item }))
       ]);
     }
 
-    count = 0;
+    items: Todo[] = [];
   }
 
-  Compote.mount(AppComponent, document.getElementById('container'));
+  function TodoItem(data: Partial<TodoItemComponent>) {
+    return new TodoItemComponent(data).render();
+  }
+
+  // TODO: Fix update
+  class TodoItemComponent extends Component {
+    render() {
+      return this.edit ?
+        input({
+          type: 'text',
+          autofocus: true,
+          value: this.item.title,
+          onkeyup: ($event: KeyboardEvent) => {
+            if ($event.which === Keyboard.ENTER) {
+              this.edit = false;
+            }
+            else {
+              this.item.title = (<HTMLInputElement>$event.target).value.trim();
+            }
+            this.update();
+          },
+          onblur: () => {
+            this.edit = false;
+            this.update();
+          }
+        })
+        :
+        div({
+          ondblclick: () => {
+            this.edit = true;
+            this.update();
+          }
+        }, this.item.title);
+    }
+
+    item: Todo;
+    edit: boolean;
+  }
+
+  class Todo {
+    static id = 0;
+
+    id: number;
+    completed: boolean;
+
+    constructor(public title: string) {
+      this.id = Todo.id;
+      Todo.id++;
+    }
+  }
+
+  Component.mount(App(), document.querySelector('#container'));
 }
