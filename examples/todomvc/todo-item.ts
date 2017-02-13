@@ -1,6 +1,6 @@
 module examples.virtualDom {
   import App = compote.core.App;
-  const { div, input } = compote.html;
+  const { div, input } = compote.html.HTML;
 
   export function TodoItem(app: App, item: Partial<Todo>) { // TODO: type `Component`
     return item.edit ?

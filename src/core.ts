@@ -1,13 +1,13 @@
-module examples.virtualDom.compote.core {
+module compote.core {
   const { diff, patch, create } = (<any>window).virtualDom; // TODO: Types
 
   export class App {
-    render: (app: App) => any;
+    render: (app: App) => any; // TODO: Type
     container: Element;
     tree: any; // TODO: Type
     node: any; // TODO: Type
 
-    constructor({ render, container }: Partial<App>) {
+    constructor({ render, container }: { render: (app: App) => any, container: Element }) { // TODO: Type
       this.render = render;
       this.tree = this.render(this);
       this.node = create(this.tree);
