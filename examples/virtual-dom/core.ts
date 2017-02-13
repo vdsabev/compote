@@ -1,36 +1,24 @@
 module examples.virtualDom.compote.core {
-  // TODO: Types
-  const { diff, patch, create } = (<any>window).virtualDom;
+  const { diff, patch, create } = (<any>window).virtualDom; // TODO: Types
 
-  export abstract class Component {
-    static mount(component: Component, $container: Element) {
-      setTimeout(() => {
-        $container.textContent = '';
-        $container.appendChild(component.node);
-      }, 0);
-    }
-
+  export class App {
+    render: (app: App) => any;
+    container: Element;
     tree: any; // TODO: Type
     node: any; // TODO: Type
 
-    constructor(data?: Partial<Component>) {
-      Object.assign(this, data);
+    constructor({ render, container }: Partial<App>) {
+      this.render = render;
+      this.tree = this.render(this);
+      this.node = create(this.tree);
 
-      setTimeout(() => {
-        if (!this.tree) {
-          this.tree = this.render();
-        }
-
-        if (!this.node) {
-          this.node = create(this.tree);
-        }
-      }, 0);
+      this.container = container;
+      this.container.textContent = '';
+      this.container.appendChild(this.node);
     }
 
-    abstract render(): any; // TODO: Type
-
     update() {
-      const newTree = this.render();
+      const newTree = this.render(this);
       const patches = diff(this.tree, newTree);
       const patchedNode = patch(this.node, patches);
       this.tree = newTree;
