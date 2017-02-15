@@ -4,19 +4,21 @@ module examples.todomvc {
   const { div, input } = compote.html.HTML;
 
   export class TodoItem implements Component {
-    constructor(private item: Todo) {
+    constructor(data: Partial<TodoItem>) {
+      Object.assign(this, data);
     }
 
-    initialTitle: string;
+    item: Todo;
     edit: boolean;
+    onDelete: (item: TodoItem) => void;
 
     render(app: TodoApp) {
       return div({
-        className: 'fade-in-animation',
         onbeforeremove: ({ dom }: ComponentNode) => {
           dom.classList.add('fade-out-animation');
           return new Promise((resolve) => setTimeout(resolve, getAnimationDuration(dom) * 1e3));
-        }
+        },
+        className: 'fade-in-animation'
       }, this.edit ? this.renderEditView(app) : this.renderShowView(app));
     }
 
@@ -30,26 +32,28 @@ module examples.todomvc {
 
     renderEditView(app: TodoApp) {
       return input({
-        oninit: () => {
-          this.initialTitle = this.item.title;
-        },
         oncreate: ({ dom }: ComponentNode) => {
           dom.focus();
         },
         type: 'text',
         value: this.item.title,
-        onkeyup: ($event: KeyboardEvent) => {
+        onkeydown: ($event: KeyboardEvent) => {
+          if ($event.which === Keyboard.ESCAPE) {
+            (<HTMLInputElement>$event.target).blur();
+          }
+        },
+        onkeypress: ($event: KeyboardEvent) => {
           if ($event.which === Keyboard.ENTER) {
-            this.stopEdit(app);
+            (<HTMLInputElement>$event.target).blur();
           }
-          else if ($event.which === Keyboard.ESCAPE) {
-            this.item.title = this.initialTitle;
-            this.stopEdit(app);
+        },
+        onblur: ($event: FocusEvent) => {
+          this.item.title = (<HTMLInputElement>$event.target).value.trim();
+          if (!this.item.title) {
+            this.onDelete(this);
           }
-          else {
-            this.item.title = (<HTMLInputElement>$event.target).value.trim();
-            app.update();
-          }
+
+          this.stopEdit(app);
         }
       });
     }

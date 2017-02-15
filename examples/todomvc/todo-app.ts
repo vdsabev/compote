@@ -21,11 +21,19 @@ module examples.todomvc {
           type: 'text',
           placeholder: 'What needs to be done?',
           autofocus: true,
-          onkeyup: ($event: KeyboardEvent) => {
+          onkeypress: ($event: KeyboardEvent) => {
             const $el = <HTMLInputElement>$event.target;
             const value = $el.value.trim();
             if ($event.which === Keyboard.ENTER && value) {
-              this.items.push(new TodoItem(new Todo(value)));
+              this.items.push(new TodoItem({
+                item: new Todo(value),
+                onDelete: (item: TodoItem) => {
+                  const indexOfItem = this.items.indexOf(item);
+                  if (indexOfItem !== -1) {
+                    this.items.splice(indexOfItem, 1);
+                  }
+                }
+              }));
               $el.value = '';
               app.update();
             }
