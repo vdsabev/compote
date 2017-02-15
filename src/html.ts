@@ -1,4 +1,11 @@
-module compote.core {
+module compote.html {
+  const virtualDom: typeof VirtualDOM = (<any>window).virtualDom;
+  const { h } = virtualDom;
+
+  type RecursivePartial<T> = {
+    [P in keyof T]?: RecursivePartial<T[P]>;
+  };
+
   /** HTML tags */
   // http://www.quackit.com/html_5/tags
   export const HTML = {
@@ -11,7 +18,6 @@ module compote.core {
     audio: tag('audio'),
     b: tag('b'),
     base: tag('base'),
-    bdi: tag('bdi'),
     bdo: tag('bdo'),
     blockquote: tag('blockquote'),
     body: tag('body'),
@@ -23,13 +29,10 @@ module compote.core {
     code: tag('code'),
     col: tag('col'),
     colgroup: tag('colgroup'),
-    data: tag('data'),
     datalist: tag('datalist'),
     dd: tag('dd'),
     del: tag('del'),
-    details: tag('details'),
     dfn: tag('dfn'),
-    dialog: tag('dialog'),
     div: tag('div'),
     dl: tag('dl'),
     dt: tag('dt'),
@@ -62,11 +65,9 @@ module compote.core {
     legend: tag('legend'),
     li: tag('li'),
     link: tag('link'),
-    main: tag('main'),
     map: tag('map'),
     mark: tag('mark'),
     menu: tag('menu'),
-    menuitem: tag('menuitem'),
     meta: tag('meta'),
     meter: tag('meter'),
     nav: tag('nav'),
@@ -75,16 +76,12 @@ module compote.core {
     ol: tag('ol'),
     optgroup: tag('optgroup'),
     option: tag('option'),
-    output: tag('output'),
     p: tag('p'),
     param: tag('param'),
     pre: tag('pre'),
     progress: tag('progress'),
     q: tag('q'),
-    rb: tag('rb'),
-    rp: tag('rp'),
     rt: tag('rt'),
-    rtc: tag('rtc'),
     ruby: tag('ruby'),
     s: tag('s'),
     samp: tag('samp'),
@@ -97,7 +94,6 @@ module compote.core {
     strong: tag('strong'),
     style: tag('style'),
     sub: tag('sub'),
-    summary: tag('summary'),
     sup: tag('sup'),
     table: tag('table'),
     tbody: tag('tbody'),
@@ -107,7 +103,6 @@ module compote.core {
     tfoot: tag('tfoot'),
     th: tag('th'),
     thead: tag('thead'),
-    time: tag('time'),
     title: tag('title'),
     tr: tag('tr'),
     track: tag('track'),
@@ -118,9 +113,9 @@ module compote.core {
     wbr: tag('wbr')
   };
 
-  export function tag(tagName: string) {
-    return (properties?: ComponentProperties<Component>, children?: ComponentTree | ComponentTree[]): ComponentTree => {
-      return [Object.assign({ tagName }, properties), children];
+  export function tag<TagNameType extends keyof ElementTagNameMap, ElementType extends ElementTagNameMap[TagNameType]>(tagName: TagNameType) {
+    return (properties?: RecursivePartial<ElementType>, children?: any) => {
+      return h(tagName, properties, children);
     };
   }
 }
