@@ -2,7 +2,7 @@ module examples.virtualDom {
   import App = compote.core.App;
   const { div, h1, input } = compote.html.HTML;
 
-  function TodoApp(app: App, todoApp: TodoAppController) {
+  function TodoApp(app: App, todoApp: TodoAppController): VirtualDOM.VNode {
     return div({}, [
       h1({}, 'todos'),
       input({

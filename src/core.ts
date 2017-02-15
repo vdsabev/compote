@@ -1,13 +1,14 @@
 module compote.core {
-  const { diff, patch, create } = (<any>window).virtualDom; // TODO: Types
+  const virtualDom: typeof VirtualDOM = (<any>window).virtualDom;
+  const { diff, patch, create } = virtualDom;
 
   export class App {
-    render: (app: App) => any; // TODO: Type
+    render: (app: App) => VirtualDOM.VNode;
     container: Element;
-    tree: any; // TODO: Type
-    node: any; // TODO: Type
+    tree: VirtualDOM.VNode;
+    node: Element;
 
-    constructor({ render, container }: { render: (app: App) => any, container: Element }) { // TODO: Type
+    constructor({ render, container }: { render: (app: App) => VirtualDOM.VNode, container: Element }) {
       this.render = render;
       this.tree = this.render(this);
       this.node = create(this.tree);

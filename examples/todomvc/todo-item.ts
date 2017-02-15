@@ -2,7 +2,7 @@ module examples.virtualDom {
   import App = compote.core.App;
   const { div, input } = compote.html.HTML;
 
-  export function TodoItem(app: App, item: Partial<Todo>) { // TODO: type `Component`
+  export function TodoItem(app: App, item: Todo): VirtualDOM.VNode {
     return item.edit ?
       input(Object.assign({ 'focus-hook': new FocusHook() }, {
         type: 'text',

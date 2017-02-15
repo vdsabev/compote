@@ -1,6 +1,6 @@
 module compote.html {
-  // TODO: Types
-  const { h } = (<any>window).virtualDom;
+  const virtualDom: typeof VirtualDOM = (<any>window).virtualDom;
+  const { h } = virtualDom;
 
   type RecursivePartial<T> = {
     [P in keyof T]?: RecursivePartial<T[P]>;
@@ -113,8 +113,8 @@ module compote.html {
     wbr: tag('wbr')
   };
 
-  export function tag<TagNameType extends keyof ElementTagNameMap, HTMLElementType extends ElementTagNameMap[TagNameType]>(tagName: TagNameType) {
-    return (properties?: RecursivePartial<HTMLElementType>, children?: any) => {
+  export function tag<TagNameType extends keyof ElementTagNameMap, ElementType extends ElementTagNameMap[TagNameType]>(tagName: TagNameType) {
+    return (properties?: RecursivePartial<ElementType>, children?: any) => {
       return h(tagName, properties, children);
     };
   }

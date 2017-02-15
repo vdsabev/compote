@@ -69,7 +69,7 @@ module compote.test {
         'should set `render` and `container` properties'(done: Function) {
           const render = () => 'a';
           const container: any = { appendChild: () => 'b' };
-          const app = new App({ render, container });
+          const app = new App({ render: <any>render, container });
           expect.equal(app.render, render);
           expect.equal(app.container, container);
           done();
