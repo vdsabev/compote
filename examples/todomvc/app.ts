@@ -1,49 +1,34 @@
-module examples.virtualDom {
-  import App = compote.core.App;
-  const { div, h1, input } = compote.html.HTML;
+module examples.todomvc {
+  const { Mithril } = compote.core;
+  const { h1, input } = compote.html.HTML;
 
-  function TodoApp(app: App, todoApp: TodoAppController): VirtualDOM.VNode {
-    return div({}, [
-      h1({}, 'todos'),
-      input({
-        type: 'text',
-        placeholder: 'What needs to be done?',
-        autofocus: true,
-        onkeyup: ($event: KeyboardEvent) => {
-          const $el = <HTMLInputElement>$event.target;
-          const value = $el.value.trim();
-          if ($event.which === Keyboard.ENTER && value) {
-            todoApp.items.push(new Todo(value));
-            $el.value = '';
-            app.update();
+  class TodoAppComponent {
+    view() {
+      return [
+        h1({}, 'todos'),
+        input({
+          type: 'text',
+          placeholder: 'What needs to be done?',
+          autofocus: true,
+          onkeyup: ($event: KeyboardEvent) => {
+            const $el = <HTMLInputElement>$event.target;
+            const value = $el.value.trim();
+            if ($event.which === Keyboard.ENTER && value) {
+              this.items.push(new Todo(value));
+              $el.value = '';
+            }
+            else {
+              (<any>$event).redraw = false; // TODO: Type
+            }
           }
-        }
-      }),
-      ...todoApp.items.map((item) => TodoItem(app, item))
-    ]);
-  }
-
-  class TodoAppController {
-    items: Todo[] = [];
-  }
-
-  export class Todo {
-    static id = 0;
-
-    id: number;
-    completed: boolean;
-    edit: boolean;
-
-    constructor(public title: string) {
-      this.id = Todo.id;
-      Todo.id++;
+        }),
+        this.items.map((item: Todo) => TodoItem(item))
+      ];
     }
-  }
+
+    items: Todo[] = [];
+  };
 
   // Initialize
-  const todoAppController = new TodoAppController();
-  new App({
-    render: (app: App) => TodoApp(app, todoAppController),
-    container: document.querySelector('#container')
-  });
+  Mithril.mount(document.querySelector('#container'), new TodoAppComponent());
 }

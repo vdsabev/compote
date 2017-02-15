@@ -1,32 +1,52 @@
-module examples.virtualDom {
-  import App = compote.core.App;
+module examples.todomvc {
+  const { Mithril } = compote.core;
   const { div, input } = compote.html.HTML;
 
-  export function TodoItem(app: App, item: Todo): VirtualDOM.VNode {
-    return item.edit ?
-      input(Object.assign({ 'focus-hook': new FocusHook() }, {
-        type: 'text',
-        value: item.title,
-        onkeyup($event: KeyboardEvent) {
-          if ($event.which === Keyboard.ENTER) {
-            item.edit = false;
-          }
-          else {
-            item.title = (<HTMLInputElement>$event.target).value.trim();
-          }
-          app.update();
-        },
-        onblur() {
-          item.edit = false;
-          app.update();
+  class TodoItemComponent {
+    view() {
+      return div(Object.assign({
+        className: 'fade-in-animation'
+      }, {
+        onbeforeremove: ({ dom }: { dom: HTMLElement }) => {
+          dom.classList.add('fade-out-animation');
+          return new Promise((resolve) => setTimeout(resolve, 500));
         }
-      }))
-      :
-      div({
-        ondblclick($event: Event) {
-          item.edit = true;
-          app.update();
-        }
-      }, item.title);
+      }), this.edit ?
+        input(Object.assign({
+          oncreate: ({ dom }: { dom: HTMLElement }) => { // TODO: Type
+            dom.focus();
+          }
+        }, {
+          type: 'text',
+          value: this.item.title,
+          onkeyup: ($event: KeyboardEvent) => {
+            if ($event.which === Keyboard.ENTER) {
+              this.edit = false;
+            }
+            else {
+              this.item.title = (<HTMLInputElement>$event.target).value.trim();
+            }
+          },
+          onblur: () => {
+            this.edit = false;
+          }
+        }))
+        :
+        div({
+          ondblclick: ($event: Event) => {
+            this.edit = true;
+          }
+        }, this.item.title)
+      );
+    }
+
+    edit: boolean;
+
+    constructor(private item: Todo) {
+    }
+  };
+
+  export function TodoItem(item: Todo) {
+    return Mithril(new TodoItemComponent(item));
   }
 }
