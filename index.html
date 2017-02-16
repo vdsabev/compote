@@ -22,21 +22,38 @@
         cursor: pointer;
         user-select: none;
       }
+
+      .fade-in-animation {
+        animation: fade-in 0.4s;
+      }
+
+      @keyframes fade-in {
+        from { opacity:0; }
+        to { opacity:1; }
+      }
+
+      .fade-out-animation {
+        animation: fade-out 0.4s;
+      }
+
+      @keyframes fade-out {
+        from { opacity:1; }
+        to { opacity:0; }
+      }
     </style>
   </head>
 
   <body>
     <div id="container">Loading...</div>
 
-    <script src="node_modules/virtual-dom/dist/virtual-dom.js"></script>
+    <script src="node_modules/mithril/mithril.js"></script>
     <script src="build/src/core.js"></script>
+    <script src="build/src/css.js"></script>
     <script src="build/src/html.js"></script>
 
-    <script src="build/examples/todomvc/todo-item.js"></script>
     <script src="build/examples/todomvc/keyboard.js"></script>
-    <script src="build/examples/todomvc/focus-hook.js"></script>
-    <script src="build/examples/todomvc/app.js"></script>
-
-    <script src="build/src/test.js"></script>
+    <script src="build/examples/todomvc/todo.js"></script>
+    <script src="build/examples/todomvc/todo-item.js"></script>
+    <script src="build/examples/todomvc/todo-app.js"></script>
   </body>
 </html>

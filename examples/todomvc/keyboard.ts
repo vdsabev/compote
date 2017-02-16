@@ -1,4 +1,4 @@
-module examples.virtualDom {
+module examples.todomvc {
   export enum Keyboard {
     BACKSPACE = 8,
     TAB = 9,

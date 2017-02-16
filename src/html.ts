@@ -1,10 +1,5 @@
 module compote.html {
-  const virtualDom: typeof VirtualDOM = (<any>window).virtualDom;
-  const { h } = virtualDom;
-
-  type RecursivePartial<T> = {
-    [P in keyof T]?: RecursivePartial<T[P]>;
-  };
+  import Mithril = compote.core.Mithril;
 
   /** HTML tags */
   // http://www.quackit.com/html_5/tags
@@ -114,8 +109,8 @@ module compote.html {
   };
 
   export function tag<TagNameType extends keyof ElementTagNameMap, ElementType extends ElementTagNameMap[TagNameType]>(tagName: TagNameType) {
-    return (properties?: RecursivePartial<ElementType>, children?: any) => {
-      return h(tagName, properties, children);
+    return (properties?: CustomProperties & RecursivePartial<ElementType>, children?: Mithril.Children) => {
+      return Mithril(tagName, properties, children);
     };
   }
 }
