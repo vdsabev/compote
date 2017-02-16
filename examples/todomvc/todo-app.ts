@@ -16,7 +16,7 @@ module examples.todomvc {
 
     render(app: TodoApp) {
       return [
-        h1({}, 'todos'),
+        h1('todos'),
         input({
           type: 'text',
           placeholder: 'What needs to be done?',
@@ -25,15 +25,7 @@ module examples.todomvc {
             const $el = <HTMLInputElement>$event.target;
             const value = $el.value.trim();
             if ($event.which === Keyboard.ENTER && value) {
-              this.items.push(new TodoItem({
-                item: new Todo(value),
-                onDelete: (item: TodoItem) => {
-                  const indexOfItem = this.items.indexOf(item);
-                  if (indexOfItem !== -1) {
-                    this.items.splice(indexOfItem, 1);
-                  }
-                }
-              }));
+              this.addItem(value);
               $el.value = '';
               app.update();
             }
@@ -41,6 +33,18 @@ module examples.todomvc {
         }),
         ...this.items.map((item: TodoItem) => item.render(this))
       ];
+    }
+
+    addItem(title: string) {
+      this.items.push(new TodoItem({
+        item: new Todo(title),
+        onDelete: (item: TodoItem) => {
+          const indexOfItem = this.items.indexOf(item);
+          if (indexOfItem !== -1) {
+            this.items.splice(indexOfItem, 1);
+          }
+        }
+      }));
     }
   }
 

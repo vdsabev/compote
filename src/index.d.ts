@@ -1,6 +1,8 @@
 /// <reference path="../node_modules/@types/mithril/index.d.ts" />
 
-type Hooks = {
+type CustomProperties = {
+  key?: number | string;
+
   oninit?(node?: ComponentNode): void;
   oncreate?(node?: ComponentNode): void;
 

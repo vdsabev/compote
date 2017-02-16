@@ -109,7 +109,7 @@ module compote.html {
   };
 
   export function tag<TagNameType extends keyof ElementTagNameMap, ElementType extends ElementTagNameMap[TagNameType]>(tagName: TagNameType) {
-    return (properties?: Hooks & RecursivePartial<ElementType>, children?: Mithril.Children) => {
+    return (properties?: CustomProperties & RecursivePartial<ElementType>, children?: Mithril.Children) => {
       return Mithril(tagName, properties, children);
     };
   }
