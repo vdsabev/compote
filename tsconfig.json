@@ -3,6 +3,7 @@
   "compilerOptions": {
     "baseUrl": "src",
     "experimentalDecorators": true,
+    "module": "ES6",
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "outDir": "build",

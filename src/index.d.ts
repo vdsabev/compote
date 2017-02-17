@@ -1,5 +1,3 @@
-/// <reference path="../node_modules/@types/mithril/index.d.ts" />
-
 type CustomProperties = {
   key?: number | string;
 

@@ -1,116 +1,110 @@
-module compote.html {
-  import Mithril = compote.core.Mithril;
+import { Mithril } from './core';
 
-  /** HTML tags */
-  // http://www.quackit.com/html_5/tags
-  export const HTML = {
-    a: tag('a'),
-    abbr: tag('abbr'),
-    address: tag('address'),
-    area: tag('area'),
-    article: tag('article'),
-    aside: tag('aside'),
-    audio: tag('audio'),
-    b: tag('b'),
-    base: tag('base'),
-    bdo: tag('bdo'),
-    blockquote: tag('blockquote'),
-    body: tag('body'),
-    br: tag('br'),
-    button: tag('button'),
-    canvas: tag('canvas'),
-    caption: tag('caption'),
-    cite: tag('cite'),
-    code: tag('code'),
-    col: tag('col'),
-    colgroup: tag('colgroup'),
-    datalist: tag('datalist'),
-    dd: tag('dd'),
-    del: tag('del'),
-    dfn: tag('dfn'),
-    div: tag('div'),
-    dl: tag('dl'),
-    dt: tag('dt'),
-    em: tag('em'),
-    embed: tag('embed'),
-    fieldset: tag('fieldset'),
-    figcaption: tag('figcaption'),
-    figure: tag('figure'),
-    footer: tag('footer'),
-    form: tag('form'),
-    h1: tag('h1'),
-    h2: tag('h2'),
-    h3: tag('h3'),
-    h4: tag('h4'),
-    h5: tag('h5'),
-    h6: tag('h6'),
-    head: tag('head'),
-    header: tag('header'),
-    hgroup: tag('hgroup'),
-    hr: tag('hr'),
-    html: tag('html'),
-    i: tag('i'),
-    iframe: tag('iframe'),
-    img: tag('img'),
-    input: tag('input'),
-    ins: tag('ins'),
-    kbd: tag('kbd'),
-    keygen: tag('keygen'),
-    label: tag('label'),
-    legend: tag('legend'),
-    li: tag('li'),
-    link: tag('link'),
-    map: tag('map'),
-    mark: tag('mark'),
-    menu: tag('menu'),
-    meta: tag('meta'),
-    meter: tag('meter'),
-    nav: tag('nav'),
-    noscript: tag('noscript'),
-    object: tag('object'),
-    ol: tag('ol'),
-    optgroup: tag('optgroup'),
-    option: tag('option'),
-    p: tag('p'),
-    param: tag('param'),
-    pre: tag('pre'),
-    progress: tag('progress'),
-    q: tag('q'),
-    rt: tag('rt'),
-    ruby: tag('ruby'),
-    s: tag('s'),
-    samp: tag('samp'),
-    script: tag('script'),
-    section: tag('section'),
-    select: tag('select'),
-    small: tag('small'),
-    source: tag('source'),
-    span: tag('span'),
-    strong: tag('strong'),
-    style: tag('style'),
-    sub: tag('sub'),
-    sup: tag('sup'),
-    table: tag('table'),
-    tbody: tag('tbody'),
-    td: tag('td'),
-    template: tag('template'),
-    textarea: tag('textarea'),
-    tfoot: tag('tfoot'),
-    th: tag('th'),
-    thead: tag('thead'),
-    title: tag('title'),
-    tr: tag('tr'),
-    track: tag('track'),
-    u: tag('u'),
-    ul: tag('ul'),
-    var: tag('var'),
-    video: tag('video'),
-    wbr: tag('wbr')
+// http://www.quackit.com/html_5/tags
+export const a = tag('a');
+export const abbr = tag('abbr');
+export const address = tag('address');
+export const area = tag('area');
+export const article = tag('article');
+export const aside = tag('aside');
+export const audio = tag('audio');
+export const b = tag('b');
+export const base = tag('base');
+export const bdo = tag('bdo');
+export const blockquote = tag('blockquote');
+export const body = tag('body');
+export const br = tag('br');
+export const button = tag('button');
+export const canvas = tag('canvas');
+export const caption = tag('caption');
+export const cite = tag('cite');
+export const code = tag('code');
+export const col = tag('col');
+export const colgroup = tag('colgroup');
+export const datalist = tag('datalist');
+export const dd = tag('dd');
+export const del = tag('del');
+export const dfn = tag('dfn');
+export const div = tag('div');
+export const dl = tag('dl');
+export const dt = tag('dt');
+export const em = tag('em');
+export const embed = tag('embed');
+export const fieldset = tag('fieldset');
+export const figcaption = tag('figcaption');
+export const figure = tag('figure');
+export const footer = tag('footer');
+export const form = tag('form');
+export const h1 = tag('h1');
+export const h2 = tag('h2');
+export const h3 = tag('h3');
+export const h4 = tag('h4');
+export const h5 = tag('h5');
+export const h6 = tag('h6');
+export const head = tag('head');
+export const header = tag('header');
+export const hgroup = tag('hgroup');
+export const hr = tag('hr');
+export const html = tag('html');
+export const i = tag('i');
+export const iframe = tag('iframe');
+export const img = tag('img');
+export const input = tag('input');
+export const ins = tag('ins');
+export const kbd = tag('kbd');
+export const keygen = tag('keygen');
+export const label = tag('label');
+export const legend = tag('legend');
+export const li = tag('li');
+export const link = tag('link');
+export const map = tag('map');
+export const mark = tag('mark');
+export const menu = tag('menu');
+export const meta = tag('meta');
+export const meter = tag('meter');
+export const nav = tag('nav');
+export const noscript = tag('noscript');
+export const object = tag('object');
+export const ol = tag('ol');
+export const optgroup = tag('optgroup');
+export const option = tag('option');
+export const p = tag('p');
+export const param = tag('param');
+export const pre = tag('pre');
+export const progress = tag('progress');
+export const q = tag('q');
+export const rt = tag('rt');
+export const ruby = tag('ruby');
+export const s = tag('s');
+export const samp = tag('samp');
+export const script = tag('script');
+export const section = tag('section');
+export const select = tag('select');
+export const small = tag('small');
+export const source = tag('source');
+export const span = tag('span');
+export const strong = tag('strong');
+export const style = tag('style');
+export const sub = tag('sub');
+export const sup = tag('sup');
+export const table = tag('table');
+export const tbody = tag('tbody');
+export const td = tag('td');
+export const template = tag('template');
+export const textarea = tag('textarea');
+export const tfoot = tag('tfoot');
+export const th = tag('th');
+export const thead = tag('thead');
+export const title = tag('title');
+export const tr = tag('tr');
+export const track = tag('track');
+export const u = tag('u');
+export const ul = tag('ul');
+export const video = tag('video');
+export const wbr = tag('wbr');
+
+export function tag<TagNameType extends keyof ElementTagNameMap, ElementType extends ElementTagNameMap[TagNameType]>(tagName: TagNameType) {
+  return (properties?: CustomProperties & RecursivePartial<ElementType>, children?: Mithril.Children) => {
+    return Mithril(tagName, properties, children);
   };
-
-  export function tag<TagNameType extends keyof ElementTagNameMap, ElementType extends ElementTagNameMap[TagNameType]>(tagName: TagNameType) {
-    return (properties?: CustomProperties & RecursivePartial<ElementType>, children?: Mithril.Children) => {
-      return Mithril(tagName, properties, children);
-    };
-  }
 }
