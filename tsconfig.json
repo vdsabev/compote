@@ -2,6 +2,8 @@
   "compileOnSave": true,
   "compilerOptions": {
     "baseUrl": "src",
+    "declaration": true,
+    "declarationDir": "./",
     "experimentalDecorators": true,
     "module": "ES6",
     "noImplicitAny": true,
@@ -13,8 +15,8 @@
   "exclude": [
     "node_modules"
   ],
-  "include": [
-    "examples",
-    "src"
+  "files": [
+    "examples/todomvc.ts",
+    "compote.ts"
   ]
 }
