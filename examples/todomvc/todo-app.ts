@@ -1,7 +1,7 @@
 import { Mithril, App } from '../../src/core';
 import { h1, input } from '../../src/html';
 
-import { Keyboard } from './keyboard';
+import Keyboard from './keyboard';
 import TodoItem from './todo-item';
 import Todo from './todo';
 
@@ -13,10 +13,10 @@ export default class TodoApp implements App {
   items: TodoItem[] = [];
 
   update() {
-    Mithril.render(document.querySelector('#container'), this.render(this));
+    Mithril.render(document.querySelector('#container'), this.render());
   }
 
-  render(app: TodoApp) {
+  render() {
     return [
       h1('todos'),
       input({
@@ -29,16 +29,16 @@ export default class TodoApp implements App {
           if ($event.which === Keyboard.ENTER && value) {
             this.addItem(value);
             $el.value = '';
-            app.update();
+            this.update();
           }
         }
       }),
-      ...this.items.map((item: TodoItem) => item.render(this))
+      ...this.items.map((item: TodoItem) => item.render())
     ];
   }
 
   addItem(title: string) {
-    this.items.push(new TodoItem({
+    this.items.push(new TodoItem(this, {
       item: new Todo(title),
       onDelete: (item: TodoItem) => {
         const indexOfItem = this.items.indexOf(item);

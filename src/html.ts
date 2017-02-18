@@ -1,4 +1,4 @@
-import { Mithril } from './core';
+import { Mithril, CustomProperties } from './core';
 
 // http://www.quackit.com/html_5/tags
 export const a = tag('a');
@@ -108,3 +108,7 @@ export function tag<TagNameType extends keyof ElementTagNameMap, ElementType ext
     return Mithril(tagName, properties, children);
   };
 }
+
+export type RecursivePartial<T> = {
+  [P in keyof T]?: RecursivePartial<T[P]>;
+};

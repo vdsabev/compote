@@ -1,4 +1,4 @@
-export enum Keyboard {
+enum Keyboard {
   BACKSPACE = 8,
   TAB = 9,
   ENTER = 13,
@@ -99,3 +99,5 @@ export enum Keyboard {
   CLOSE_BRACKET = 221,
   SINGLE_QUOTE = 222
 }
+
+export default Keyboard;
