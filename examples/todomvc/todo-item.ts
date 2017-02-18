@@ -1,44 +1,39 @@
-import { Component } from '../../src/core';
+import { Component, ComponentNode } from '../../src/core';
 import { getAnimationDuration } from '../../src/css';
 import { div, input } from '../../src/html';
 
-import { Keyboard } from './keyboard';
-import TodoApp from './todo-app';
+import Keyboard from './keyboard';
 import Todo from './todo';
 
-export default class TodoItem implements Component {
-  constructor(data: Partial<TodoItem>) {
-    Object.assign(this, data);
-  }
-
+export default class TodoItem extends Component<TodoItem> {
   item: Todo;
   edit: boolean;
   onDelete: (item: TodoItem) => void;
 
-  render(app: TodoApp) {
+  render() {
     return (
       div({
         key: this.item.id,
+        className: 'fade-in-animation',
         onbeforeremove: ({ dom }: ComponentNode) => {
           dom.classList.add('fade-out-animation');
           return new Promise((resolve) => setTimeout(resolve, getAnimationDuration(dom) * 1e3));
-        },
-        className: 'fade-in-animation'
-      }, this.edit ? this.renderEditView(app) : this.renderShowView(app))
+        }
+      }, this.edit ? this.renderEditView() : this.renderShowView())
     );
   }
 
-  renderShowView(app: TodoApp) {
+  renderShowView() {
     return (
       div({
         ondblclick: ($event: Event) => {
-          this.startEdit(app);
+          this.startEdit();
         }
       }, this.item.title)
     );
   }
 
-  renderEditView(app: TodoApp) {
+  renderEditView() {
     return (
       input({
         oncreate: ({ dom }: ComponentNode) => {
@@ -62,19 +57,19 @@ export default class TodoItem implements Component {
             this.onDelete(this);
           }
 
-          this.stopEdit(app);
+          this.stopEdit();
         }
       })
     );
   }
 
-  startEdit(app: TodoApp) {
+  startEdit() {
     this.edit = true;
-    app.update();
+    this.update();
   }
 
-  stopEdit(app: TodoApp) {
+  stopEdit() {
     this.edit = false;
-    app.update();
+    this.update();
   }
 }
