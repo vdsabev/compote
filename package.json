@@ -17,7 +17,7 @@
   "devDependencies": {
     "@types/mithril": "0.0.31",
     "rollup": "0.41.4",
-    "serve": "3.4.0",
+    "serve": "3.4.1",
     "typescript": "2.1.6"
   }
 }
