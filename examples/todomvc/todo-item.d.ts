@@ -1,5 +1,5 @@
 /// <reference types="mithril" />
-import { Component } from '../../src/core';
+import { Component } from '../../compote';
 import Todo from './todo';
 export default class TodoItem extends Component<TodoItem> {
     item: Todo;
