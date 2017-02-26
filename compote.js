@@ -1,20 +1,7 @@
 const Mithril = m;
-class Component {
-    constructor(app, data, ...args) {
-        this.app = app;
-        this.app = app;
-        Object.assign(this, data);
-    }
-    update() {
-        this.app.update();
-    }
-}
-
 function getAnimationDuration($el) {
     return parseFloat(window.getComputedStyle($el).animationDuration);
 }
-
-// http://www.quackit.com/html_5/tags
 const a = tag('a');
 const abbr = tag('abbr');
 const address = tag('address');
@@ -122,4 +109,4 @@ function tag(tagName) {
     };
 }
 
-export { Mithril, Component, getAnimationDuration, a, abbr, address, area, article, aside, audio, b, base, bdo, blockquote, body, br, button, canvas, caption, cite, code, col, colgroup, datalist, dd, del, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, head, header, hgroup, hr, html, i, iframe, img, input, ins, kbd, keygen, label, legend, li, link, map, mark, menu, meta, meter, nav, noscript, object, ol, optgroup, option, p, param, pre, progress, q, rt, ruby, s, samp, script, section, select, small, source, span, strong, style, sub, sup, table, tbody, td, template, textarea, tfoot, th, thead, title, tr, track, u, ul, video, wbr, tag };
+export { Mithril, getAnimationDuration, a, abbr, address, area, article, aside, audio, b, base, bdo, blockquote, body, br, button, canvas, caption, cite, code, col, colgroup, datalist, dd, del, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, head, header, hgroup, hr, html, i, iframe, img, input, ins, kbd, keygen, label, legend, li, link, map, mark, menu, meta, meter, nav, noscript, object, ol, optgroup, option, p, param, pre, progress, q, rt, ruby, s, samp, script, section, select, small, source, span, strong, style, sub, sup, table, tbody, td, template, textarea, tfoot, th, thead, title, tr, track, u, ul, video, wbr, tag };

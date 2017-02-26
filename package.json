@@ -1,13 +1,13 @@
 {
   "name": "compote",
-  "version": "0.7.2",
+  "version": "0.8.0",
   "license": "MIT",
   "main": "compote.js",
   "types": "compote.d.ts",
   "scripts": {
-    "src:rollup": "rollup ./build/compote.js -o ./compote.js -g mithril:m -f es",
-    "todomvc:rollup": "rollup ./build/examples/todomvc.js -o ./build/todomvc.js -g mithril:m -f es",
-    "build": "tsc && npm run src:rollup && npm run todomvc:rollup",
+    "compote:build": "rollup ./build/compote.js -o ./compote.js -g mithril:m -f es",
+    "todomvc:build": "rollup ./build/examples/todomvc.js -o ./build/todomvc.js -g mithril:m -f es",
+    "build": "tsc && npm run compote:build && npm run todomvc:build",
     "start": "serve",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
