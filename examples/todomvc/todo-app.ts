@@ -1,5 +1,4 @@
-import { Mithril, App } from '../../src/core';
-import { h1, input } from '../../src/html';
+import { App, Compote, h1, input } from '../../compote';
 
 import Keyboard from './keyboard';
 import TodoItem from './todo-item';
@@ -13,7 +12,7 @@ export default class TodoApp implements App {
   items: TodoItem[] = [];
 
   update() {
-    Mithril.render(document.querySelector('#container'), this.render());
+    Compote.render(document.querySelector('#container'), this.render());
   }
 
   render() {

@@ -1,5 +1,5 @@
 /// <reference types="mithril" />
-import { App } from '../../src/core';
+import { App } from '../../compote';
 import TodoItem from './todo-item';
 export default class TodoApp implements App {
     constructor();

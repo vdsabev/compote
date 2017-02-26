@@ -1,6 +1,4 @@
-import { Component, ComponentNode } from '../../src/core';
-import { getAnimationDuration } from '../../src/css';
-import { div, input } from '../../src/html';
+import { ComponentNode, Component, getAnimationDuration, div, input } from '../../compote';
 
 import Keyboard from './keyboard';
 import Todo from './todo';
