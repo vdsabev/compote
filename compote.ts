@@ -1,3 +1,3 @@
-export * from './src/component';
-export * from './src/css';
-export * from './src/html';
+export * from './component';
+export * from './css';
+export * from './html';

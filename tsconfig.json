@@ -1,7 +1,7 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
-    "baseUrl": "src",
+    "baseUrl": "./",
     "declaration": true,
     "declarationDir": "./",
     "experimentalDecorators": true,

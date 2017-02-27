@@ -1,6 +1,6 @@
 {
   "name": "compote",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "license": "MIT",
   "main": "compote.js",
   "types": "compote.d.ts",
@@ -18,6 +18,6 @@
     "@types/mithril": "0.0.31",
     "rollup": "0.41.4",
     "serve": "3.4.0",
-    "typescript": "2.1.6"
+    "typescript": "2.2.1"
   }
 }
