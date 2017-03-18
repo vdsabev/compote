@@ -1,5 +1,6 @@
-import { App, Compote, h1, input } from '../../compote';
+import { Compote, h1, input } from '../../compote';
 
+import { App } from './component';
 import Keyboard from './keyboard';
 import TodoItem from './todo-item';
 import Todo from './todo';
