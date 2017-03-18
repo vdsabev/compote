@@ -104,7 +104,7 @@ export const ul = tag('ul');
 export const video = tag('video');
 export const wbr = tag('wbr');
 export function tag(tagName) {
-    return (properties, children) => {
+    return function (properties, children) {
         return Compote(tagName, properties, children);
     };
 }

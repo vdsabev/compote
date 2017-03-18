@@ -106,7 +106,7 @@ export const video = tag('video');
 export const wbr = tag('wbr');
 
 export function tag<TagNameType extends keyof ElementTagNameMap, ElementType extends ElementTagNameMap[TagNameType]>(tagName: TagNameType) {
-  return (properties?: CustomProperties & RecursivePartial<ElementType>, children?: Mithril.Children) => {
+  return function (properties?: CustomProperties & RecursivePartial<ElementType>, children?: Mithril.Children) {
     return Compote(tagName, properties, children);
   };
 }
