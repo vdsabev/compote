@@ -1,6 +1,5 @@
 import * as m from 'mithril';
 export const Compote = m;
-
 /** HTML */
 // http://www.quackit.com/html_5/tags
 export const a = tag('a');
@@ -104,28 +103,8 @@ export const u = tag('u');
 export const ul = tag('ul');
 export const video = tag('video');
 export const wbr = tag('wbr');
-
-export function tag<TagNameType extends keyof ElementTagNameMap, ElementType extends ElementTagNameMap[TagNameType]>(tagName: TagNameType) {
-  return function (properties?: CustomProperties & RecursivePartial<ElementType>, children?: Mithril.Children) {
-    return Compote(tagName, properties, children);
-  };
+export function tag(tagName) {
+    return function (properties, children) {
+        return Compote(tagName, properties, children);
+    };
 }
-
-export type RecursivePartial<T> = {
-  [P in keyof T]?: RecursivePartial<T[P]>;
-};
-
-type CustomProperties = {
-  key?: number | string;
-
-  oninit?(node?: ComponentNode): void;
-  oncreate?(node?: ComponentNode): void;
-
-  onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): void | boolean;
-  onupdate?(node?: ComponentNode): void;
-
-  onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-  onremove?(node?: ComponentNode): void;
-};
-
-export type ComponentNode = Mithril.VirtualElement & { dom: HTMLElement };
