@@ -5,7 +5,9 @@
   "main": "compote.js",
   "types": "compote.d.ts",
   "scripts": {
-    "build:todomvc": "tsc ./examples/todomvc.ts --declaration false --lib es6,dom --outDir ./build && rollup ./build/examples/todomvc.js -o ./build/todomvc.js -g mithril:m -f es",
+    "build:todomvc:tsc": "tsc ./examples/todomvc.ts --declaration false --lib es6,dom --module es6 --outDir ./build",
+    "build:todomvc:rollup": "rollup ./build/examples/todomvc.js -o ./build/todomvc.js -g mithril:m -f es",
+    "build:todomvc": "npm run build:todomvc:tsc && npm run build:todomvc:rollup",
     "build": "tsc && npm run build:todomvc",
     "start": "serve",
     "test": "echo \"Error: no test specified\" && exit 1"
