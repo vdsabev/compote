@@ -16,7 +16,7 @@ export default class TodoItem extends Component<TodoItem> {
         className: 'fade-in-animation',
         onbeforeremove: ({ dom }: ComponentNode) => {
           dom.classList.add('fade-out-animation');
-          return new Promise((resolve) => setTimeout(resolve, getAnimationDuration(dom) * 1e3));
+          return new Promise((resolve) => setTimeout(resolve, 0.95 * getAnimationDuration(dom) * 1e3));
         }
       }, this.edit ? this.renderEditView() : this.renderShowView())
     );

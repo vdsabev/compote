@@ -5,11 +5,12 @@
     "declaration": true,
     "declarationDir": "./",
     "experimentalDecorators": true,
+    "lib": ["es6", "dom"],
     "module": "ES6",
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "suppressImplicitAnyIndexErrors": false,
-    "target": "ES6"
+    "target": "ES5"
   },
   "exclude": [
     "node_modules"
