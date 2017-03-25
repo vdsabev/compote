@@ -1,6 +1,6 @@
 {
   "name": "compote",
-  "version": "0.12.0",
+  "version": "0.11.1",
   "license": "MIT",
   "main": "compote.js",
   "types": "compote.d.ts",
