@@ -244,15 +244,6 @@ export declare const colgroup: (properties?: {
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
 } & RecursivePartial<HTMLTableColElement>, children?: Mithril.Children) => Mithril.VirtualElement;
-export declare const data: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLDataElement>, children?: Mithril.Children) => Mithril.VirtualElement;
 export declare const datalist: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1090,15 +1081,6 @@ export declare const option: (properties?: {
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
 } & RecursivePartial<HTMLOptionElement>, children?: Mithril.Children) => Mithril.VirtualElement;
-export declare const output: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLOutputElement>, children?: Mithril.Children) => Mithril.VirtualElement;
 export declare const p: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1468,15 +1450,6 @@ export declare const thead: (properties?: {
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
 } & RecursivePartial<HTMLTableSectionElement>, children?: Mithril.Children) => Mithril.VirtualElement;
-export declare const time: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLTimeElement>, children?: Mithril.Children) => Mithril.VirtualElement;
 export declare const title: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
