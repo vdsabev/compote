@@ -19,7 +19,7 @@
     "@types/mithril": "0.0.31",
     "mithril": "1.0.1",
     "rollup": "0.41.5",
-    "serve": "5.1.0",
+    "serve": "5.1.2",
     "typescript": "2.2.1"
   }
 }
