@@ -16,7 +16,7 @@
     "mithril": "1.x.x"
   },
   "devDependencies": {
-    "@types/mithril": "0.0.31",
+    "@types/mithril": "1.1.0",
     "mithril": "1.0.1",
     "rollup": "0.41.5",
     "serve": "5.1.0",
