@@ -1,15 +1,17 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
-    "baseUrl": "./",
-    "declaration": true,
-    "declarationDir": "./",
+    "alwaysStrict": true,
     "experimentalDecorators": true,
-    "lib": ["es6", "dom"],
-    "module": "ES6",
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "suppressImplicitAnyIndexErrors": false,
+
+    "baseUrl": "./",
+    "declaration": true,
+    "declarationDir": "./",
+    "lib": ["es6", "dom"],
+    "module": "ES6",
     "target": "ES5"
   },
   "exclude": [
