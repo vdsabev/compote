@@ -1,6 +1,6 @@
 {
   "name": "compote",
-  "version": "0.11.1",
+  "version": "0.12.0",
   "license": "MIT",
   "main": "compote.js",
   "types": "compote.d.ts",
@@ -8,18 +8,49 @@
     "build:todomvc:tsc": "tsc ./examples/todomvc.ts --declaration false --lib es6,dom --module es6 --outDir ./build",
     "build:todomvc:rollup": "rollup ./build/examples/todomvc.js -o ./build/todomvc.js -g mithril:m -f es",
     "build:todomvc": "npm run build:todomvc:tsc && npm run build:todomvc:rollup",
-    "build": "tsc && npm run build:todomvc",
+    "build:components": "node ./components.js",
+    "build": "tsc && npm run build:todomvc && npm run build:components",
     "start": "serve --port 3000",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "jest": "jest --watch"
   },
   "peerDependencies": {
     "mithril": "1.x.x"
   },
-  "devDependencies": {
+  "// TODO": "Transfer timeago.js from betahaus-sofia to vdsabev",
+  "dependencies": {
     "@types/mithril": "0.0.31",
     "mithril": "1.0.1",
+    "timeago.js": "betahaus-sofia/timeago.js"
+  },
+  "devDependencies": {
+    "@types/jest": "19.2.2",
+    "glob": "7.1.1",
+    "jest": "19.0.2",
     "rollup": "0.41.5",
     "serve": "5.1.0",
-    "typescript": "2.2.1"
+    "ts-jest": "19.0.5",
+    "typescript": "2.2.2"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "components/**/*.{ts,tsx}",
+      "!components/**/*.test.{ts,tsx}",
+      "!components/**/*.d.ts",
+      "!node_modules/**"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "moduleNameMapper": {
+      "\\.(s?css|less)$": "<rootDir>/components/jest/style.js"
+    },
+    "testRegex": "(/__tests__/.*|\\.test)\\.(ts|tsx|js)$",
+    "transform": {
+      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    }
   }
 }
