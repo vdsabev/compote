@@ -1,0 +1,114 @@
+$flex-item-spacing: 5px !default;
+
+$sm-min: 768px !default;
+$md-min: 992px !default;
+$lg-min: 1200px !default;
+$xl-min: 1600px !default;
+
+// Mixins
+@mixin flex-direction($arguments...) {
+  flex-direction: $arguments;
+
+  // Fix Firefox overflow issues:
+  // http://stackoverflow.com/questions/28636832/firefox-overflow-y-not-working-with-nested-flexbox
+  min-width: 0;
+  min-height: 0;
+}
+
+// Classes
+// https://css-tricks.com/using-flexbox/
+// flex-direction
+.flex-row,
+.flex-row-reverse,
+.flex-column,
+.flex-column-reverse {
+  display: flex;
+}
+
+.flex-row {
+  @include flex-direction(row);
+}
+
+.flex-row-reverse {
+  @include flex-direction(row-reverse);
+}
+
+.flex-column {
+  @include flex-direction(column);
+}
+
+.flex-column-reverse {
+  @include flex-direction(column-reverse);
+}
+
+// flex-wrap
+.flex-nowrap { flex-wrap: nowrap; }
+.flex-wrap { flex-wrap: wrap; }
+.flex-wrap-reverse { flex-wrap: wrap-reverse; }
+
+// justify-content
+.justify-content-start { justify-content: flex-start; }
+.justify-content-end { justify-content: flex-end; }
+.justify-content-center { justify-content: center; }
+.justify-content-space-between { justify-content: space-between; }
+.justify-content-space-around { justify-content: space-around; }
+
+// align-items
+.align-items-start { align-items: flex-start; }
+.align-items-end { align-items: flex-end; }
+.align-items-center { align-items: center; }
+.align-items-stretch { align-items: stretch; }
+.align-items-baseline { align-items: baseline; }
+
+// align-self
+.align-self-start { align-self: flex-start; }
+.align-self-end { align-self: flex-end; }
+.align-self-center { align-self: center; }
+.align-self-stretch { align-self: stretch; }
+.align-self-baseline { align-self: baseline; }
+
+// Responsive classes
+.flex-row-xs,
+.flex-row-sm,
+.flex-row-md,
+.flex-row-lg,
+.flex-row-xl {
+  display: flex;
+}
+
+.flex-row-xs {
+  @include flex-direction(row);
+}
+
+@mixin flex-row-responsive($size) {
+  @media (min-width: $size) {
+    @include flex-direction(row);
+  }
+}
+
+.flex-row-sm,
+.flex-row-md,
+.flex-row-lg,
+.flex-row-xl {
+  @include flex-direction(column);
+}
+
+.flex-row-sm {
+  @include flex-row-responsive($sm-min);
+}
+
+.flex-row-md {
+  @include flex-row-responsive($md-min);
+}
+
+.flex-row-lg {
+  @include flex-row-responsive($lg-min);
+}
+
+.flex-row-xl {
+  @include flex-row-responsive($xl-min);
+}
+
+.flex-item {
+  margin: $flex-item-spacing;
+}

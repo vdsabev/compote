@@ -21,7 +21,7 @@ export type ClockOptions = {
 
 export const Clock = (date: Date, { dynamic }: ClockOptions = {}) => {
   const [hoursX, hoursY] = dynamic ? hoursToXY(date.getHours()) : [1, 0];
-  const [minutesX, minutesY] = dynamic ? minutesToXY(date.getMinutes()) : [0, 1];
+  const [minutesX, minutesY] = dynamic ? minutesToXY(date.getMinutes()) : [0, -1];
 
   return (
     svg({

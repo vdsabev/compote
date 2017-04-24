@@ -35,8 +35,8 @@
   "jest": {
     "collectCoverage": true,
     "collectCoverageFrom": [
-      "components/**/*.{ts,tsx,js}",
-      "!components/**/*.test.{ts,tsx,js}",
+      "components/**/*.{ts,tsx}",
+      "!components/**/*.test.{ts,tsx}",
       "!components/**/*.d.ts",
       "!node_modules/**"
     ],
@@ -45,6 +45,9 @@
       "tsx",
       "js"
     ],
+    "moduleNameMapper": {
+      "\\.(s?css|less)$": "<rootDir>/components/jest/style.js"
+    },
     "testRegex": "(/__tests__/.*|\\.test)\\.(ts|tsx|js)$",
     "transform": {
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"

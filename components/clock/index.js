@@ -14,7 +14,7 @@ export var minutesToXY = timeToXY(60);
 export var Clock = function (date, _a) {
     var dynamic = (_a === void 0 ? {} : _a).dynamic;
     var _b = dynamic ? hoursToXY(date.getHours()) : [1, 0], hoursX = _b[0], hoursY = _b[1];
-    var _c = dynamic ? minutesToXY(date.getMinutes()) : [0, 1], minutesX = _c[0], minutesY = _c[1];
+    var _c = dynamic ? minutesToXY(date.getMinutes()) : [0, -1], minutesX = _c[0], minutesY = _c[1];
     return (svg({
         width: clockSize + 2 * clockMargin,
         height: clockSize,
