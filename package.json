@@ -9,7 +9,7 @@
     "build:todomvc:rollup": "rollup ./build/examples/todomvc.js -o ./build/todomvc.js -g mithril:m -f es",
     "build:todomvc": "npm run build:todomvc:tsc && npm run build:todomvc:rollup",
     "build:components": "node ./components.js",
-    "build": "tsc && npm run build:todomvc",
+    "build": "tsc && npm run build:todomvc && npm run build:components",
     "start": "serve --port 3000",
     "test": "jest",
     "jest": "jest --watch"
