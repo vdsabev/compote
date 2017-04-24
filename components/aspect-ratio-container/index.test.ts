@@ -8,7 +8,7 @@ import { AspectRatioContainer } from './index';
 
 describe(`AspectRatioContainer`, () => {
   it(`should set padding-bottom and content`, () => {
-    const children = <Mithril.VirtualElement[]>AspectRatioContainer({ x: 2, y: 1 }, 'a').children;
+    const children = AspectRatioContainer({ x: 2, y: 1 }, 'a').children;
     expect(children[0].attrs.style['padding-bottom']).toEqual('50%');
     expect(children[1]).toEqual('a');
   });

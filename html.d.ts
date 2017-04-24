@@ -1,5 +1,6 @@
 /// <reference types="mithril" />
-export declare const Compote: Mithril.Static;
+import * as m from 'mithril';
+export declare const Compote: m.Static;
 /** HTML */
 export declare const a: (properties?: {
     key?: string | number;
@@ -9,7 +10,7 @@ export declare const a: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLAnchorElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLAnchorElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const abbr: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -18,7 +19,7 @@ export declare const abbr: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const acronym: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -27,7 +28,7 @@ export declare const acronym: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const address: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -36,7 +37,7 @@ export declare const address: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const applet: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -45,7 +46,7 @@ export declare const applet: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLAppletElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLAppletElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const area: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -54,7 +55,7 @@ export declare const area: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLAreaElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLAreaElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const article: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -63,7 +64,7 @@ export declare const article: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const aside: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -72,7 +73,7 @@ export declare const aside: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const audio: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -81,7 +82,7 @@ export declare const audio: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLAudioElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLAudioElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const b: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -90,7 +91,7 @@ export declare const b: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const base: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -99,7 +100,7 @@ export declare const base: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLBaseElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLBaseElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const basefont: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -108,7 +109,7 @@ export declare const basefont: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLBaseFontElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLBaseFontElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const bdo: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -117,7 +118,7 @@ export declare const bdo: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const big: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -126,7 +127,7 @@ export declare const big: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const blockquote: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -135,7 +136,7 @@ export declare const blockquote: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLQuoteElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLQuoteElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const body: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -144,7 +145,7 @@ export declare const body: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLBodyElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLBodyElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const br: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -153,7 +154,7 @@ export declare const br: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLBRElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLBRElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const button: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -162,7 +163,7 @@ export declare const button: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLButtonElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLButtonElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const canvas: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -171,7 +172,7 @@ export declare const canvas: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLCanvasElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLCanvasElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const caption: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -180,7 +181,7 @@ export declare const caption: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLTableCaptionElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLTableCaptionElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const center: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -189,7 +190,7 @@ export declare const center: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const circle: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -198,7 +199,7 @@ export declare const circle: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGCircleElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGCircleElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const cite: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -207,7 +208,7 @@ export declare const cite: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const clippath: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -216,7 +217,7 @@ export declare const clippath: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGClipPathElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGClipPathElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const code: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -225,7 +226,7 @@ export declare const code: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const col: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -234,7 +235,7 @@ export declare const col: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLTableColElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLTableColElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const colgroup: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -243,7 +244,7 @@ export declare const colgroup: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLTableColElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLTableColElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const datalist: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -252,7 +253,7 @@ export declare const datalist: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLDataListElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLDataListElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const dd: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -261,7 +262,7 @@ export declare const dd: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const defs: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -270,7 +271,7 @@ export declare const defs: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGDefsElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGDefsElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const del: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -279,7 +280,7 @@ export declare const del: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLModElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLModElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const desc: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -288,7 +289,7 @@ export declare const desc: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGDescElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGDescElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const dfn: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -297,7 +298,7 @@ export declare const dfn: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const dir: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -306,7 +307,7 @@ export declare const dir: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLDirectoryElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLDirectoryElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const div: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -315,7 +316,7 @@ export declare const div: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLDivElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLDivElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const dl: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -324,7 +325,7 @@ export declare const dl: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLDListElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLDListElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const dt: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -333,7 +334,7 @@ export declare const dt: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const ellipse: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -342,7 +343,7 @@ export declare const ellipse: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGEllipseElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGEllipseElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const em: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -351,7 +352,7 @@ export declare const em: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const embed: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -360,7 +361,7 @@ export declare const embed: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLEmbedElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLEmbedElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const feblend: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -369,7 +370,7 @@ export declare const feblend: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFEBlendElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGFEBlendElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const fecolormatrix: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -378,7 +379,7 @@ export declare const fecolormatrix: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFEColorMatrixElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGFEColorMatrixElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const fecomponenttransfer: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -387,7 +388,7 @@ export declare const fecomponenttransfer: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFEComponentTransferElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGFEComponentTransferElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const fecomposite: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -396,7 +397,7 @@ export declare const fecomposite: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFECompositeElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGFECompositeElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const feconvolvematrix: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -405,7 +406,7 @@ export declare const feconvolvematrix: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFEConvolveMatrixElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGFEConvolveMatrixElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const fediffuselighting: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -414,7 +415,7 @@ export declare const fediffuselighting: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFEDiffuseLightingElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGFEDiffuseLightingElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const fedisplacementmap: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -423,7 +424,7 @@ export declare const fedisplacementmap: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFEDisplacementMapElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGFEDisplacementMapElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const fedistantlight: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -432,7 +433,7 @@ export declare const fedistantlight: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFEDistantLightElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGFEDistantLightElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const feflood: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -441,7 +442,7 @@ export declare const feflood: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFEFloodElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGFEFloodElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const fefunca: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -450,7 +451,7 @@ export declare const fefunca: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFEFuncAElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGFEFuncAElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const fefuncb: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -459,7 +460,7 @@ export declare const fefuncb: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFEFuncBElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGFEFuncBElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const fefuncg: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -468,7 +469,7 @@ export declare const fefuncg: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFEFuncGElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGFEFuncGElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const fefuncr: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -477,7 +478,7 @@ export declare const fefuncr: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFEFuncRElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGFEFuncRElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const fegaussianblur: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -486,7 +487,7 @@ export declare const fegaussianblur: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFEGaussianBlurElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGFEGaussianBlurElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const feimage: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -495,7 +496,7 @@ export declare const feimage: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFEImageElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGFEImageElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const femerge: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -504,7 +505,7 @@ export declare const femerge: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFEMergeElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGFEMergeElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const femergenode: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -513,7 +514,7 @@ export declare const femergenode: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFEMergeNodeElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGFEMergeNodeElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const femorphology: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -522,7 +523,7 @@ export declare const femorphology: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFEMorphologyElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGFEMorphologyElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const feoffset: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -531,7 +532,7 @@ export declare const feoffset: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFEOffsetElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGFEOffsetElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const fepointlight: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -540,7 +541,7 @@ export declare const fepointlight: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFEPointLightElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGFEPointLightElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const fespecularlighting: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -549,7 +550,7 @@ export declare const fespecularlighting: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFESpecularLightingElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGFESpecularLightingElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const fespotlight: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -558,7 +559,7 @@ export declare const fespotlight: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFESpotLightElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGFESpotLightElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const fetile: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -567,7 +568,7 @@ export declare const fetile: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFETileElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGFETileElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const feturbulence: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -576,7 +577,7 @@ export declare const feturbulence: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFETurbulenceElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGFETurbulenceElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const fieldset: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -585,7 +586,7 @@ export declare const fieldset: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLFieldSetElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLFieldSetElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const figcaption: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -594,7 +595,7 @@ export declare const figcaption: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const figure: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -603,7 +604,7 @@ export declare const figure: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const filter: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -612,7 +613,7 @@ export declare const filter: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFilterElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGFilterElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const font: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -621,7 +622,7 @@ export declare const font: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLFontElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLFontElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const footer: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -630,7 +631,7 @@ export declare const footer: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const foreignobject: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -639,7 +640,7 @@ export declare const foreignobject: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGForeignObjectElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGForeignObjectElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const form: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -648,7 +649,7 @@ export declare const form: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLFormElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLFormElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const frame: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -657,7 +658,7 @@ export declare const frame: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLFrameElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLFrameElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const frameset: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -666,7 +667,7 @@ export declare const frameset: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLFrameSetElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLFrameSetElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const g: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -675,7 +676,7 @@ export declare const g: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGGElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGGElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const h1: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -684,7 +685,7 @@ export declare const h1: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLHeadingElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLHeadingElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const h2: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -693,7 +694,7 @@ export declare const h2: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLHeadingElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLHeadingElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const h3: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -702,7 +703,7 @@ export declare const h3: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLHeadingElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLHeadingElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const h4: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -711,7 +712,7 @@ export declare const h4: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLHeadingElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLHeadingElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const h5: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -720,7 +721,7 @@ export declare const h5: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLHeadingElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLHeadingElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const h6: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -729,7 +730,7 @@ export declare const h6: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLHeadingElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLHeadingElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const head: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -738,7 +739,7 @@ export declare const head: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLHeadElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLHeadElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const header: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -747,7 +748,7 @@ export declare const header: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const hgroup: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -756,7 +757,7 @@ export declare const hgroup: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const hr: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -765,7 +766,7 @@ export declare const hr: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLHRElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLHRElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const html: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -774,7 +775,7 @@ export declare const html: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLHtmlElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLHtmlElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const i: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -783,7 +784,7 @@ export declare const i: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const iframe: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -792,7 +793,7 @@ export declare const iframe: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLIFrameElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLIFrameElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const image: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -801,7 +802,7 @@ export declare const image: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGImageElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGImageElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const img: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -810,7 +811,7 @@ export declare const img: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLImageElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLImageElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const input: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -819,7 +820,7 @@ export declare const input: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLInputElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLInputElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const ins: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -828,7 +829,7 @@ export declare const ins: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLModElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLModElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const isindex: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -837,7 +838,7 @@ export declare const isindex: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLUnknownElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLUnknownElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const kbd: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -846,7 +847,7 @@ export declare const kbd: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const keygen: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -855,7 +856,7 @@ export declare const keygen: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const label: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -864,7 +865,7 @@ export declare const label: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLLabelElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLLabelElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const legend: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -873,7 +874,7 @@ export declare const legend: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLLegendElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLLegendElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const li: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -882,7 +883,7 @@ export declare const li: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLLIElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLLIElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const line: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -891,7 +892,7 @@ export declare const line: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGLineElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGLineElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const lineargradient: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -900,7 +901,7 @@ export declare const lineargradient: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGLinearGradientElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGLinearGradientElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const link: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -909,7 +910,7 @@ export declare const link: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLLinkElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLLinkElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const listing: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -918,7 +919,7 @@ export declare const listing: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLPreElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLPreElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const map: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -927,7 +928,7 @@ export declare const map: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLMapElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLMapElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const mark: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -936,7 +937,7 @@ export declare const mark: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const marker: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -945,7 +946,7 @@ export declare const marker: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGMarkerElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGMarkerElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const marquee: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -954,7 +955,7 @@ export declare const marquee: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLMarqueeElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLMarqueeElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const mask: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -963,7 +964,7 @@ export declare const mask: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGMaskElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGMaskElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const menu: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -972,7 +973,7 @@ export declare const menu: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLMenuElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLMenuElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const meta: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -981,7 +982,7 @@ export declare const meta: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLMetaElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLMetaElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const metadata: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -990,7 +991,7 @@ export declare const metadata: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGMetadataElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGMetadataElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const meter: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -999,7 +1000,7 @@ export declare const meter: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLMeterElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLMeterElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const nav: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1008,7 +1009,7 @@ export declare const nav: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const nextid: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1017,7 +1018,7 @@ export declare const nextid: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLUnknownElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLUnknownElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const nobr: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1026,7 +1027,7 @@ export declare const nobr: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const noframes: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1035,7 +1036,7 @@ export declare const noframes: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const noscript: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1044,7 +1045,7 @@ export declare const noscript: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const object: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1053,7 +1054,7 @@ export declare const object: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLObjectElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLObjectElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const ol: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1062,7 +1063,7 @@ export declare const ol: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLOListElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLOListElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const optgroup: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1071,7 +1072,7 @@ export declare const optgroup: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLOptGroupElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLOptGroupElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const option: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1080,7 +1081,7 @@ export declare const option: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLOptionElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLOptionElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const p: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1089,7 +1090,7 @@ export declare const p: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLParagraphElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLParagraphElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const param: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1098,7 +1099,7 @@ export declare const param: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLParamElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLParamElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const path: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1107,7 +1108,7 @@ export declare const path: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGPathElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGPathElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const pattern: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1116,7 +1117,7 @@ export declare const pattern: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGPatternElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGPatternElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const picture: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1125,7 +1126,7 @@ export declare const picture: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLPictureElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLPictureElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const plaintext: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1134,7 +1135,7 @@ export declare const plaintext: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const polygon: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1143,7 +1144,7 @@ export declare const polygon: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGPolygonElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGPolygonElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const polyline: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1152,7 +1153,7 @@ export declare const polyline: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGPolylineElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGPolylineElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const pre: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1161,7 +1162,7 @@ export declare const pre: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLPreElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLPreElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const progress: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1170,7 +1171,7 @@ export declare const progress: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLProgressElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLProgressElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const q: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1179,7 +1180,7 @@ export declare const q: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLQuoteElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLQuoteElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const radialgradient: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1188,7 +1189,7 @@ export declare const radialgradient: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGRadialGradientElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGRadialGradientElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const rect: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1197,7 +1198,7 @@ export declare const rect: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGRectElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGRectElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const rt: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1206,7 +1207,7 @@ export declare const rt: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const ruby: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1215,7 +1216,7 @@ export declare const ruby: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const s: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1224,7 +1225,7 @@ export declare const s: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const samp: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1233,7 +1234,7 @@ export declare const samp: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const script: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1242,7 +1243,7 @@ export declare const script: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLScriptElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLScriptElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const section: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1251,7 +1252,7 @@ export declare const section: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const select: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1260,7 +1261,7 @@ export declare const select: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLSelectElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLSelectElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const small: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1269,7 +1270,7 @@ export declare const small: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const source: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1278,7 +1279,7 @@ export declare const source: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLSourceElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLSourceElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const span: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1287,7 +1288,7 @@ export declare const span: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLSpanElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLSpanElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const stop: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1296,7 +1297,7 @@ export declare const stop: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGStopElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGStopElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const strike: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1305,7 +1306,7 @@ export declare const strike: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const strong: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1314,7 +1315,7 @@ export declare const strong: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const style: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1323,7 +1324,7 @@ export declare const style: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLStyleElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLStyleElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const sub: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1332,7 +1333,7 @@ export declare const sub: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const sup: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1341,7 +1342,7 @@ export declare const sup: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const svg: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1350,7 +1351,7 @@ export declare const svg: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGSVGElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGSVGElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const symbol: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1359,7 +1360,7 @@ export declare const symbol: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGSymbolElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGSymbolElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const table: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1368,7 +1369,7 @@ export declare const table: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLTableElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLTableElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const tbody: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1377,7 +1378,7 @@ export declare const tbody: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLTableSectionElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLTableSectionElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const td: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1386,7 +1387,7 @@ export declare const td: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLTableDataCellElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLTableDataCellElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const template: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1395,7 +1396,7 @@ export declare const template: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLTemplateElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLTemplateElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const text: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1404,7 +1405,7 @@ export declare const text: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGTextElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGTextElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const textpath: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1413,7 +1414,7 @@ export declare const textpath: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGTextPathElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGTextPathElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const textarea: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1422,7 +1423,7 @@ export declare const textarea: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLTextAreaElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLTextAreaElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const tfoot: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1431,7 +1432,7 @@ export declare const tfoot: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLTableSectionElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLTableSectionElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const th: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1440,7 +1441,7 @@ export declare const th: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLTableHeaderCellElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLTableHeaderCellElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const thead: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1449,7 +1450,7 @@ export declare const thead: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLTableSectionElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLTableSectionElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const title: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1458,7 +1459,7 @@ export declare const title: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLTitleElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLTitleElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const tr: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1467,7 +1468,7 @@ export declare const tr: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLTableRowElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLTableRowElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const track: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1476,7 +1477,7 @@ export declare const track: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLTrackElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLTrackElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const tspan: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1485,7 +1486,7 @@ export declare const tspan: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGTSpanElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGTSpanElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const tt: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1494,7 +1495,7 @@ export declare const tt: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const u: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1503,7 +1504,7 @@ export declare const u: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const ul: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1512,7 +1513,7 @@ export declare const ul: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLUListElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLUListElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const use: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1521,7 +1522,7 @@ export declare const use: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGUseElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGUseElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const video: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1530,7 +1531,7 @@ export declare const video: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLVideoElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLVideoElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const view: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1539,7 +1540,7 @@ export declare const view: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGViewElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<SVGViewElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const wbr: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1548,7 +1549,7 @@ export declare const wbr: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const xmp: (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1557,7 +1558,7 @@ export declare const xmp: (properties?: {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLPreElement>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<HTMLPreElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare function tag<TagNameType extends keyof ElementTagNameMap, ElementType extends ElementTagNameMap[TagNameType]>(tagName: TagNameType): (properties?: {
     key?: string | number;
     oninit?(node?: ComponentNode): void;
@@ -1566,10 +1567,10 @@ export declare function tag<TagNameType extends keyof ElementTagNameMap, Element
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
-} & RecursivePartial<ElementType>, children?: Mithril.Children) => Mithril.VirtualElement;
+} & RecursivePartial<ElementType>, children?: m.Children) => m.Vnode<any, any>;
 export declare type RecursivePartial<T> = {
     [P in keyof T]?: RecursivePartial<T[P]>;
 };
-export declare type ComponentNode = Mithril.VirtualElement & {
+export declare type ComponentNode = m.Vnode<any, any> & {
     dom: HTMLElement;
 };

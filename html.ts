@@ -184,7 +184,7 @@ export const wbr = tag('wbr');
 export const xmp = tag('xmp');
 
 export function tag<TagNameType extends keyof ElementTagNameMap, ElementType extends ElementTagNameMap[TagNameType]>(tagName: TagNameType) {
-  return function (properties?: CustomProperties & RecursivePartial<ElementType>, children?: Mithril.Children) {
+  return function (properties?: CustomProperties & RecursivePartial<ElementType>, children?: m.Children) {
     return Compote(tagName, properties, children);
   };
 }
@@ -206,4 +206,4 @@ type CustomProperties = {
   onremove?(node?: ComponentNode): void;
 };
 
-export type ComponentNode = Mithril.VirtualElement & { dom: HTMLElement };
+export type ComponentNode = m.Vnode<any, any> & { dom: HTMLElement };
