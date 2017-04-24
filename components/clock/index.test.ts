@@ -47,7 +47,7 @@ describe(`Clock`, () => {
   });
 
   it(`should render static clock hands`, () => {
-    const children = <Mithril.VirtualElement[]>Clock(new Date()).children;
+    const children = Clock(new Date()).children;
     expect(children[1].attrs.x2).toBeCloseTo(clockCenter + hoursLineMultiplier * 1 * clockRadius);
     expect(children[1].attrs.y2).toBeCloseTo(clockCenter + hoursLineMultiplier * 0 * clockRadius);
     expect(children[2].attrs.x2).toBeCloseTo(clockCenter + minutesLineMultiplier * 0 * clockRadius);

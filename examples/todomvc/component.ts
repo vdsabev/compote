@@ -1,3 +1,5 @@
+import { Children } from 'mithril';
+
 export interface App extends Renderable {
   update(...args: any[]): void;
 }
@@ -15,9 +17,9 @@ export abstract class Component<DataType extends Renderable> implements Renderab
     this.app.update();
   }
 
-  abstract render(...args: any[]): Mithril.Children;
+  abstract render(...args: any[]): Children;
 }
 
 export interface Renderable {
-  render(...args: any[]): Mithril.Children;
+  render(...args: any[]): Children;
 }
