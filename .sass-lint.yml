@@ -53,7 +53,7 @@ rules:
   no-misspelled-properties: 1
   no-qualifying-elements: 1
   no-trailing-zero: 0
-  no-transition-all: 1
+  no-transition-all: 0
   no-url-protocols: 0
   no-vendor-prefixes: 1
   placeholder-in-extend: 1
