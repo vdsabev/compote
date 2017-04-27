@@ -1,32 +1,49 @@
-export function get(propertyName) {
-    return function (obj) { return obj[propertyName]; };
-}
-export function groupBy(propertyName) {
-    var valueOfProperty = get(propertyName);
-    return function (items) {
-        var result = {};
-        items.forEach(function (item) {
-            var value = valueOfProperty(item);
-            if (!result[value]) {
-                result[value] = [];
-            }
-            result[value].push(item);
-        });
-        return result;
-    };
-}
-export function keys(obj) {
-    return Object.keys(obj);
-}
-export function last(array) {
-    return array ? array[array.length - 1] : undefined;
-}
-var uniqueIDs = {};
-export function uniqueId(prefix) {
-    if (prefix === void 0) { prefix = ''; }
-    if (uniqueIDs[prefix] == null) {
-        uniqueIDs[prefix] = -1;
+(function (factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        var v = factory(require, exports);
+        if (v !== undefined) module.exports = v;
     }
-    uniqueIDs[prefix]++;
-    return prefix + uniqueIDs[prefix];
-}
+    else if (typeof define === "function" && define.amd) {
+        define(["require", "exports"], factory);
+    }
+})(function (require, exports) {
+    "use strict";
+    exports.__esModule = true;
+    function get(propertyName) {
+        return function (obj) { return obj[propertyName]; };
+    }
+    exports.get = get;
+    function groupBy(propertyName) {
+        var valueOfProperty = get(propertyName);
+        return function (items) {
+            var result = {};
+            items.forEach(function (item) {
+                var value = valueOfProperty(item);
+                if (!result[value]) {
+                    result[value] = [];
+                }
+                result[value].push(item);
+            });
+            return result;
+        };
+    }
+    exports.groupBy = groupBy;
+    function keys(obj) {
+        return Object.keys(obj);
+    }
+    exports.keys = keys;
+    function last(array) {
+        return array ? array[array.length - 1] : undefined;
+    }
+    exports.last = last;
+    var uniqueIDs = {};
+    function uniqueId(prefix) {
+        if (prefix === void 0) { prefix = ''; }
+        if (uniqueIDs[prefix] == null) {
+            uniqueIDs[prefix] = -1;
+        }
+        uniqueIDs[prefix]++;
+        return prefix + uniqueIDs[prefix];
+    }
+    exports.uniqueId = uniqueId;
+});

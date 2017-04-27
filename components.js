@@ -19,5 +19,5 @@ function compile(fileNames, options) {
 
 compile(glob.sync('./components/**/index.ts'), {
   lib: ['es6', 'dom'],
-  module: ts.ModuleKind.ES2015
+  module: ts.ModuleKind.UMD
 });
