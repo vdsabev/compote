@@ -4,15 +4,23 @@ node_js: 6
 
 branches:
   only:
-    - master
+  - master
 
 cache:
   directories:
-    - node_modules
+  - node_modules
 
 script:
-  - npm test
-  - npm run build
+- npm test
+- npm run build
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+- bash <(curl -s https://codecov.io/bash)
+
+deploy:
+  provider: npm
+  email: vdsabev@gmail.com
+  api_key:
+    secure: e5W1ibl6Q380QPS2d6zRrSfV8bA5yVCK/W0bO2ytSW+ExBL8y2U7WLBkG5MeR8tMnyY1n1IkS1S4WB0LgKkI02OCD7FM00jescO0WAyFDFHTUO9lDaKl1ZNHJsgmZXDEwxEuB2jZaKUzr7dyrikguvQZdiLMKaXEIou6PQGjhjrBwSx1lGXYMX8VDRlANMn4QMh6dekWzjTR/9W1vSELpaSUBmxxzpYLDSpmUQbns3FReE8W39O8tkzBUnJRp8HYC1hlkQq4AWtKYqoVU5XZsdQJRzKrgD7tqrWP+yGTy61hEr22mcr3YcEGpg6qrLtfWA1tqEa4+3OMAmirShaZnJyCt1VhLS0COwU1EZCk/Y40QMNI5EHZlSAm+whKFfpifvULwFvt4NJBpWhEd1aolyo7AZUq1ixrSjCsrV15PsW1MbMV3cIMWDjtkYrrWK8zcxtNWJ9eaW732FTB6BwVcJkWLXJGpObvK1+AYdQvHV/l6R0VZCirdgX+nIgKISLCoXZ46i1m03I29R7FawRFz8Bx49fWiR5kyDUJJcbY8ybNVA1Xutg0MqPDOBGzOKGBHMguH6Fmf7wuTzMm9/hgXavCVl7Rd5WaDCF8pRq6kMT2QqhP728V+GcI9JVvEe+m+v5q7SoxufyrkSkNcpZWWDg9VfDZ89k9UbMK4nsmRnI=
+  on:
+    repo: vdsabev/compote
