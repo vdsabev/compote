@@ -1,7 +1,10 @@
-export function get(propertyName) {
+"use strict";
+exports.__esModule = true;
+function get(propertyName) {
     return function (obj) { return obj[propertyName]; };
 }
-export function groupBy(propertyName) {
+exports.get = get;
+function groupBy(propertyName) {
     var valueOfProperty = get(propertyName);
     return function (items) {
         var result = {};
@@ -15,14 +18,17 @@ export function groupBy(propertyName) {
         return result;
     };
 }
-export function keys(obj) {
+exports.groupBy = groupBy;
+function keys(obj) {
     return Object.keys(obj);
 }
-export function last(array) {
+exports.keys = keys;
+function last(array) {
     return array ? array[array.length - 1] : undefined;
 }
+exports.last = last;
 var uniqueIDs = {};
-export function uniqueId(prefix) {
+function uniqueId(prefix) {
     if (prefix === void 0) { prefix = ''; }
     if (uniqueIDs[prefix] == null) {
         uniqueIDs[prefix] = -1;
@@ -30,3 +36,4 @@ export function uniqueId(prefix) {
     uniqueIDs[prefix]++;
     return prefix + uniqueIDs[prefix];
 }
+exports.uniqueId = uniqueId;

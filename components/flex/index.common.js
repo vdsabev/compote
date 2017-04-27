@@ -1,4 +1,6 @@
-export var flex = function (value) {
+"use strict";
+exports.__esModule = true;
+exports.flex = function (value) {
     value = (value == null ? '' : value).toString();
     return {
         '-webkit-box-flex': value,
