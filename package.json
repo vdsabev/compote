@@ -18,7 +18,7 @@
     "mithril": "1.x.x"
   },
   "dependencies": {
-    "@types/mithril": "1.1.1",
+    "@types/mithril": "1.1.2",
     "mithril": "1.1.1",
     "redux": "3.6.0",
     "timeago.js": "3.0.1"
@@ -28,9 +28,9 @@
     "glob": "7.1.1",
     "jest": "19.0.2",
     "rollup": "0.41.5",
-    "serve": "5.1.0",
-    "ts-jest": "19.0.5",
-    "typescript": "2.2.2"
+    "serve": "5.1.2",
+    "ts-jest": "19.0.11",
+    "typescript": "2.3.2"
   },
   "jest": {
     "collectCoverage": true,
