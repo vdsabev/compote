@@ -11,8 +11,8 @@
     "declaration": true,
     "declarationDir": "./",
     "lib": ["es6", "dom"],
-    "module": "ES6",
-    "target": "ES5"
+    "module": "es6",
+    "target": "es5"
   },
   "exclude": [
     "node_modules"
