@@ -1,6 +1,6 @@
 {
   "name": "compote",
-  "version": "0.14.0",
+  "version": "0.15.0",
   "license": "MIT",
   "main": "compote.js",
   "types": "compote.d.ts",
@@ -17,11 +17,11 @@
   "peerDependencies": {
     "mithril": "1.x.x"
   },
-  "// TODO": "Transfer timeago.js from betahaus-sofia to vdsabev",
   "dependencies": {
     "@types/mithril": "1.1.2",
     "mithril": "1.1.1",
-    "timeago.js": "betahaus-sofia/timeago.js"
+    "redux": "3.6.0",
+    "timeago.js": "3.0.1"
   },
   "devDependencies": {
     "@types/jest": "19.2.2",
