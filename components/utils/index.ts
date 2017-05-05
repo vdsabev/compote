@@ -2,6 +2,23 @@ export function get<T extends {}>(propertyName: keyof T) {
   return (obj: T) => obj[propertyName];
 }
 
+export function set<T extends {}>(propertyName: keyof T) {
+  return (obj: T) => (value: any) => obj[propertyName] = value;
+}
+
+export function setFlag<T extends {}>(obj: T, propertyName: keyof T, newValue: any = true) {
+  const originalValue = obj[propertyName];
+  obj[propertyName] = newValue;
+
+  return {
+    whileAwaiting(promise: Promise<any>) {
+      const unsetFlag = () => obj[propertyName] = originalValue;
+      // We could use `finally`, but some promises (e.g. Firebase) don't support it
+      return promise.catch(unsetFlag).then(unsetFlag);
+    }
+  };
+}
+
 export function groupBy<T>(propertyName: keyof T) {
   const valueOfProperty = get<T>(propertyName);
 
