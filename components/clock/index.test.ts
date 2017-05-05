@@ -1,11 +1,8 @@
+/// <reference path="../index.d.ts" />
+
 import 'jest';
 
-jest.mock('../../html', (value: any) => ({
-  svg: (attrs, children) => ({ tag: 'svg', attrs, children }),
-  circle: (attrs, children) => ({ tag: 'circle', attrs, children }),
-  line: (attrs, children) => ({ tag: 'line', attrs, children })
-}));
-
+jest.mock('../../html', () => require('../../html.common.js'));
 import { minutesToXY, Clock, clockCenter, clockRadius, hoursLineMultiplier, minutesLineMultiplier } from './index';
 
 describe(`minutesToXY`, () => {
