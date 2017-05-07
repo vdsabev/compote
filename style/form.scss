@@ -1,0 +1,45 @@
+@import 'mixins';
+@import 'variables';
+
+.form {
+  margin: 30px;
+  border-radius: 3px;
+  background: $neutral-lighter;
+  padding: 80px 30px;
+}
+
+.form-panel {
+  transition: all $animation-duration $animation-easing;
+
+  margin: 0 auto;
+  border: 0;
+  width: 100%;
+  max-width: $sm-min / 2;
+
+  &[disabled] {
+    @include filter(grayscale(100%));
+  }
+
+  &.xs { max-width: $xs-min / 2; }
+  &.sm { max-width: $sm-min / 2; }
+  &.md { max-width: $md-min / 2; }
+  &.lg { max-width: $lg-min / 2; }
+  &.xl { max-width: $xl-min / 2; }
+}
+
+.form-input {
+  margin-bottom: 8px;
+  border: 0;
+  border-bottom: 2px solid $primary;
+  border-radius: 3px;
+  padding: 9px;
+  width: 100%;
+}
+
+.form-button {
+  border: 0;
+  border-radius: 3px;
+  background: $primary;
+  padding: 8px 12px;
+  width: 50%;
+}
