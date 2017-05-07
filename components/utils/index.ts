@@ -1,12 +1,8 @@
-export function get<T extends {}>(propertyName: keyof T) {
-  return (obj: T) => obj[propertyName];
-}
+export const get = <T extends {}>(propertyName: keyof T) => (obj: T) => obj[propertyName];
 
-export function set<T extends {}>(propertyName: keyof T) {
-  return (obj: T) => (value: any) => obj[propertyName] = value;
-}
+export const set = <T extends {}>(propertyName: keyof T) => (obj: T) => (value: any) => obj[propertyName] = value;
 
-export function setFlag<T extends {}>(obj: T, propertyName: keyof T, newValue: any = true) {
+export const setFlag = <T extends {}>(obj: T, propertyName: keyof T, newValue: any = true) => {
   const originalValue = obj[propertyName];
   obj[propertyName] = newValue;
 
@@ -17,9 +13,9 @@ export function setFlag<T extends {}>(obj: T, propertyName: keyof T, newValue: a
       return promise.catch(unsetFlag).then(unsetFlag);
     }
   };
-}
+};
 
-export function groupBy<T>(propertyName: keyof T) {
+export const groupBy = <T>(propertyName: keyof T) => {
   const valueOfProperty = get<T>(propertyName);
 
   return (items: T[]) => {
@@ -34,21 +30,27 @@ export function groupBy<T>(propertyName: keyof T) {
 
     return result;
   };
-}
+};
 
-export function keys<T extends {}>(obj: T) {
-  return Object.keys(obj);
-}
+export const keys = <T extends {}>(obj: T) => Object.keys(obj);
 
-export function last<T>(array: T[]): T {
-  return array ? array[array.length - 1] : undefined;
-}
+export const last = <T>(array: T[]): T => array ? array[array.length - 1] : undefined;
+
+// TODO: Test
+export const result = <T>(fnOrValue: T | ((...args: any[]) => T), ...args: any[]) => typeof fnOrValue === 'function' ? fnOrValue(...args) : fnOrValue;
 
 const uniqueIDs: Record<string, number> = {};
-export function uniqueId(prefix = '') {
+export const uniqueId = (prefix = '') => {
   if (uniqueIDs[prefix] == null) {
     uniqueIDs[prefix] = -1;
   }
   uniqueIDs[prefix]++;
   return prefix + uniqueIDs[prefix];
-}
+};
+
+// TODO: Test
+export const when = (value1: any, value2: any, next: Function, ...args: any[]) => (obj: {}) => {
+  if (result(value1, obj) === result(value2, obj)) {
+    next(...args);
+  }
+};

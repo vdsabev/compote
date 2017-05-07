@@ -1,14 +1,8 @@
 "use strict";
 exports.__esModule = true;
-function get(propertyName) {
-    return function (obj) { return obj[propertyName]; };
-}
-exports.get = get;
-function set(propertyName) {
-    return function (obj) { return function (value) { return obj[propertyName] = value; }; };
-}
-exports.set = set;
-function setFlag(obj, propertyName, newValue) {
+exports.get = function (propertyName) { return function (obj) { return obj[propertyName]; }; };
+exports.set = function (propertyName) { return function (obj) { return function (value) { return obj[propertyName] = value; }; }; };
+exports.setFlag = function (obj, propertyName, newValue) {
     if (newValue === void 0) { newValue = true; }
     var originalValue = obj[propertyName];
     obj[propertyName] = newValue;
@@ -19,10 +13,9 @@ function setFlag(obj, propertyName, newValue) {
             return promise["catch"](unsetFlag).then(unsetFlag);
         }
     };
-}
-exports.setFlag = setFlag;
-function groupBy(propertyName) {
-    var valueOfProperty = get(propertyName);
+};
+exports.groupBy = function (propertyName) {
+    var valueOfProperty = exports.get(propertyName);
     return function (items) {
         var result = {};
         items.forEach(function (item) {
@@ -34,23 +27,35 @@ function groupBy(propertyName) {
         });
         return result;
     };
-}
-exports.groupBy = groupBy;
-function keys(obj) {
-    return Object.keys(obj);
-}
-exports.keys = keys;
-function last(array) {
-    return array ? array[array.length - 1] : undefined;
-}
-exports.last = last;
+};
+exports.keys = function (obj) { return Object.keys(obj); };
+exports.last = function (array) { return array ? array[array.length - 1] : undefined; };
+// TODO: Test
+exports.result = function (fnOrValue) {
+    var args = [];
+    for (var _i = 1; _i < arguments.length; _i++) {
+        args[_i - 1] = arguments[_i];
+    }
+    return typeof fnOrValue === 'function' ? fnOrValue.apply(void 0, args) : fnOrValue;
+};
 var uniqueIDs = {};
-function uniqueId(prefix) {
+exports.uniqueId = function (prefix) {
     if (prefix === void 0) { prefix = ''; }
     if (uniqueIDs[prefix] == null) {
         uniqueIDs[prefix] = -1;
     }
     uniqueIDs[prefix]++;
     return prefix + uniqueIDs[prefix];
-}
-exports.uniqueId = uniqueId;
+};
+// TODO: Test
+exports.when = function (value1, value2, next) {
+    var args = [];
+    for (var _i = 3; _i < arguments.length; _i++) {
+        args[_i - 3] = arguments[_i];
+    }
+    return function (obj) {
+        if (exports.result(value1, obj) === exports.result(value2, obj)) {
+            next.apply(void 0, args);
+        }
+    };
+};

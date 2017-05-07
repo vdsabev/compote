@@ -1,0 +1,21 @@
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/mixins';
+
+// Filter
+@mixin filter($arguments...) {
+  // sass-lint:disable-block no-vendor-prefixes
+  -webkit-filter: $arguments;
+  -moz-filter: $arguments;
+  -o-filter: $arguments;
+  -ms-filter: $arguments;
+  filter: $arguments;
+}
+
+// Smooth scrolling
+// http://weblog.west-wind.com/posts/2013/Jun/01/Smoothing-out-div-scrolling-in-Mobile-WebKit-Browsers
+@mixin overflow($horizontal, $vertical) {
+  // sass-lint:disable-block no-vendor-prefixes
+  overflow-x: $horizontal;
+  overflow-y: $vertical;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  -webkit-overflow-scrolling: touch; // sass-lint:disable-line no-misspelled-properties
+}

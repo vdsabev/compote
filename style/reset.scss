@@ -1,0 +1,76 @@
+// http://jaydenseric.com/blog/forget-normalize-or-resets-lay-your-own-css-foundation
+// sass-lint:disable no-vendor-prefixes
+
+html {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font: 16px/1 sans-serif;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+blockquote,
+figure,
+ol,
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+main,
+li {
+  display: block;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-size: inherit;
+}
+
+strong {
+  font-weight: bold;
+}
+
+a,
+button {
+  color: inherit;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  background: none;
+  cursor: pointer;
+  overflow: visible;
+  letter-spacing: inherit;
+  font: inherit;
+  -webkit-font-smoothing: inherit;
+}
+
+::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+:focus {
+  outline: 0;
+}
+
+img {
+  border: 0;
+  max-width: 100%;
+  height: auto;
+}

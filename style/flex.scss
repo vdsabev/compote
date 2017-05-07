@@ -1,9 +1,6 @@
-$flex-item-spacing: 5px !default;
+@import 'variables';
 
-$sm-min: 768px !default;
-$md-min: 992px !default;
-$lg-min: 1200px !default;
-$xl-min: 1600px !default;
+$flex-item-spacing: 5px !default;
 
 // Mixins
 @mixin flex-direction($arguments...) {
