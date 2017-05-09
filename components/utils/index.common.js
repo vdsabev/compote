@@ -14,6 +14,8 @@ exports.setFlag = function (obj, propertyName, newValue) {
         }
     };
 };
+// TODO: Test
+exports.constant = function (value) { return function () { return value; }; };
 exports.groupBy = function (propertyName) {
     var valueOfProperty = exports.get(propertyName);
     return function (items) {

@@ -15,6 +15,9 @@ export const setFlag = <T extends {}>(obj: T, propertyName: keyof T, newValue: a
   };
 };
 
+// TODO: Test
+export const constant = <T>(value: T) => () => value;
+
 export const groupBy = <T>(propertyName: keyof T) => {
   const valueOfProperty = get<T>(propertyName);
 
