@@ -14,6 +14,16 @@ export var setFlag = function (obj, propertyName, newValue) {
 };
 // TODO: Test
 export var constant = function (value) { return function () { return value; }; };
+// TODO: Test
+export var identity = function (value) { return value; };
+// TODO: Test
+export var voidify = function (fn) { return function () {
+    var args = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        args[_i] = arguments[_i];
+    }
+    fn.apply(void 0, args);
+}; };
 export var groupBy = function (propertyName) {
     var valueOfProperty = get(propertyName);
     return function (items) {
@@ -31,7 +41,7 @@ export var groupBy = function (propertyName) {
 export var keys = function (obj) { return Object.keys(obj); };
 export var last = function (array) { return array ? array[array.length - 1] : undefined; };
 // TODO: Test
-export var result = function (fnOrValue) {
+export var value = function (fnOrValue) {
     var args = [];
     for (var _i = 1; _i < arguments.length; _i++) {
         args[_i - 1] = arguments[_i];
@@ -48,14 +58,15 @@ export var uniqueId = function (prefix) {
     return prefix + uniqueIDs[prefix];
 };
 // TODO: Test
-export var when = function (value1, value2, next) {
+export var when = function (condition, next) {
     var args = [];
-    for (var _i = 3; _i < arguments.length; _i++) {
-        args[_i - 3] = arguments[_i];
+    for (var _i = 2; _i < arguments.length; _i++) {
+        args[_i - 2] = arguments[_i];
     }
     return function (obj) {
-        if (result(value1, obj) === result(value2, obj)) {
+        if (value(condition, obj))
             next.apply(void 0, args);
-        }
     };
 };
+// TODO: Test
+export var equal = function (value1, value2) { return function (obj) { return value(value1, obj) === value(value2, obj); }; };

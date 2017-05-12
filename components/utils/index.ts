@@ -18,6 +18,14 @@ export const setFlag = <T extends {}>(obj: T, propertyName: keyof T, newValue: a
 // TODO: Test
 export const constant = <T>(value: T) => () => value;
 
+// TODO: Test
+export const identity = <T>(value: T) => value;
+
+// TODO: Test
+export const voidify = <T>(fn: Function) => (...args: any[]) => {
+  fn(...args);
+};
+
 export const groupBy = <T>(propertyName: keyof T) => {
   const valueOfProperty = get<T>(propertyName);
 
@@ -40,7 +48,7 @@ export const keys = <T extends {}>(obj: T) => Object.keys(obj);
 export const last = <T>(array: T[]): T => array ? array[array.length - 1] : undefined;
 
 // TODO: Test
-export const result = <T>(fnOrValue: T | ((...args: any[]) => T), ...args: any[]) => typeof fnOrValue === 'function' ? fnOrValue(...args) : fnOrValue;
+export const value = <T>(fnOrValue: T | ((...args: any[]) => T), ...args: any[]) => typeof fnOrValue === 'function' ? fnOrValue(...args) : fnOrValue;
 
 const uniqueIDs: Record<string, number> = {};
 export const uniqueId = (prefix = '') => {
@@ -52,8 +60,9 @@ export const uniqueId = (prefix = '') => {
 };
 
 // TODO: Test
-export const when = (value1: any, value2: any, next: Function, ...args: any[]) => (obj: {}) => {
-  if (result(value1, obj) === result(value2, obj)) {
-    next(...args);
-  }
+export const when = (condition: any, next: Function, ...args: any[]) => (obj: {}) => {
+  if (value(condition, obj)) next(...args);
 };
+
+// TODO: Test
+export const equal = (value1: any, value2: any) => (obj: {}) => value(value1, obj) === value(value2, obj);
