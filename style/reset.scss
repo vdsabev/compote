@@ -1,6 +1,12 @@
 // http://jaydenseric.com/blog/forget-normalize-or-resets-lay-your-own-css-foundation
 // sass-lint:disable no-vendor-prefixes
 
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
 html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
