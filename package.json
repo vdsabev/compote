@@ -31,7 +31,7 @@
     "rollup": "0.41.6",
     "serve": "5.1.4",
     "ts-jest": "19.0.14",
-    "typescript": "2.3.2"
+    "typescript": "2.3.3"
   },
   "jest": {
     "collectCoverage": true,
