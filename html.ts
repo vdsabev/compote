@@ -1,4 +1,5 @@
 import * as m from 'mithril';
+
 export const Compote = m;
 
 /** HTML */
