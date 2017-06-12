@@ -4,5 +4,6 @@
 
 [![npm version](https://badge.fury.io/js/compote.svg)](https://www.npmjs.com/package/compote)
 [![Downloads](https://img.shields.io/npm/dm/compote.svg)](https://www.npmjs.com/package/compote)
+[![License](https://img.shields.io/npm/l/compote.svg)](https://www.npmjs.com/package/compote)
 
 # Compote
