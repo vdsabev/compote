@@ -5,6 +5,12 @@ $neutral: #bdc3c7 !default;
 $neutral-dark: darken($neutral, 10%) !default;
 $neutral-darker: darken($neutral, 30%) !default;
 
+$foreground-light: #999999 !default;
+$foreground-light: #666666 !default;
+$foreground: #333333 !default;
+$foreground-dark: #111111 !default;
+$foreground-darker: #000000 !default;
+
 $primary: #2c3e50 !default;
 $primary-lighter: lighten($primary, 20%) !default;
 $primary-light: lighten($primary, 10%) !default;
