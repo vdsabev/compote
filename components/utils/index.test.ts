@@ -1,6 +1,6 @@
 import 'jest';
 
-import { get, set, setFlag, groupBy, keys, last, uniqueId } from './index';
+import { get, set, groupBy, keys, last, uniqueId } from './index';
 
 describe(`get`, () => {
   it(`should get property value`, () => {
@@ -13,42 +13,6 @@ describe(`set`, () => {
     const obj = { a: 0 };
     set<typeof obj>('a')(obj)(1);
     expect(obj.a).toBe(1);
-  });
-});
-
-describe(`setFlag`, () => {
-  it(`should set flag`, () => {
-    const obj = { a: 0 };
-    setFlag(obj, 'a', 1);
-    expect(obj.a).toBe(1);
-  });
-
-  it(`should default flag value to true`, () => {
-    const obj = { a: false };
-    setFlag(obj, 'a');
-    expect(obj.a).toBe(true);
-  });
-
-  it(`should revert flag after resolve`, async () => {
-    const obj = { a: 0 };
-    let resolve: Function;
-    const promise = new Promise((_resolve, _reject) => resolve = _resolve);
-    const newPromise = setFlag(obj, 'a', 1).whileAwaiting(promise);
-    expect(obj.a).toBe(1);
-    resolve();
-    await newPromise;
-    expect(obj.a).toBe(0);
-  });
-
-  it(`should revert flag after reject`, async () => {
-    const obj = { a: 0 };
-    let reject: Function;
-    const promise = new Promise((_resolve, _reject) => reject = _reject);
-    const newPromise = setFlag(obj, 'a', 1).whileAwaiting(promise);
-    expect(obj.a).toBe(1);
-    reject();
-    await newPromise;
-    expect(obj.a).toBe(0);
   });
 });
 
