@@ -2,10 +2,8 @@
 @import 'variables';
 
 .form {
-  margin: 30px;
-  border-radius: 3px;
+  border-radius: $border-radius;
   background: $neutral-lighter;
-  padding: 80px 30px;
 }
 
 .form-panel {
@@ -15,6 +13,7 @@
   border: 0;
   width: 100%;
   max-width: $sm-min / 2;
+  padding: 0;
 
   &[disabled] {
     @include filter(grayscale(100%));
@@ -31,14 +30,14 @@
   margin-bottom: 8px;
   border: 0;
   border-bottom: 2px solid $primary;
-  border-radius: 3px;
+  border-radius: $border-radius;
   padding: 9px;
   width: 100%;
 }
 
 .form-button {
   border: 0;
-  border-radius: 3px;
+  border-radius: $border-radius;
   background: $primary;
   padding: 8px 12px;
   width: 50%;
