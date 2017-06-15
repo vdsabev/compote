@@ -194,7 +194,7 @@ export type RecursivePartial<T> = {
   [P in keyof T]?: RecursivePartial<T[P]>;
 };
 
-type CustomProperties = {
+export type CustomProperties = {
   key?: number | string;
 
   oninit?(node?: ComponentNode): void;

@@ -2,1574 +2,191 @@
 import * as m from 'mithril';
 export declare const Compote: m.Static;
 /** HTML */
-export declare const a: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLAnchorElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const abbr: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const acronym: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const address: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const applet: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLAppletElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const area: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLAreaElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const article: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const aside: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const audio: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLAudioElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const b: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const base: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLBaseElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const basefont: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLBaseFontElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const bdo: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const big: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const blockquote: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLQuoteElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const body: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLBodyElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const br: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLBRElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const button: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLButtonElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const canvas: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLCanvasElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const caption: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLTableCaptionElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const center: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const circle: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGCircleElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const cite: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const clippath: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGClipPathElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const code: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const col: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLTableColElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const colgroup: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLTableColElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const datalist: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLDataListElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const dd: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const defs: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGDefsElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const del: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLModElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const desc: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGDescElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const dfn: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const dir: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLDirectoryElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const div: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLDivElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const dl: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLDListElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const dt: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const ellipse: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGEllipseElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const em: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const embed: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLEmbedElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const feblend: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFEBlendElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const fecolormatrix: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFEColorMatrixElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const fecomponenttransfer: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFEComponentTransferElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const fecomposite: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFECompositeElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const feconvolvematrix: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFEConvolveMatrixElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const fediffuselighting: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFEDiffuseLightingElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const fedisplacementmap: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFEDisplacementMapElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const fedistantlight: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFEDistantLightElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const feflood: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFEFloodElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const fefunca: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFEFuncAElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const fefuncb: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFEFuncBElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const fefuncg: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFEFuncGElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const fefuncr: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFEFuncRElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const fegaussianblur: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFEGaussianBlurElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const feimage: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFEImageElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const femerge: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFEMergeElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const femergenode: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFEMergeNodeElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const femorphology: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFEMorphologyElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const feoffset: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFEOffsetElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const fepointlight: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFEPointLightElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const fespecularlighting: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFESpecularLightingElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const fespotlight: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFESpotLightElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const fetile: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFETileElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const feturbulence: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFETurbulenceElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const fieldset: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLFieldSetElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const figcaption: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const figure: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const filter: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGFilterElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const font: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLFontElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const footer: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const foreignobject: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGForeignObjectElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const form: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLFormElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const frame: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLFrameElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const frameset: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLFrameSetElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const g: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGGElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const h1: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLHeadingElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const h2: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLHeadingElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const h3: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLHeadingElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const h4: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLHeadingElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const h5: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLHeadingElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const h6: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLHeadingElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const head: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLHeadElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const header: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const hgroup: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const hr: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLHRElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const html: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLHtmlElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const i: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const iframe: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLIFrameElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const image: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGImageElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const img: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLImageElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const input: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLInputElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const ins: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLModElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const isindex: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLUnknownElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const kbd: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const keygen: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const label: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLLabelElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const legend: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLLegendElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const li: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLLIElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const line: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGLineElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const lineargradient: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGLinearGradientElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const link: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLLinkElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const listing: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLPreElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const map: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLMapElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const mark: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const marker: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGMarkerElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const marquee: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLMarqueeElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const mask: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGMaskElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const menu: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLMenuElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const meta: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLMetaElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const metadata: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGMetadataElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const meter: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLMeterElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const nav: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const nextid: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLUnknownElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const nobr: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const noframes: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const noscript: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const object: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLObjectElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const ol: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLOListElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const optgroup: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLOptGroupElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const option: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLOptionElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const p: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLParagraphElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const param: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLParamElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const path: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGPathElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const pattern: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGPatternElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const picture: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLPictureElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const plaintext: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const polygon: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGPolygonElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const polyline: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGPolylineElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const pre: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLPreElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const progress: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLProgressElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const q: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLQuoteElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const radialgradient: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGRadialGradientElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const rect: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGRectElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const rt: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const ruby: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const s: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const samp: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const script: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLScriptElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const section: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const select: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLSelectElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const small: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const source: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLSourceElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const span: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLSpanElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const stop: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGStopElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const strike: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const strong: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const style: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLStyleElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const sub: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const sup: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const svg: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGSVGElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const symbol: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGSymbolElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const table: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLTableElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const tbody: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLTableSectionElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const td: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLTableDataCellElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const template: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLTemplateElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const text: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGTextElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const textpath: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGTextPathElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const textarea: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLTextAreaElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const tfoot: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLTableSectionElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const th: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLTableHeaderCellElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const thead: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLTableSectionElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const title: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLTitleElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const tr: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLTableRowElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const track: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLTrackElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const tspan: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGTSpanElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const tt: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const u: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const ul: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLUListElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const use: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGUseElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const video: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLVideoElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const view: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<SVGViewElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const wbr: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare const xmp: (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<HTMLPreElement>, children?: m.Children) => m.Vnode<any, any>;
-export declare function tag<TagNameType extends keyof ElementTagNameMap, ElementType extends ElementTagNameMap[TagNameType]>(tagName: TagNameType): (properties?: {
-    key?: string | number;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): boolean | void;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
-} & RecursivePartial<ElementType>, children?: m.Children) => m.Vnode<any, any>;
+export declare const a: (properties?: CustomProperties & RecursivePartial<HTMLAnchorElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const abbr: (properties?: CustomProperties & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const acronym: (properties?: CustomProperties & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const address: (properties?: CustomProperties & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const applet: (properties?: CustomProperties & RecursivePartial<HTMLAppletElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const area: (properties?: CustomProperties & RecursivePartial<HTMLAreaElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const article: (properties?: CustomProperties & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const aside: (properties?: CustomProperties & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const audio: (properties?: CustomProperties & RecursivePartial<HTMLAudioElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const b: (properties?: CustomProperties & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const base: (properties?: CustomProperties & RecursivePartial<HTMLBaseElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const basefont: (properties?: CustomProperties & RecursivePartial<HTMLBaseFontElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const bdo: (properties?: CustomProperties & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const big: (properties?: CustomProperties & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const blockquote: (properties?: CustomProperties & RecursivePartial<HTMLQuoteElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const body: (properties?: CustomProperties & RecursivePartial<HTMLBodyElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const br: (properties?: CustomProperties & RecursivePartial<HTMLBRElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const button: (properties?: CustomProperties & RecursivePartial<HTMLButtonElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const canvas: (properties?: CustomProperties & RecursivePartial<HTMLCanvasElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const caption: (properties?: CustomProperties & RecursivePartial<HTMLTableCaptionElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const center: (properties?: CustomProperties & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const circle: (properties?: CustomProperties & RecursivePartial<SVGCircleElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const cite: (properties?: CustomProperties & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const clippath: (properties?: CustomProperties & RecursivePartial<SVGClipPathElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const code: (properties?: CustomProperties & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const col: (properties?: CustomProperties & RecursivePartial<HTMLTableColElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const colgroup: (properties?: CustomProperties & RecursivePartial<HTMLTableColElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const datalist: (properties?: CustomProperties & RecursivePartial<HTMLDataListElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const dd: (properties?: CustomProperties & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const defs: (properties?: CustomProperties & RecursivePartial<SVGDefsElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const del: (properties?: CustomProperties & RecursivePartial<HTMLModElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const desc: (properties?: CustomProperties & RecursivePartial<SVGDescElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const dfn: (properties?: CustomProperties & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const dir: (properties?: CustomProperties & RecursivePartial<HTMLDirectoryElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const div: (properties?: CustomProperties & RecursivePartial<HTMLDivElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const dl: (properties?: CustomProperties & RecursivePartial<HTMLDListElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const dt: (properties?: CustomProperties & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const ellipse: (properties?: CustomProperties & RecursivePartial<SVGEllipseElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const em: (properties?: CustomProperties & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const embed: (properties?: CustomProperties & RecursivePartial<HTMLEmbedElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const feblend: (properties?: CustomProperties & RecursivePartial<SVGFEBlendElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const fecolormatrix: (properties?: CustomProperties & RecursivePartial<SVGFEColorMatrixElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const fecomponenttransfer: (properties?: CustomProperties & RecursivePartial<SVGFEComponentTransferElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const fecomposite: (properties?: CustomProperties & RecursivePartial<SVGFECompositeElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const feconvolvematrix: (properties?: CustomProperties & RecursivePartial<SVGFEConvolveMatrixElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const fediffuselighting: (properties?: CustomProperties & RecursivePartial<SVGFEDiffuseLightingElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const fedisplacementmap: (properties?: CustomProperties & RecursivePartial<SVGFEDisplacementMapElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const fedistantlight: (properties?: CustomProperties & RecursivePartial<SVGFEDistantLightElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const feflood: (properties?: CustomProperties & RecursivePartial<SVGFEFloodElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const fefunca: (properties?: CustomProperties & RecursivePartial<SVGFEFuncAElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const fefuncb: (properties?: CustomProperties & RecursivePartial<SVGFEFuncBElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const fefuncg: (properties?: CustomProperties & RecursivePartial<SVGFEFuncGElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const fefuncr: (properties?: CustomProperties & RecursivePartial<SVGFEFuncRElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const fegaussianblur: (properties?: CustomProperties & RecursivePartial<SVGFEGaussianBlurElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const feimage: (properties?: CustomProperties & RecursivePartial<SVGFEImageElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const femerge: (properties?: CustomProperties & RecursivePartial<SVGFEMergeElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const femergenode: (properties?: CustomProperties & RecursivePartial<SVGFEMergeNodeElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const femorphology: (properties?: CustomProperties & RecursivePartial<SVGFEMorphologyElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const feoffset: (properties?: CustomProperties & RecursivePartial<SVGFEOffsetElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const fepointlight: (properties?: CustomProperties & RecursivePartial<SVGFEPointLightElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const fespecularlighting: (properties?: CustomProperties & RecursivePartial<SVGFESpecularLightingElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const fespotlight: (properties?: CustomProperties & RecursivePartial<SVGFESpotLightElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const fetile: (properties?: CustomProperties & RecursivePartial<SVGFETileElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const feturbulence: (properties?: CustomProperties & RecursivePartial<SVGFETurbulenceElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const fieldset: (properties?: CustomProperties & RecursivePartial<HTMLFieldSetElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const figcaption: (properties?: CustomProperties & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const figure: (properties?: CustomProperties & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const filter: (properties?: CustomProperties & RecursivePartial<SVGFilterElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const font: (properties?: CustomProperties & RecursivePartial<HTMLFontElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const footer: (properties?: CustomProperties & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const foreignobject: (properties?: CustomProperties & RecursivePartial<SVGForeignObjectElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const form: (properties?: CustomProperties & RecursivePartial<HTMLFormElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const frame: (properties?: CustomProperties & RecursivePartial<HTMLFrameElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const frameset: (properties?: CustomProperties & RecursivePartial<HTMLFrameSetElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const g: (properties?: CustomProperties & RecursivePartial<SVGGElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const h1: (properties?: CustomProperties & RecursivePartial<HTMLHeadingElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const h2: (properties?: CustomProperties & RecursivePartial<HTMLHeadingElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const h3: (properties?: CustomProperties & RecursivePartial<HTMLHeadingElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const h4: (properties?: CustomProperties & RecursivePartial<HTMLHeadingElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const h5: (properties?: CustomProperties & RecursivePartial<HTMLHeadingElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const h6: (properties?: CustomProperties & RecursivePartial<HTMLHeadingElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const head: (properties?: CustomProperties & RecursivePartial<HTMLHeadElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const header: (properties?: CustomProperties & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const hgroup: (properties?: CustomProperties & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const hr: (properties?: CustomProperties & RecursivePartial<HTMLHRElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const html: (properties?: CustomProperties & RecursivePartial<HTMLHtmlElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const i: (properties?: CustomProperties & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const iframe: (properties?: CustomProperties & RecursivePartial<HTMLIFrameElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const image: (properties?: CustomProperties & RecursivePartial<SVGImageElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const img: (properties?: CustomProperties & RecursivePartial<HTMLImageElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const input: (properties?: CustomProperties & RecursivePartial<HTMLInputElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const ins: (properties?: CustomProperties & RecursivePartial<HTMLModElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const isindex: (properties?: CustomProperties & RecursivePartial<HTMLUnknownElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const kbd: (properties?: CustomProperties & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const keygen: (properties?: CustomProperties & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const label: (properties?: CustomProperties & RecursivePartial<HTMLLabelElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const legend: (properties?: CustomProperties & RecursivePartial<HTMLLegendElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const li: (properties?: CustomProperties & RecursivePartial<HTMLLIElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const line: (properties?: CustomProperties & RecursivePartial<SVGLineElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const lineargradient: (properties?: CustomProperties & RecursivePartial<SVGLinearGradientElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const link: (properties?: CustomProperties & RecursivePartial<HTMLLinkElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const listing: (properties?: CustomProperties & RecursivePartial<HTMLPreElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const map: (properties?: CustomProperties & RecursivePartial<HTMLMapElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const mark: (properties?: CustomProperties & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const marker: (properties?: CustomProperties & RecursivePartial<SVGMarkerElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const marquee: (properties?: CustomProperties & RecursivePartial<HTMLMarqueeElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const mask: (properties?: CustomProperties & RecursivePartial<SVGMaskElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const menu: (properties?: CustomProperties & RecursivePartial<HTMLMenuElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const meta: (properties?: CustomProperties & RecursivePartial<HTMLMetaElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const metadata: (properties?: CustomProperties & RecursivePartial<SVGMetadataElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const meter: (properties?: CustomProperties & RecursivePartial<HTMLMeterElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const nav: (properties?: CustomProperties & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const nextid: (properties?: CustomProperties & RecursivePartial<HTMLUnknownElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const nobr: (properties?: CustomProperties & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const noframes: (properties?: CustomProperties & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const noscript: (properties?: CustomProperties & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const object: (properties?: CustomProperties & RecursivePartial<HTMLObjectElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const ol: (properties?: CustomProperties & RecursivePartial<HTMLOListElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const optgroup: (properties?: CustomProperties & RecursivePartial<HTMLOptGroupElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const option: (properties?: CustomProperties & RecursivePartial<HTMLOptionElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const p: (properties?: CustomProperties & RecursivePartial<HTMLParagraphElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const param: (properties?: CustomProperties & RecursivePartial<HTMLParamElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const path: (properties?: CustomProperties & RecursivePartial<SVGPathElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const pattern: (properties?: CustomProperties & RecursivePartial<SVGPatternElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const picture: (properties?: CustomProperties & RecursivePartial<HTMLPictureElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const plaintext: (properties?: CustomProperties & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const polygon: (properties?: CustomProperties & RecursivePartial<SVGPolygonElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const polyline: (properties?: CustomProperties & RecursivePartial<SVGPolylineElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const pre: (properties?: CustomProperties & RecursivePartial<HTMLPreElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const progress: (properties?: CustomProperties & RecursivePartial<HTMLProgressElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const q: (properties?: CustomProperties & RecursivePartial<HTMLQuoteElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const radialgradient: (properties?: CustomProperties & RecursivePartial<SVGRadialGradientElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const rect: (properties?: CustomProperties & RecursivePartial<SVGRectElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const rt: (properties?: CustomProperties & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const ruby: (properties?: CustomProperties & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const s: (properties?: CustomProperties & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const samp: (properties?: CustomProperties & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const script: (properties?: CustomProperties & RecursivePartial<HTMLScriptElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const section: (properties?: CustomProperties & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const select: (properties?: CustomProperties & RecursivePartial<HTMLSelectElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const small: (properties?: CustomProperties & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const source: (properties?: CustomProperties & RecursivePartial<HTMLSourceElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const span: (properties?: CustomProperties & RecursivePartial<HTMLSpanElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const stop: (properties?: CustomProperties & RecursivePartial<SVGStopElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const strike: (properties?: CustomProperties & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const strong: (properties?: CustomProperties & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const style: (properties?: CustomProperties & RecursivePartial<HTMLStyleElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const sub: (properties?: CustomProperties & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const sup: (properties?: CustomProperties & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const svg: (properties?: CustomProperties & RecursivePartial<SVGSVGElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const symbol: (properties?: CustomProperties & RecursivePartial<SVGSymbolElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const table: (properties?: CustomProperties & RecursivePartial<HTMLTableElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const tbody: (properties?: CustomProperties & RecursivePartial<HTMLTableSectionElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const td: (properties?: CustomProperties & RecursivePartial<HTMLTableDataCellElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const template: (properties?: CustomProperties & RecursivePartial<HTMLTemplateElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const text: (properties?: CustomProperties & RecursivePartial<SVGTextElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const textpath: (properties?: CustomProperties & RecursivePartial<SVGTextPathElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const textarea: (properties?: CustomProperties & RecursivePartial<HTMLTextAreaElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const tfoot: (properties?: CustomProperties & RecursivePartial<HTMLTableSectionElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const th: (properties?: CustomProperties & RecursivePartial<HTMLTableHeaderCellElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const thead: (properties?: CustomProperties & RecursivePartial<HTMLTableSectionElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const title: (properties?: CustomProperties & RecursivePartial<HTMLTitleElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const tr: (properties?: CustomProperties & RecursivePartial<HTMLTableRowElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const track: (properties?: CustomProperties & RecursivePartial<HTMLTrackElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const tspan: (properties?: CustomProperties & RecursivePartial<SVGTSpanElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const tt: (properties?: CustomProperties & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const u: (properties?: CustomProperties & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const ul: (properties?: CustomProperties & RecursivePartial<HTMLUListElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const use: (properties?: CustomProperties & RecursivePartial<SVGUseElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const video: (properties?: CustomProperties & RecursivePartial<HTMLVideoElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const view: (properties?: CustomProperties & RecursivePartial<SVGViewElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const wbr: (properties?: CustomProperties & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare const xmp: (properties?: CustomProperties & RecursivePartial<HTMLPreElement>, children?: m.Children) => m.Vnode<any, any>;
+export declare function tag<TagNameType extends keyof ElementTagNameMap, ElementType extends ElementTagNameMap[TagNameType]>(tagName: TagNameType): (properties?: CustomProperties & RecursivePartial<ElementType>, children?: m.Children) => m.Vnode<any, any>;
 export declare type RecursivePartial<T> = {
     [P in keyof T]?: RecursivePartial<T[P]>;
+};
+export declare type CustomProperties = {
+    key?: number | string;
+    oninit?(node?: ComponentNode): void;
+    oncreate?(node?: ComponentNode): void;
+    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): void | boolean;
+    onupdate?(node?: ComponentNode): void;
+    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
+    onremove?(node?: ComponentNode): void;
 };
 export declare type ComponentNode = m.Vnode<any, any> & {
     dom: HTMLElement;
