@@ -17,6 +17,15 @@ $primary-light: lighten($primary, 10%) !default;
 $primary-dark: darken($primary, 10%) !default;
 $primary-darker: darken($primary, 15%) !default;
 
+$success: #2ecc71 !default;
+$success-dark: darken($success, 10%) !default;
+
+$info: #3498db !default;
+$info-dark: darken($info, 10%) !default;
+
+$warning: #f1c40f !default;
+$warning-dark: darken($warning, 10%) !default;
+
 $danger: #db4437 !default;
 $danger-dark: darken($danger, 10%) !default;
 
