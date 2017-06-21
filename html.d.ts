@@ -176,9 +176,7 @@ export declare const view: (properties?: CustomProperties & RecursivePartial<SVG
 export declare const wbr: (properties?: CustomProperties & RecursivePartial<HTMLElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare const xmp: (properties?: CustomProperties & RecursivePartial<HTMLPreElement>, children?: m.Children) => m.Vnode<any, any>;
 export declare function tag<TagNameType extends keyof ElementTagNameMap, ElementType extends ElementTagNameMap[TagNameType]>(tagName: TagNameType): (properties?: CustomProperties & RecursivePartial<ElementType>, children?: m.Children) => m.Vnode<any, any>;
-export declare type RecursivePartial<T> = {
-    [P in keyof T]?: RecursivePartial<T[P]>;
-};
+export declare type Properties<ElementType> = CustomProperties & RecursivePartial<ElementType>;
 export declare type CustomProperties = {
     key?: number | string;
     oninit?(node?: ComponentNode): void;
@@ -187,6 +185,9 @@ export declare type CustomProperties = {
     onupdate?(node?: ComponentNode): void;
     onbeforeremove?(node?: ComponentNode): void | Promise<any>;
     onremove?(node?: ComponentNode): void;
+};
+export declare type RecursivePartial<T> = {
+    [P in keyof T]?: RecursivePartial<T[P]>;
 };
 export declare type ComponentNode = m.Vnode<any, any> & {
     dom: HTMLElement;

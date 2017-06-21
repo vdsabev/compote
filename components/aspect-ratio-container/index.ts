@@ -1,10 +1,12 @@
 import './style.scss';
 
 import { Children } from 'mithril';
-import { div } from '../../html';
+import { div, Properties } from '../../html';
 
-export const AspectRatioContainer = (aspectRatio: { x: number, y: number }, content: Children) => (
-  div({ className: 'aspect-ratio-container' }, [
+export type AspectRatioContainerProperties = Properties<HTMLDivElement> & { aspectRatio: { x: number, y: number } };
+
+export const AspectRatioContainer = ({ aspectRatio, ...props }: AspectRatioContainerProperties, content?: Children) => (
+  div({ ...props, className: `aspect-ratio-container ${props.className || ''}` }, [
     div({ style: { 'padding-bottom': `${100 * aspectRatio.y / aspectRatio.x}%` } }),
     content
   ])

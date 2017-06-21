@@ -190,9 +190,7 @@ export function tag<TagNameType extends keyof ElementTagNameMap, ElementType ext
   };
 }
 
-export type RecursivePartial<T> = {
-  [P in keyof T]?: RecursivePartial<T[P]>;
-};
+export type Properties<ElementType> = CustomProperties & RecursivePartial<ElementType>;
 
 export type CustomProperties = {
   key?: number | string;
@@ -205,6 +203,10 @@ export type CustomProperties = {
 
   onbeforeremove?(node?: ComponentNode): void | Promise<any>;
   onremove?(node?: ComponentNode): void;
+};
+
+export type RecursivePartial<T> = {
+  [P in keyof T]?: RecursivePartial<T[P]>;
 };
 
 export type ComponentNode = m.Vnode<any, any> & { dom: HTMLElement };
