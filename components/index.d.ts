@@ -1,1 +1,9 @@
-declare var require: (moduleName: string) => any;
+declare var require: any;
+
+interface SVGSVGElement {
+  viewBox: string;
+}
+
+interface SVGPathElement {
+  d: string;
+}

@@ -18,41 +18,41 @@ exports.Clock = function (date, _a) {
     var _b = dynamic ? exports.hoursToXY(date.getHours()) : [1, 0], hoursX = _b[0], hoursY = _b[1];
     var _c = dynamic ? exports.minutesToXY(date.getMinutes()) : [0, -1], minutesX = _c[0], minutesY = _c[1];
     return (html_1.svg({
-        width: { baseVal: { value: clockSize + 2 * clockMargin } },
-        height: { baseVal: { value: clockSize } },
-        viewBox: { baseVal: { x: 0, y: 0, width: clockSize, height: clockSize } },
+        width: clockSize + 2 * clockMargin,
+        height: clockSize,
+        viewBox: "0 0 " + clockSize + " " + clockSize,
         style: {
             strokeLinecap: 'round'
         }
     }, [
         html_1.circle({
-            cx: { baseVal: { value: exports.clockCenter } },
-            cy: { baseVal: { value: exports.clockCenter } },
-            r: { baseVal: { value: exports.clockRadius } },
+            cx: exports.clockCenter,
+            cy: exports.clockCenter,
+            r: exports.clockRadius,
             style: {
                 fill: 'none',
                 stroke: 'white',
-                strokeWidth: '2.25'
+                strokeWidth: 2.25
             }
         }),
         html_1.line({
-            x1: { baseVal: { value: exports.clockCenter } },
-            y1: { baseVal: { value: exports.clockCenter } },
-            x2: { baseVal: { value: exports.clockCenter + exports.hoursLineMultiplier * hoursX * exports.clockRadius } },
-            y2: { baseVal: { value: exports.clockCenter + exports.hoursLineMultiplier * hoursY * exports.clockRadius } },
+            x1: exports.clockCenter,
+            y1: exports.clockCenter,
+            x2: exports.clockCenter + exports.hoursLineMultiplier * hoursX * exports.clockRadius,
+            y2: exports.clockCenter + exports.hoursLineMultiplier * hoursY * exports.clockRadius,
             style: {
                 stroke: 'white',
-                strokeWidth: '1.25'
+                strokeWidth: 1.25
             }
         }),
         html_1.line({
-            x1: { baseVal: { value: exports.clockCenter } },
-            y1: { baseVal: { value: exports.clockCenter } },
-            x2: { baseVal: { value: exports.clockCenter + exports.minutesLineMultiplier * minutesX * exports.clockRadius } },
-            y2: { baseVal: { value: exports.clockCenter + exports.minutesLineMultiplier * minutesY * exports.clockRadius } },
+            x1: exports.clockCenter,
+            y1: exports.clockCenter,
+            x2: exports.clockCenter + exports.minutesLineMultiplier * minutesX * exports.clockRadius,
+            y2: exports.clockCenter + exports.minutesLineMultiplier * minutesY * exports.clockRadius,
             style: {
                 stroke: 'white',
-                strokeWidth: '1.25'
+                strokeWidth: 1.25
             }
         })
     ]));
