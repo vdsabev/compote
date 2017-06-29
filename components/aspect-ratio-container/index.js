@@ -20,7 +20,7 @@ import { div } from '../../html';
 export var AspectRatioContainer = function (_a, content) {
     var aspectRatio = _a.aspectRatio, props = __rest(_a, ["aspectRatio"]);
     return (div(__assign({}, props, { className: "aspect-ratio-container " + (props.className || '') }), [
-        div({ style: { 'padding-bottom': 100 * aspectRatio.y / aspectRatio.x + "%" } }),
+        div({ style: { paddingBottom: 100 * aspectRatio.y / aspectRatio.x + "%" } }),
         content
     ]));
 };

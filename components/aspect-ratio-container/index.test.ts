@@ -24,7 +24,7 @@ describe(`AspectRatioContainer`, () => {
   });
 
   it(`should allow adding other properties`, () => {
-    const container = AspectRatioContainer({ visibility: 'hidden', aspectRatio: { x: 2, y: 1 } }, 'b');
-    expect(container.attrs.visibility).toBe('hidden');
+    const container = AspectRatioContainer({ style: { visibility: 'hidden' }, aspectRatio: { x: 2, y: 1 } }, 'b');
+    expect(container.attrs.style.visibility).toBe('hidden');
   });
 });

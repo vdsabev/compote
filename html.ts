@@ -185,8 +185,8 @@ export const wbr = tag('wbr');
 export const xmp = tag('xmp');
 
 export function tag<TagNameType extends keyof ElementTagNameMap, ElementType extends ElementTagNameMap[TagNameType]>(tagName: TagNameType) {
-  return function (properties?: CustomProperties & RecursivePartial<ElementType>, children?: m.Children) {
-    return Compote(tagName, properties, children);
+  return function (properties?: Properties<ElementType> | m.Children, ...children: m.Children[]) {
+    return Compote(tagName, <m.Attributes>properties, ...children);
   };
 }
 
@@ -194,6 +194,7 @@ export type Properties<ElementType> = CustomProperties & RecursivePartial<Elemen
 
 export type CustomProperties = {
   key?: number | string;
+  class?: string;
 
   oninit?(node?: ComponentNode): void;
   oncreate?(node?: ComponentNode): void;

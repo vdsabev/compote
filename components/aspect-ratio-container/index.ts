@@ -7,7 +7,7 @@ export type AspectRatioContainerProperties = Properties<HTMLDivElement> & { aspe
 
 export const AspectRatioContainer = ({ aspectRatio, ...props }: AspectRatioContainerProperties, content?: Children) => (
   div({ ...props, className: `aspect-ratio-container ${props.className || ''}` }, [
-    div({ style: { 'padding-bottom': `${100 * aspectRatio.y / aspectRatio.x}%` } }),
+    div({ style: { paddingBottom: `${100 * aspectRatio.y / aspectRatio.x}%` } }),
     content
   ])
 );

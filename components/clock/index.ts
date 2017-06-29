@@ -25,41 +25,41 @@ export const Clock = (date: Date, { dynamic }: ClockOptions = {}) => {
 
   return (
     svg({
-      width: clockSize + 2 * clockMargin,
-      height: clockSize,
-      viewBox: `0 0 ${clockSize} ${clockSize}`,
+      width: { baseVal: { value: clockSize + 2 * clockMargin } },
+      height: { baseVal: { value: clockSize } },
+      viewBox: { baseVal: { x: 0, y: 0, width: clockSize, height: clockSize } },
       style: {
-        'stroke-linecap': 'round'
+        strokeLinecap: 'round'
       }
     }, [
       circle({
-        cx: clockCenter,
-        cy: clockCenter,
-        r: clockRadius,
+        cx: { baseVal: { value: clockCenter } },
+        cy: { baseVal: { value: clockCenter } },
+        r: { baseVal: { value: clockRadius } },
         style: {
           fill: 'none',
           stroke: 'white',
-          'stroke-width': 2.25
+          strokeWidth: '2.25'
         }
       }),
       line({
-        x1: clockCenter,
-        y1: clockCenter,
-        x2: clockCenter + hoursLineMultiplier * hoursX * clockRadius,
-        y2: clockCenter + hoursLineMultiplier * hoursY * clockRadius,
+        x1: { baseVal: { value: clockCenter } },
+        y1: { baseVal: { value: clockCenter } },
+        x2: { baseVal: { value: clockCenter + hoursLineMultiplier * hoursX * clockRadius } },
+        y2: { baseVal: { value: clockCenter + hoursLineMultiplier * hoursY * clockRadius } },
         style: {
           stroke: 'white',
-          'stroke-width': 1.25
+          strokeWidth: '1.25'
         }
       }),
       line({
-        x1: clockCenter,
-        y1: clockCenter,
-        x2: clockCenter + minutesLineMultiplier * minutesX * clockRadius,
-        y2: clockCenter + minutesLineMultiplier * minutesY * clockRadius,
+        x1: { baseVal: { value: clockCenter } },
+        y1: { baseVal: { value: clockCenter } },
+        x2: { baseVal: { value: clockCenter + minutesLineMultiplier * minutesX * clockRadius } },
+        y2: { baseVal: { value: clockCenter + minutesLineMultiplier * minutesY * clockRadius } },
         style: {
           stroke: 'white',
-          'stroke-width': 1.25
+          strokeWidth: '1.25'
         }
       })
     ])

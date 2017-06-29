@@ -182,7 +182,11 @@ export var wbr = tag('wbr');
 // export const x-ms-webview = tag('webview');
 export var xmp = tag('xmp');
 export function tag(tagName) {
-    return function (properties, children) {
-        return Compote(tagName, properties, children);
+    return function (properties) {
+        var children = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            children[_i - 1] = arguments[_i];
+        }
+        return Compote.apply(void 0, [tagName, properties].concat(children));
     };
 }

@@ -22,7 +22,7 @@ var html_1 = require("../../html");
 exports.AspectRatioContainer = function (_a, content) {
     var aspectRatio = _a.aspectRatio, props = __rest(_a, ["aspectRatio"]);
     return (html_1.div(__assign({}, props, { className: "aspect-ratio-container " + (props.className || '') }), [
-        html_1.div({ style: { 'padding-bottom': 100 * aspectRatio.y / aspectRatio.x + "%" } }),
+        html_1.div({ style: { paddingBottom: 100 * aspectRatio.y / aspectRatio.x + "%" } }),
         content
     ]));
 };

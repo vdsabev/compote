@@ -1,3 +1,3 @@
 import TodoApp from './todomvc/todo-app';
 
-new TodoApp();
+const todoApp = new TodoApp();

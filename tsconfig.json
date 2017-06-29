@@ -10,7 +10,7 @@
     "baseUrl": "./",
     "declaration": true,
     "declarationDir": "./",
-    "lib": ["es6", "dom"],
+    "lib": ["dom", "es6"],
     "module": "es6",
     "target": "es5"
   },
