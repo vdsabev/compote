@@ -20,8 +20,8 @@ exports.__esModule = true;
 require("./style.scss");
 var html_1 = require("../../html");
 exports.AspectRatioContainer = function (_a, content) {
-    var aspectRatio = _a.aspectRatio, props = __rest(_a, ["aspectRatio"]);
-    return (html_1.div(__assign({}, props, { className: "aspect-ratio-container " + (props.className || '') }), [
+    var aspectRatio = _a.aspectRatio, className = _a.className, props = __rest(_a, ["aspectRatio", "className"]);
+    return (html_1.div(__assign({}, props, { "class": "aspect-ratio-container " + (props["class"] || className || '') }), [
         html_1.div({ style: { paddingBottom: 100 * aspectRatio.y / aspectRatio.x + "%" } }),
         content
     ]));

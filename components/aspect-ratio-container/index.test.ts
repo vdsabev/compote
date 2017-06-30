@@ -13,14 +13,29 @@ describe(`AspectRatioContainer`, () => {
     expect(children[1].children).toBe('a');
   });
 
-  it(`should allow adding additional classes`, () => {
+  it(`should allow adding additional classes via class`, () => {
+    const container = AspectRatioContainer({ class: 'a', aspectRatio: { x: 2, y: 1 } }, 'b');
+    expect(container.attrs.className).toBe('aspect-ratio-container a');
+  });
+
+  it(`should allow adding additional classes via className`, () => {
     const container = AspectRatioContainer({ className: 'a', aspectRatio: { x: 2, y: 1 } }, 'b');
     expect(container.attrs.className).toBe('aspect-ratio-container a');
   });
 
   it(`should gracefully handle null class`, () => {
+    const container = AspectRatioContainer({ class: null, aspectRatio: { x: 2, y: 1 } }, 'b');
+    expect(container.attrs.className).toBe('aspect-ratio-container ');
+  });
+
+  it(`should gracefully handle null className`, () => {
     const container = AspectRatioContainer({ className: null, aspectRatio: { x: 2, y: 1 } }, 'b');
     expect(container.attrs.className).toBe('aspect-ratio-container ');
+  });
+
+  it(`should prefer class over className`, () => {
+    const container = AspectRatioContainer({ class: 'a', className: 'b', aspectRatio: { x: 2, y: 1 } }, 'b');
+    expect(container.attrs.className).toBe('aspect-ratio-container a');
   });
 
   it(`should allow adding other properties`, () => {

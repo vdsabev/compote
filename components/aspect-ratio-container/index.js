@@ -18,8 +18,8 @@ var __rest = (this && this.__rest) || function (s, e) {
 import './style.scss';
 import { div } from '../../html';
 export var AspectRatioContainer = function (_a, content) {
-    var aspectRatio = _a.aspectRatio, props = __rest(_a, ["aspectRatio"]);
-    return (div(__assign({}, props, { className: "aspect-ratio-container " + (props.className || '') }), [
+    var aspectRatio = _a.aspectRatio, className = _a.className, props = __rest(_a, ["aspectRatio", "className"]);
+    return (div(__assign({}, props, { "class": "aspect-ratio-container " + (props["class"] || className || '') }), [
         div({ style: { paddingBottom: 100 * aspectRatio.y / aspectRatio.x + "%" } }),
         content
     ]));
