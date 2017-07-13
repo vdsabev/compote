@@ -21,7 +21,7 @@
     "@types/mithril": "1.1.5",
     "bootstrap-sass": "3.3.7",
     "mithril": "1.1.1",
-    "redux": "3.7.1",
+    "redux": "3.7.2",
     "timeago.js": "3.0.1"
   },
   "devDependencies": {
