@@ -9,7 +9,7 @@ export const constant = <T>(value: T) => () => value;
 export const identity = <T>(value: T) => value;
 
 // TODO: Test
-export const voidify = <T>(fn: Function) => (...args: any[]) => {
+export const voidify = (fn: Function) => (...args: any[]) => {
   fn(...args);
 };
 
