@@ -18,7 +18,7 @@
     "mithril": "1.x.x"
   },
   "dependencies": {
-    "@types/mithril": "1.1.5",
+    "@types/mithril": "1.1.6",
     "bootstrap-sass": "3.3.7",
     "mithril": "1.1.1",
     "redux": "3.7.1",
