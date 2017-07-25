@@ -1,7 +1,7 @@
-import * as Mithril from './node_modules/@types/mithril/index';
+import * as m from 'mithril';
 
-let h: Mithril.Hyperscript;
-export const setHyperscriptFunction = (f: Mithril.Hyperscript) => h = f;
+let h: m.Hyperscript;
+export const setHyperscriptFunction = (f: m.Hyperscript) => h = f;
 
 /** HTML */
 // http://www.quackit.com/html_5/tags
@@ -186,8 +186,8 @@ export const wbr = tag('wbr');
 export const xmp = tag('xmp');
 
 export function tag<TagNameType extends keyof ElementTagNameMap, ElementType extends ElementTagNameMap[TagNameType]>(tagName: TagNameType) {
-  return function (properties?: Properties<ElementType> | Mithril.Children, ...children: Mithril.Children[]) {
-    return h(tagName, <Mithril.Attributes>properties, ...children);
+  return function (properties?: Properties<ElementType> | m.Children, ...children: m.Children[]) {
+    return h(tagName, <m.Attributes>properties, ...children);
   };
 }
 
@@ -211,4 +211,4 @@ export type RecursivePartial<T> = {
   [P in keyof T]?: RecursivePartial<T[P]>;
 };
 
-export type ComponentNode = Mithril.Vnode<any, any> & { dom: HTMLElement };
+export type ComponentNode = m.Vnode<any, any> & { dom: HTMLElement };
