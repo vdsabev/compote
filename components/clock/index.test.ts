@@ -3,6 +3,11 @@
 import 'jest';
 
 jest.mock('../../html', () => require('../../html.common.js'));
+
+import * as m from 'mithril';
+import { setHyperscriptFunction } from '../../html';
+setHyperscriptFunction(m);
+
 import { minutesToXY, Clock, clockCenter, clockRadius, hoursLineMultiplier, minutesLineMultiplier } from './index';
 
 describe(`minutesToXY`, () => {

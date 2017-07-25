@@ -1,7 +1,7 @@
 "use strict";
 exports.__esModule = true;
-var m = require("mithril");
-exports.Compote = m;
+var h;
+exports.setHyperscriptFunction = function (f) { return h = f; };
 /** HTML */
 // http://www.quackit.com/html_5/tags
 exports.a = tag('a');
@@ -31,7 +31,7 @@ exports.clippath = tag('clippath');
 exports.code = tag('code');
 exports.col = tag('col');
 exports.colgroup = tag('colgroup');
-// export const data = tag('data');
+exports.data = tag('data');
 exports.datalist = tag('datalist');
 exports.dd = tag('dd');
 exports.defs = tag('defs');
@@ -125,7 +125,7 @@ exports.object = tag('object');
 exports.ol = tag('ol');
 exports.optgroup = tag('optgroup');
 exports.option = tag('option');
-// export const output = tag('output');
+exports.output = tag('output');
 exports.p = tag('p');
 exports.param = tag('param');
 exports.path = tag('path');
@@ -168,7 +168,7 @@ exports.textarea = tag('textarea');
 exports.tfoot = tag('tfoot');
 exports.th = tag('th');
 exports.thead = tag('thead');
-// export const time = tag('time');
+exports.time = tag('time');
 exports.title = tag('title');
 exports.tr = tag('tr');
 exports.track = tag('track');
@@ -189,7 +189,7 @@ function tag(tagName) {
         for (var _i = 1; _i < arguments.length; _i++) {
             children[_i - 1] = arguments[_i];
         }
-        return exports.Compote.apply(void 0, [tagName, properties].concat(children));
+        return h.apply(void 0, [tagName, properties].concat(children));
     };
 }
 exports.tag = tag;

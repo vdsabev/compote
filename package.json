@@ -1,12 +1,12 @@
 {
   "name": "compote",
-  "version": "2.1.3",
+  "version": "3.0.0",
   "license": "MIT",
   "main": "compote.js",
   "types": "compote.d.ts",
   "scripts": {
     "build:todomvc:tsc": "tsc ./examples/todomvc.ts --declaration false --lib es6,dom --module es6 --outDir ./build",
-    "build:todomvc:rollup": "rollup ./build/examples/todomvc.js -o ./build/todomvc.js -g mithril:m -f es",
+    "build:todomvc:rollup": "rollup ./build/examples/todomvc.js -o ./build/todomvc.js -g mithril:m -f iife",
     "build:todomvc": "npm run build:todomvc:tsc && npm run build:todomvc:rollup",
     "build:components": "node ./components.js",
     "build": "tsc && npm run build:todomvc && npm run build:components",
@@ -14,24 +14,21 @@
     "test": "jest",
     "jest": "jest --watch"
   },
-  "peerDependencies": {
-    "mithril": "1.x.x"
-  },
   "dependencies": {
-    "@types/mithril": "1.1.5",
+    "@types/mithril": "1.1.6",
     "bootstrap-sass": "3.3.7",
-    "mithril": "1.1.1",
-    "redux": "3.7.1",
-    "timeago.js": "3.0.1"
+    "redux": "3.7.2",
+    "timeago.js": "3.0.2"
   },
   "devDependencies": {
-    "@types/jest": "20.0.2",
+    "@types/jest": "20.0.4",
     "glob": "7.1.2",
     "jest": "20.0.4",
-    "rollup": "0.43.0",
-    "serve": "5.2.2",
-    "ts-jest": "20.0.6",
-    "typescript": "2.4.1"
+    "mithril": "1.1.3",
+    "rollup": "0.45.2",
+    "serve": "6.0.3",
+    "ts-jest": "20.0.7",
+    "typescript": "2.4.2"
   },
   "jest": {
     "collectCoverage": true,

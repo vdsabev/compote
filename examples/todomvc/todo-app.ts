@@ -1,4 +1,5 @@
-import { Compote, h1, input } from '../../compote';
+import * as m from 'mithril';
+import { h1, input } from '../../compote';
 
 import { App } from './component';
 import Keyboard from './keyboard';
@@ -13,7 +14,7 @@ export default class TodoApp implements App {
   items: TodoItem[] = [];
 
   update() {
-    Compote.render(document.querySelector('#container'), this.render());
+    m.render(document.querySelector('#container'), this.render());
   }
 
   render() {

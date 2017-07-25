@@ -1,6 +1,7 @@
-import * as m from 'mithril';
+import * as Mithril from './node_modules/@types/mithril/index';
 
-export const Compote = m;
+let h: Mithril.Hyperscript;
+export const setHyperscriptFunction = (f: Mithril.Hyperscript) => h = f;
 
 /** HTML */
 // http://www.quackit.com/html_5/tags
@@ -31,7 +32,7 @@ export const clippath = tag('clippath');
 export const code = tag('code');
 export const col = tag('col');
 export const colgroup = tag('colgroup');
-// export const data = tag('data');
+export const data = tag('data');
 export const datalist = tag('datalist');
 export const dd = tag('dd');
 export const defs = tag('defs');
@@ -125,7 +126,7 @@ export const object = tag('object');
 export const ol = tag('ol');
 export const optgroup = tag('optgroup');
 export const option = tag('option');
-// export const output = tag('output');
+export const output = tag('output');
 export const p = tag('p');
 export const param = tag('param');
 export const path = tag('path');
@@ -168,7 +169,7 @@ export const textarea = tag('textarea');
 export const tfoot = tag('tfoot');
 export const th = tag('th');
 export const thead = tag('thead');
-// export const time = tag('time');
+export const time = tag('time');
 export const title = tag('title');
 export const tr = tag('tr');
 export const track = tag('track');
@@ -185,8 +186,8 @@ export const wbr = tag('wbr');
 export const xmp = tag('xmp');
 
 export function tag<TagNameType extends keyof ElementTagNameMap, ElementType extends ElementTagNameMap[TagNameType]>(tagName: TagNameType) {
-  return function (properties?: Properties<ElementType> | m.Children, ...children: m.Children[]) {
-    return Compote(tagName, <m.Attributes>properties, ...children);
+  return function (properties?: Properties<ElementType> | Mithril.Children, ...children: Mithril.Children[]) {
+    return h(tagName, <Mithril.Attributes>properties, ...children);
   };
 }
 
@@ -210,4 +211,4 @@ export type RecursivePartial<T> = {
   [P in keyof T]?: RecursivePartial<T[P]>;
 };
 
-export type ComponentNode = m.Vnode<any, any> & { dom: HTMLElement };
+export type ComponentNode = Mithril.Vnode<any, any> & { dom: HTMLElement };

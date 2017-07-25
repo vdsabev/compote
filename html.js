@@ -1,5 +1,5 @@
-import * as m from 'mithril';
-export var Compote = m;
+var h;
+export var setHyperscriptFunction = function (f) { return h = f; };
 /** HTML */
 // http://www.quackit.com/html_5/tags
 export var a = tag('a');
@@ -29,7 +29,7 @@ export var clippath = tag('clippath');
 export var code = tag('code');
 export var col = tag('col');
 export var colgroup = tag('colgroup');
-// export const data = tag('data');
+export var data = tag('data');
 export var datalist = tag('datalist');
 export var dd = tag('dd');
 export var defs = tag('defs');
@@ -123,7 +123,7 @@ export var object = tag('object');
 export var ol = tag('ol');
 export var optgroup = tag('optgroup');
 export var option = tag('option');
-// export const output = tag('output');
+export var output = tag('output');
 export var p = tag('p');
 export var param = tag('param');
 export var path = tag('path');
@@ -166,7 +166,7 @@ export var textarea = tag('textarea');
 export var tfoot = tag('tfoot');
 export var th = tag('th');
 export var thead = tag('thead');
-// export const time = tag('time');
+export var time = tag('time');
 export var title = tag('title');
 export var tr = tag('tr');
 export var track = tag('track');
@@ -187,6 +187,6 @@ export function tag(tagName) {
         for (var _i = 1; _i < arguments.length; _i++) {
             children[_i - 1] = arguments[_i];
         }
-        return Compote.apply(void 0, [tagName, properties].concat(children));
+        return h.apply(void 0, [tagName, properties].concat(children));
     };
 }
