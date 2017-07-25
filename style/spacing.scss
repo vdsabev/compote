@@ -1,0 +1,32 @@
+@import 'mixins';
+@import 'variables';
+
+// Spacing classes, inspired by
+// http://v4-alpha.getbootstrap.com/components/utilities/#spacing
+// Margin
+// Positive
+@include create-spacers('.ma', margin, all, $spacing);
+@include create-spacers('.mv', margin, vertical, $spacing);
+@include create-spacers('.mh', margin, horizontal, $spacing);
+@include create-spacers('.mt', margin, top, $spacing);
+@include create-spacers('.mr', margin, right, $spacing);
+@include create-spacers('.mb', margin, bottom, $spacing);
+@include create-spacers('.ml', margin, left, $spacing);
+
+// Negative
+@include create-spacers('.ma-n', margin, all, -$spacing);
+@include create-spacers('.mv-n', margin, vertical, -$spacing);
+@include create-spacers('.mh-n', margin, horizontal, -$spacing);
+@include create-spacers('.mt-n', margin, top, -$spacing);
+@include create-spacers('.mr-n', margin, right, -$spacing);
+@include create-spacers('.mb-n', margin, bottom, -$spacing);
+@include create-spacers('.ml-n', margin, left, -$spacing);
+
+// Padding
+@include create-spacers('.pa', padding, all, $spacing);
+@include create-spacers('.pv', padding, vertical, $spacing);
+@include create-spacers('.ph', padding, horizontal, $spacing);
+@include create-spacers('.pt', padding, top, $spacing);
+@include create-spacers('.pr', padding, right, $spacing);
+@include create-spacers('.pb', padding, bottom, $spacing);
+@include create-spacers('.pl', padding, left, $spacing);

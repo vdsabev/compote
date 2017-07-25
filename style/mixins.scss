@@ -1,13 +1,20 @@
 @import '~bootstrap-sass/assets/stylesheets/bootstrap/mixins';
 
+// Animation
+@mixin create-animation($animation-name, $args...) {
+  #{$animation-name} {
+    animation: $args;
+  }
+}
+
 // Filter
-@mixin filter($arguments...) {
+@mixin filter($args...) {
   // sass-lint:disable-block no-vendor-prefixes
-  -webkit-filter: $arguments;
-  -moz-filter: $arguments;
-  -o-filter: $arguments;
-  -ms-filter: $arguments;
-  filter: $arguments;
+  -webkit-filter: $args;
+  -moz-filter: $args;
+  -o-filter: $args;
+  -ms-filter: $args;
+  filter: $args;
 }
 
 // Smooth scrolling
@@ -18,4 +25,65 @@
   overflow-y: $vertical;
   -ms-overflow-style: -ms-autohiding-scrollbar;
   -webkit-overflow-scrolling: touch; // sass-lint:disable-line no-misspelled-properties
+}
+
+// Spacing
+@mixin spacer($property, $side, $value: $spacer-size) {
+  @if ($side == top) or ($side == right) or ($side == bottom) or ($side == left) {
+    #{$property}-#{$side}: $value;
+  }
+  @else if ($side == vertical) {
+    #{$property}-top: $value;
+    #{$property}-bottom: $value;
+  }
+  @else if ($side == horizontal) {
+    #{$property}-right: $value;
+    #{$property}-left: $value;
+  }
+  @else if ($side == all) {
+    #{$property}: $value;
+  }
+  @else {
+    @error 'Invalid spacer side argument: #{$side}';
+  }
+}
+
+@mixin create-spacers($prefix, $property, $side, $value) {
+  @if ($value > 0) {
+    #{$prefix}-auto {
+      @include spacer($property, $side, auto);
+    }
+  }
+
+  #{$prefix}-0 {
+    @include spacer($property, $side, 0);
+  }
+
+  #{$prefix}-xxs {
+    @include spacer($property, $side, $value * 0.125);
+  }
+
+  #{$prefix}-xs {
+    @include spacer($property, $side, $value * 0.25);
+  }
+
+  #{$prefix}-sm {
+    @include spacer($property, $side, $value * 0.5);
+  }
+
+  #{$prefix}-md {
+    @include spacer($property, $side, $value);
+  }
+
+  #{$prefix}-lg {
+    @include spacer($property, $side, $value * 2);
+  }
+
+  #{$prefix}-xl {
+    @include spacer($property, $side, $value * 3);
+  }
+
+  #{$prefix}-xxl {
+    @include spacer($property, $side, $value * 5);
+  }
 }

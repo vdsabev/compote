@@ -49,7 +49,9 @@ $xs-min: 375px !default;
 
 $xxs-max: $xs-min - 1;
 
-// Font size
+// Font
+$font-family: 'Trebuchet MS', Helvetica, sans-serif !default;
+
 $h1-font-size: 40px !default;
 $h2-font-size: 32px !default;
 $h3-font-size: 24px !default;
