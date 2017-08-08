@@ -38,7 +38,7 @@ export const Clock = (date: Date, { dynamic }: ClockOptions = {}) => {
         r: clockRadius,
         style: {
           fill: 'none',
-          stroke: 'white',
+          stroke: 'currentColor',
           strokeWidth: 2.25
         }
       }),
@@ -48,7 +48,7 @@ export const Clock = (date: Date, { dynamic }: ClockOptions = {}) => {
         x2: clockCenter + hoursLineMultiplier * hoursX * clockRadius,
         y2: clockCenter + hoursLineMultiplier * hoursY * clockRadius,
         style: {
-          stroke: 'white',
+          stroke: 'currentColor',
           strokeWidth: 1.25
         }
       }),
@@ -58,7 +58,7 @@ export const Clock = (date: Date, { dynamic }: ClockOptions = {}) => {
         x2: clockCenter + minutesLineMultiplier * minutesX * clockRadius,
         y2: clockCenter + minutesLineMultiplier * minutesY * clockRadius,
         style: {
-          stroke: 'white',
+          stroke: 'currentColor',
           strokeWidth: 1.25
         }
       })

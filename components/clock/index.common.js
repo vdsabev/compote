@@ -31,7 +31,7 @@ exports.Clock = function (date, _a) {
             r: exports.clockRadius,
             style: {
                 fill: 'none',
-                stroke: 'white',
+                stroke: 'currentColor',
                 strokeWidth: 2.25
             }
         }),
@@ -41,7 +41,7 @@ exports.Clock = function (date, _a) {
             x2: exports.clockCenter + exports.hoursLineMultiplier * hoursX * exports.clockRadius,
             y2: exports.clockCenter + exports.hoursLineMultiplier * hoursY * exports.clockRadius,
             style: {
-                stroke: 'white',
+                stroke: 'currentColor',
                 strokeWidth: 1.25
             }
         }),
@@ -51,7 +51,7 @@ exports.Clock = function (date, _a) {
             x2: exports.clockCenter + exports.minutesLineMultiplier * minutesX * exports.clockRadius,
             y2: exports.clockCenter + exports.minutesLineMultiplier * minutesY * exports.clockRadius,
             style: {
-                stroke: 'white',
+                stroke: 'currentColor',
                 strokeWidth: 1.25
             }
         })
