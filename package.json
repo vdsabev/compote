@@ -1,6 +1,6 @@
 {
   "name": "compote",
-  "version": "3.1.2",
+  "version": "3.1.3",
   "license": "MIT",
   "main": "compote.js",
   "types": "compote.d.ts",
@@ -15,20 +15,20 @@
     "jest": "jest --watch"
   },
   "dependencies": {
-    "@types/mithril": "1.1.6",
+    "@types/mithril": "1.1.7",
     "bootstrap-sass": "3.3.7",
     "redux": "3.7.2",
     "timeago.js": "3.0.2"
   },
   "devDependencies": {
-    "@types/jest": "20.0.4",
+    "@types/jest": "20.0.8",
     "glob": "7.1.2",
     "jest": "20.0.4",
     "mithril": "1.1.3",
-    "rollup": "0.45.2",
-    "serve": "6.0.3",
-    "ts-jest": "20.0.7",
-    "typescript": "2.4.2"
+    "rollup": "0.49.2",
+    "serve": "6.0.6",
+    "ts-jest": "20.0.14",
+    "typescript": "2.5.2"
   },
   "jest": {
     "collectCoverage": true,

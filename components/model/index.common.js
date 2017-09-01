@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-var Model = (function () {
+var Model = /** @class */ (function () {
     function Model() {
         var data = [];
         for (var _i = 0; _i < arguments.length; _i++) {
