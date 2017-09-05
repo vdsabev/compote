@@ -3,6 +3,8 @@ exports.__esModule = true;
 exports.get = function (propertyName) { return function (obj) { return obj[propertyName]; }; };
 exports.set = function (propertyName) { return function (obj) { return function (value) { return obj[propertyName] = value; }; }; };
 // TODO: Test
+exports.classy = function (classes) { return exports.keys(classes).filter(function (key) { return classes[key] === true; }).join(' '); };
+// TODO: Test
 exports.constant = function (value) { return function () { return value; }; };
 // TODO: Test
 exports.identity = function (value) { return value; };

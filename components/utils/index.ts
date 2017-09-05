@@ -3,6 +3,9 @@ export const get = <T extends {}>(propertyName: keyof T) => (obj: T) => obj[prop
 export const set = <T extends {}>(propertyName: keyof T) => (obj: T) => (value: any) => obj[propertyName] = value;
 
 // TODO: Test
+export const classy = (classes: Record<string, boolean>) => keys(classes).filter((key) => classes[key] === true).join(' ');
+
+// TODO: Test
 export const constant = <T>(value: T) => () => value;
 
 // TODO: Test

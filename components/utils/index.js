@@ -1,6 +1,8 @@
 export var get = function (propertyName) { return function (obj) { return obj[propertyName]; }; };
 export var set = function (propertyName) { return function (obj) { return function (value) { return obj[propertyName] = value; }; }; };
 // TODO: Test
+export var classy = function (classes) { return keys(classes).filter(function (key) { return classes[key] === true; }).join(' '); };
+// TODO: Test
 export var constant = function (value) { return function () { return value; }; };
 // TODO: Test
 export var identity = function (value) { return value; };
