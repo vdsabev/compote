@@ -193,22 +193,24 @@ export function tag<TagNameType extends keyof ElementTagNameMap, ElementType ext
 
 export type Properties<ElementType> = CustomProperties & RecursivePartial<ElementType>;
 
-export type CustomProperties = {
+export type CustomProperties<A = any, S = any> = {
   key?: number | string;
   class?: string;
 
-  oninit?(node?: ComponentNode): void;
-  oncreate?(node?: ComponentNode): void;
+  oninit?(node?: ComponentNode<A, S>): void;
+  oncreate?(node?: ComponentNode<A, S>): void;
 
-  onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): void | boolean;
-  onupdate?(node?: ComponentNode): void;
+  onbeforeupdate?(newNode?: ComponentNode<A, S>, oldNode?: ComponentNode<A, S>): void | boolean;
+  onupdate?(node?: ComponentNode<A, S>): void;
 
-  onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-  onremove?(node?: ComponentNode): void;
+  onbeforeremove?(node?: ComponentNode<A, S>): void | Promise<any>;
+  onremove?(node?: ComponentNode<A, S>): void;
 };
 
 export type RecursivePartial<T> = {
   [P in keyof T]?: RecursivePartial<T[P]>;
 };
 
-export type ComponentNode = m.Vnode<any, any> & { dom: HTMLElement };
+export type ComponentNode<A = any, S = any> = m.Vnode<any, any> & { dom: HTMLElement };
+
+export type Component<A = any, S = any> = m.FactoryComponent<A> | m.Component<A, S>;

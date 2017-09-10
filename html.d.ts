@@ -179,19 +179,20 @@ export declare const wbr: (properties?: string | number | boolean | m.Vnode<any,
 export declare const xmp: (properties?: string | number | boolean | m.Vnode<any, any> | m.ChildArray | Properties<HTMLPreElement>, ...children: m.Children[]) => m.Vnode<any, any>;
 export declare function tag<TagNameType extends keyof ElementTagNameMap, ElementType extends ElementTagNameMap[TagNameType]>(tagName: TagNameType): (properties?: string | number | boolean | m.Vnode<any, any> | m.ChildArray | Properties<ElementType>, ...children: m.Children[]) => m.Vnode<any, any>;
 export declare type Properties<ElementType> = CustomProperties & RecursivePartial<ElementType>;
-export declare type CustomProperties = {
+export declare type CustomProperties<A = any, S = any> = {
     key?: number | string;
     class?: string;
-    oninit?(node?: ComponentNode): void;
-    oncreate?(node?: ComponentNode): void;
-    onbeforeupdate?(newNode?: ComponentNode, oldNode?: ComponentNode): void | boolean;
-    onupdate?(node?: ComponentNode): void;
-    onbeforeremove?(node?: ComponentNode): void | Promise<any>;
-    onremove?(node?: ComponentNode): void;
+    oninit?(node?: ComponentNode<A, S>): void;
+    oncreate?(node?: ComponentNode<A, S>): void;
+    onbeforeupdate?(newNode?: ComponentNode<A, S>, oldNode?: ComponentNode<A, S>): void | boolean;
+    onupdate?(node?: ComponentNode<A, S>): void;
+    onbeforeremove?(node?: ComponentNode<A, S>): void | Promise<any>;
+    onremove?(node?: ComponentNode<A, S>): void;
 };
 export declare type RecursivePartial<T> = {
     [P in keyof T]?: RecursivePartial<T[P]>;
 };
-export declare type ComponentNode = m.Vnode<any, any> & {
+export declare type ComponentNode<A = any, S = any> = m.Vnode<any, any> & {
     dom: HTMLElement;
 };
+export declare type Component<A = any, S = any> = m.FactoryComponent<A> | m.Component<A, S>;
