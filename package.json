@@ -15,7 +15,7 @@
     "jest": "jest --watch"
   },
   "dependencies": {
-    "@types/mithril": "1.1.7",
+    "@types/mithril": "1.1.8",
     "bootstrap-sass": "3.3.7",
     "redux": "3.7.2",
     "timeago.js": "3.0.2"
