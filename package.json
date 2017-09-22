@@ -21,7 +21,7 @@
     "timeago.js": "3.0.2"
   },
   "devDependencies": {
-    "@types/jest": "20.0.8",
+    "@types/jest": "21.1.0",
     "glob": "7.1.2",
     "jest": "20.0.4",
     "mithril": "1.1.3",
