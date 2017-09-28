@@ -211,6 +211,6 @@ export type RecursivePartial<T> = {
   [P in keyof T]?: RecursivePartial<T[P]>;
 };
 
-export type ComponentNode<A = any, S = any> = m.Vnode<any, any> & { dom: HTMLElement };
+export type ComponentNode<A = any, S = any> = m.Vnode<A, S> & { dom: HTMLElement };
 
 export type Component<A = any, S = any> = m.FactoryComponent<A> | m.Component<A, S>;

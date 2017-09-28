@@ -192,7 +192,7 @@ export declare type CustomProperties<A = any, S = any> = {
 export declare type RecursivePartial<T> = {
     [P in keyof T]?: RecursivePartial<T[P]>;
 };
-export declare type ComponentNode<A = any, S = any> = m.Vnode<any, any> & {
+export declare type ComponentNode<A = any, S = any> = m.Vnode<A, S> & {
     dom: HTMLElement;
 };
 export declare type Component<A = any, S = any> = m.FactoryComponent<A> | m.Component<A, S>;
